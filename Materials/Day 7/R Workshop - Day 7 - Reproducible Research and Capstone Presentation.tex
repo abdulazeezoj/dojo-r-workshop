@@ -1,0 +1,424 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=0.8in]{geometry}
+\usepackage{calc}
+\usepackage{amsmath,amssymb}
+\usepackage{array,longtable,booktabs}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{fancyvrb}
+\usepackage{fvextra}
+\usepackage{framed}
+\usepackage{color}
+\fvset{breaklines=true, breakanywhere=true}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,breakanywhere,commandchars=\\\{\}}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\setlist[itemize]{leftmargin=*}
+\setlist[enumerate]{leftmargin=*}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\title{R Workshop -- Day 7 -- Reproducible Research and Capstone Presentation}
+\author{Applied R for Statistical Teaching, Research and Reproducible Analysis}
+\date{}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\hypertarget{r-workshop-day-7-reproducible-research-and-capstone-presentation}{%
+\section{R Workshop -- Day 7 -- Reproducible Research and Capstone
+Presentation}\label{r-workshop-day-7-reproducible-research-and-capstone-presentation}}
+
+\textbf{Session 7 of 7 \textbar{} Duration: 3 hours} \textbf{Programme:}
+Applied R for Statistical Teaching, Research and Reproducible Analysis
+
+\hypertarget{learning-objectives}{%
+\subsection{Learning objectives}\label{learning-objectives}}
+
+By the end of this session you will be able to:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Organise a project into raw data, processed data, scripts, outputs and
+  reports, documented with a README.
+\item
+  Build a Quarto report with YAML metadata, code-cell options and inline
+  results.
+\item
+  Render the same report to HTML, Word and PDF.
+\item
+  Test a report in a clean R session and record session information.
+\item
+  Conduct a structured peer review using a short checklist.
+\item
+  Present a capstone analysis clearly in five minutes.
+\end{enumerate}
+
+\hypertarget{capstone-link}{%
+\subsection{Capstone link}\label{capstone-link}}
+
+Today integrates everything from Days 2-6 -- the cleaned dataset, the
+graphics, the inferential result and the diagnosed model -- into one
+reproducible report, and closes the workshop with the Day 1 baseline
+task repeated for comparison.
+
+\hypertarget{segment-plan-3-hours}{%
+\subsection{Segment plan (3 hours)}\label{segment-plan-3-hours}}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3000}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Segment
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Time
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Purpose
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Opening and recap & 10 min & Recap the full capstone thread, Day 2
+through Day 6 \\
+Concept bridge & 25 min & Why reproducibility is a deliverable, not an
+afterthought \\
+Guided coding & 60 min & Build and render the Quarto capstone report \\
+Participant practice & 45 min & Integrate your own Days 2-6 artefacts
+into the template \\
+Interpretation and reporting & 25 min & Peer review using the
+checklist \\
+Evidence log and capstone update & 15 min & Repeat the Day 1 baseline
+task and present \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{part-1-concept-bridge-core-workshop-activity}{%
+\subsection{Part 1 -- Concept bridge (Core workshop
+activity)}\label{part-1-concept-bridge-core-workshop-activity}}
+
+\hypertarget{why-reproducibility-is-a-deliverable}{%
+\subsubsection{Why reproducibility is a
+deliverable}\label{why-reproducibility-is-a-deliverable}}
+
+A result that only runs on your machine, in your current R session, with
+objects you created interactively three days ago, is not yet a finished
+piece of work. Reproducibility means: a colleague (or you, in six
+months) can open the project, run one command, and get the same report
+-- numbers, figures and all -- without manual intervention.
+
+\hypertarget{project-organisation}{%
+\subsubsection{Project organisation}\label{project-organisation}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{your{-}capstone{-}project/}
+\NormalTok{|{-}{-} your{-}capstone{-}project.Rproj}
+\NormalTok{|{-}{-} Data/}
+\NormalTok{|   |{-}{-} raw/}
+\NormalTok{|   \textasciigrave{}{-}{-} processed/}
+\NormalTok{|{-}{-} Scripts/}
+\NormalTok{|{-}{-} Outputs/}
+\NormalTok{|{-}{-} Reports/}
+\NormalTok{|   \textasciigrave{}{-}{-} capstone{-}report.qmd}
+\NormalTok{\textasciigrave{}{-}{-} README.md}
+\end{Highlighting}
+\end{Shaded}
+
+Relative paths (\texttt{Data/raw/anchor\_dataset.csv}, not
+\texttt{C:/Users/you/Desktop/...}) are what make this folder portable
+between machines -- the same principle from Day 1, now applied to a
+finished report.
+
+\hypertarget{quarto-basics}{%
+\subsubsection{Quarto basics}\label{quarto-basics}}
+
+A \texttt{.qmd} file has a YAML header (metadata: title, author, output
+formats) followed by Markdown text interleaved with executable code
+cells. Quarto is the modern successor to R Markdown and renders the same
+source to multiple output formats without changing the document.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{part-2-guided-coding-core-workshop-activity}{%
+\subsection{Part 2 -- Guided coding (Core workshop
+activity)}\label{part-2-guided-coding-core-workshop-activity}}
+
+Open \texttt{Quarto-Template/capstone-report.qmd}.
+
+\hypertarget{yaml-metadata}{%
+\subsubsection{2.1 YAML metadata}\label{yaml-metadata}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\PreprocessorTok{{-}{-}{-}}
+\FunctionTok{title}\KeywordTok{:}\AttributeTok{ }\StringTok{"R Workshop Capstone Report"}
+\FunctionTok{author}\KeywordTok{:}\AttributeTok{ }\StringTok{"Participant name"}
+\FunctionTok{format}\KeywordTok{:}
+\AttributeTok{  }\FunctionTok{html}\KeywordTok{:}\AttributeTok{ default}
+\AttributeTok{  }\FunctionTok{docx}\KeywordTok{:}\AttributeTok{ default}
+\AttributeTok{  }\FunctionTok{pdf}\KeywordTok{:}\AttributeTok{ default}
+\FunctionTok{execute}\KeywordTok{:}
+\AttributeTok{  }\FunctionTok{echo}\KeywordTok{:}\AttributeTok{ }\CharTok{true}
+\AttributeTok{  }\FunctionTok{warning}\KeywordTok{:}\AttributeTok{ }\CharTok{false}
+\AttributeTok{  }\FunctionTok{message}\KeywordTok{:}\AttributeTok{ }\CharTok{false}
+\PreprocessorTok{{-}{-}{-}}
+\end{Highlighting}
+\end{Shaded}
+
+\texttt{format:} lists every output you want to render to.
+\texttt{execute:} options apply to every code cell unless overridden
+per-cell.
+
+\hypertarget{code-cell-options}{%
+\subsubsection{2.2 Code-cell options}\label{code-cell-options}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#| label: setup}
+\CommentTok{\#| echo: false}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\texttt{\#\textbar{}\ label:} names the cell (useful for
+cross-references and error messages);
+\texttt{\#\textbar{}\ echo:\ false} hides the code but still runs it and
+shows any output; \texttt{\#\textbar{}\ fig-cap:} adds a caption to a
+plot produced in that cell.
+
+\hypertarget{figures-tables-equations-and-inline-results}{%
+\subsubsection{2.3 Figures, tables, equations and inline
+results}\label{figures-tables-equations-and-inline-results}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#| label: fig{-}score{-}by{-}track}
+\CommentTok{\#| fig{-}cap: "Post{-}training score by training track"}
+\NormalTok{lecturers }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"Data/processed/anchor\_dataset\_clean.csv"}\NormalTok{, }\AttributeTok{show\_col\_types =} \ConstantTok{FALSE}\NormalTok{)}
+\FunctionTok{ggplot}\NormalTok{(lecturers, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ training\_track, }\AttributeTok{y =}\NormalTok{ post\_score)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{fill =} \StringTok{"\#FEB24C"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+Inline results, e.g.~``the mean attendance was
+\texttt{\textasciigrave{}r\ round(mean(lecturers\$attendance,\ na.rm\ =\ TRUE),\ 1)\textasciigrave{}}
+percent'', insert a live-computed number directly into the prose -- so
+the number updates automatically if the data changes.
+
+\hypertarget{rendering}{%
+\subsubsection{2.4 Rendering}\label{rendering}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{quarto}\SpecialCharTok{::}\FunctionTok{quarto\_render}\NormalTok{(}\StringTok{"Reports/capstone{-}report.qmd"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+or, from the terminal:
+\texttt{quarto\ render\ "Reports/capstone-report.qmd"}. This produces
+\texttt{.html}, \texttt{.docx} and \texttt{.pdf} versions in one step,
+all from the same source.
+
+\hypertarget{testing-in-a-clean-session-and-recording-sessioninfo}{%
+\subsubsection{\texorpdfstring{2.5 Testing in a clean session and
+recording
+\texttt{sessionInfo()}}{2.5 Testing in a clean session and recording sessionInfo()}}\label{testing-in-a-clean-session-and-recording-sessioninfo}}
+
+Before considering a report finished, restart R
+(\texttt{Session\ -\textgreater{}\ Restart\ R} in RStudio) and re-render
+from scratch -- this catches any hidden dependency on an object that
+only exists because you ran something manually earlier. Always include:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#| label: session{-}info}
+\FunctionTok{sessionInfo}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+near the end of the report, so the exact package versions used are
+recorded alongside the results.
+
+\hypertarget{peer-review-checklist}{%
+\subsubsection{2.6 Peer review checklist}\label{peer-review-checklist}}
+
+Exchange reports with a partner and check:
+
+\begin{itemize}
+\tightlist
+\item[$\square$]
+  Does the report render from a clean session without errors?
+\item[$\square$]
+  Is the research question stated clearly in the first section?
+\item[$\square$]
+  Are raw and processed data kept separate, with cleaning decisions
+  documented?
+\item[$\square$]
+  Does every figure have a title, labelled axes with units, and a
+  caption?
+\item[$\square$]
+  Is the inferential or model result reported with both a number and a
+  plain-language sentence?
+\item[$\square$]
+  Is \texttt{sessionInfo()} included?
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{part-3-participant-practice-core-workshop-activity}{%
+\subsection{Part 3 -- Participant practice (Core workshop
+activity)}\label{part-3-participant-practice-core-workshop-activity}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Copy your Day 2 cleaning script's output, your three Day 3 graphics,
+  your Day 4 inferential result and your Day 5/6 model into
+  \texttt{Quarto-Template/capstone-report.qmd}, replacing the
+  placeholder text in each section.
+\item
+  Render to HTML, Word and PDF (or note in the report if a particular
+  renderer is unavailable on your machine).
+\item
+  Restart R and re-render once more to confirm the report is
+  reproducible from a clean session.
+\item
+  Exchange reports with a partner and complete the peer-review checklist
+  for each other's report.
+\item
+  Repeat the Day 1 baseline task on
+  \texttt{Data/raw/day7\_baseline\_sample.csv} and add a short final
+  section comparing your Day 1 and Day 7 work.
+\item
+  Prepare a five-minute presentation: research question, one figure, one
+  result, one limitation.
+\end{enumerate}
+
+A facilitator-reviewed, fully completed example report is in
+\texttt{Solution-Scripts/day7\_capstone\_report\_solution.qmd}.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{optional-demonstration}{%
+\subsection{Optional demonstration}\label{optional-demonstration}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Confidential-data handling} -- never commit raw
+  participant-identifiable data to a shared repository; demonstrate
+  \texttt{.gitignore} patterns and anonymisation as a brief discussion,
+  not a hands-on exercise.
+\item
+  \textbf{Multi-format formatting differences} -- show how the same
+  Quarto source renders slightly differently in HTML versus PDF
+  (e.g.~figure sizing, table wrapping) and how to use format-specific
+  code-cell options to handle this.
+\item
+  \textbf{Advanced Quarto options} -- cross-references
+  (\texttt{@fig-...}), citations (\texttt{.bib} files), parameterised
+  reports.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{reference-or-take-home-material}{%
+\subsection{Reference or take-home
+material}\label{reference-or-take-home-material}}
+
+\begin{itemize}
+\tightlist
+\item
+  Troubleshooting rendering problems: missing LaTeX packages for PDF
+  output, missing pandoc for Word output, encoding issues with special
+  characters.
+\item
+  A report-polishing checklist for after the workshop: consistent figure
+  styling, a finalised abstract/summary, spell-checked prose.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{daily-deliverable}{%
+\subsection{Daily deliverable}\label{daily-deliverable}}
+
+A rendered, reproducible capstone report (HTML, Word and/or PDF) and a
+five-minute presentation.
+
+\hypertarget{evidence-log-entry}{%
+\subsubsection{Evidence log entry}\label{evidence-log-entry}}
+
+Complete the Day 7 row in \texttt{Workshop-Evidence-Log.md}. Fill in the
+pre/post assessment task comparison: how did your Day 7 baseline-task
+script differ from your Day 1 version, and what does that difference
+show about your progress through the workshop?
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{facilitator-notes}{%
+\subsection{Facilitator notes}\label{facilitator-notes}}
+
+\begin{itemize}
+\tightlist
+\item
+  Day 7 is for integration and presentation, not for starting new
+  analysis -- if a participant has not completed earlier days'
+  deliverables, help them integrate what exists rather than trying to
+  backfill missing work live.
+\item
+  PDF rendering depends on a working LaTeX installation; confirm this in
+  advance, and have HTML as a guaranteed fallback format for every
+  participant.
+\item
+  Keep presentations strictly timed at five minutes; this is itself a
+  transferable skill (communicating a result to a non-specialist
+  audience under a hard time constraint), not just a logistics choice.
+\end{itemize}
+\end{document}
