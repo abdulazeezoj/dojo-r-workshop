@@ -1,0 +1,485 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+2 0 obj
+<< /Length 2962 >>
+stream
+BT
+/F1 10 Tf
+50 790 Td
+14 TL
+(R WORKSHOP: PRACTICAL CURRICULUM) Tj
+T* () Tj
+T* (Programme: Applied R for Statistical Teaching, Research and Reproducible Analysis) Tj
+T* (Audience: Statistics lecturers and academic staff who need to teach, analyse and report with) Tj
+T* (  R) Tj
+T* (Format: Seven guided sessions, three hours each, supported by reference workbooks and) Tj
+T* (  independent capstone work) Tj
+T* () Tj
+T* (1. Curriculum promise) Tj
+T* () Tj
+T* (This is not a race through seven dense manuals. The workshop uses the full workbooks as a) Tj
+T* (  lasting reference handbook, while the live sessions focus on the essential tasks) Tj
+T* (  participants need in order to build one coherent analysis.) Tj
+T* () Tj
+T* (The workshop will briefly revisit statistical theory where necessary to connect equations,) Tj
+T* (  assumptions and interpretation to their implementation in R. It will not attempt to) Tj
+T* (  reteach an entire statistics degree, nor will it become a machine-learning or Shiny) Tj
+T* (  course.) Tj
+T* () Tj
+T* (2. Delivery model) Tj
+T* () Tj
+T* (Each workbook section should be labelled in the teaching copy as one of the following.) Tj
+T* () Tj
+T* (Label  Meaning  Live-session expectation) Tj
+T* (Core workshop activity  Essential skill or concept needed for the daily deliverable and) Tj
+T* (  capstone  Teach and practise during the three-hour session) Tj
+T* (Optional demonstration  Useful extension if the group is fast or the facilitator wants to) Tj
+T* (  show breadth  Demonstrate briefly or skip) Tj
+T* (Reference or take-home material  Valuable background, extra methods or fuller explanations) Tj
+T* (  Assign for independent study) Tj
+T* () Tj
+T* (A realistic three-hour session should include approximately:) Tj
+T* () Tj
+T* (Segment  Time  Purpose) Tj
+T* (Opening and recap  10 minutes  Reconnect with the anchor dataset and prior deliverable) Tj
+T* (Concept bridge  25 minutes  Explain the statistical or reproducibility idea) Tj
+T* (Guided coding  60 minutes  Work through the core R workflow) Tj
+T* (Participant practice  45 minutes  Apply the workflow to the anchor dataset) Tj
+T* (Interpretation and reporting  25 minutes  Translate outputs into statistical language) Tj
+T* (Evidence log and capstone update  15 minutes  Save artefacts and plan next steps) Tj
+T* () Tj
+T* (3. Anchor dataset and capstone thread) Tj
+T* () Tj
+T* (Use one anchor dataset from Day 2 through Day 7. Demonstration datasets may still appear,) Tj
+T* (  but they must be labelled as demonstration datasets and should not replace the capstone) Tj
+T* (  thread.) Tj
+T* () Tj
+T* (Day  Capstone progress) Tj
+T* (Day 1  Confirm software setup and complete a baseline task) Tj
+T* (Day 2  Select a research question, clean the anchor dataset and document variables) Tj
+T* (Day 3  Produce exploratory figures and write initial observations) Tj
+T* (Day 4  Perform one inferential analysis linked to the research question) Tj
+T* (Page 1 of 7) Tj
+ET
+endstream
+endobj
+3 0 obj
+<< /Length 3400 >>
+stream
+BT
+/F1 10 Tf
+50 790 Td
+14 TL
+(Day 5  Fit and diagnose the principal statistical model) Tj
+T* (Day 6  Recreate or examine part of the model from its equation) Tj
+T* (Day 7  Integrate, render, peer-review and present the report) Tj
+T* () Tj
+T* (By the start of Day 7, every participant should already have a cleaned dataset, a defined) Tj
+T* (  research question, at least two visualisations, one inferential result or model and draft) Tj
+T* (  interpretations.) Tj
+T* () Tj
+T* (4. Assessment and evidence) Tj
+T* () Tj
+T* (Assessment is evidence-based and practical. Participants maintain a workshop evidence log) Tj
+T* (  with four checks: evidence produced, participant check, peer check and capstone update.) Tj
+T* () Tj
+T* (The same short task should be attempted on Day 1 and repeated on Day 7 with an equivalent) Tj
+T* (  dataset:) Tj
+T* () Tj
+T* (1. Import a small dataset.) Tj
+T* (2. Identify missing or invalid values.) Tj
+T* (3. Produce one numerical summary and one labelled plot.) Tj
+T* (4. Write three sentences interpreting the result for a non-technical reader.) Tj
+T* (5. Save the script, output and interpretation in the project folder.) Tj
+T* () Tj
+T* (5. Curriculum at a glance) Tj
+T* () Tj
+T* (Day  Session title  Core live focus  Daily deliverable  Capstone link) Tj
+T* (1  Getting Comfortable with R  RStudio projects, assignment, vectors, indexing, missing) Tj
+T* (  values, data frames, descriptive statistics and reading error messages  Working R project) Tj
+T* (  and first script  Baseline task and software readiness) Tj
+T* (2  Importing, Cleaning and Preparing Data  Import, inspect, flag invalid values, standardise) Tj
+T* (  categories, handle missingness, remove duplicates, export clean data  Clean anchor) Tj
+T* (  dataset, data-quality report and data dictionary  Research question, cleaned data and) Tj
+T* (  variable documentation) Tj
+T* (3  Exploratory Data Analysis and Statistical Graphics  Question-led plot choice, bar charts,) Tj
+T* (  histograms, box plots, scatter plots, labels, themes, export and interpretation  Three) Tj
+T* (  interpreted graphics  Initial visual evidence for the capstone) Tj
+T* (4  Probability, Sampling, Simulation and Inference  d/p/q/r functions, set.seed\(\), one) Tj
+T* (  simulation, one CLT demonstration, one confidence interval, test selection and plain-) Tj
+T* (  language reporting  Inference or simulation notebook  One inferential answer to the) Tj
+T* (  capstone question) Tj
+T* (5  Regression, ANOVA and Generalised Linear Models  Formula notation, multiple linear) Tj
+T* (  regression, categorical predictors, one interaction, diagnostics, one-way ANOVA and) Tj
+T* (  reporting  Diagnosed model report  Principal model for the capstone) Tj
+T* (6  Coding Statistical Models from Their Equations  Matrix operations, design matrices, OLS) Tj
+T* (  derivation, custom function, validation against lm\(\) and one numerical failure mode) Tj
+T* (  Equation-based implementation  Mathematical audit of part of the model) Tj
+T* (7  Reproducible Research and Capstone Presentation  Project organisation, Quarto basics,) Tj
+T* (  code-cell options, multi-format rendering, clean-session checks, peer review and) Tj
+T* (  presentations  Reproducible final report  Integrated capstone report and presentation) Tj
+T* () Tj
+T* (6. Day-by-day teaching plan) Tj
+T* () Tj
+T* (Day 1: Getting Comfortable with R) Tj
+T* (Page 2 of 7) Tj
+ET
+endstream
+endobj
+4 0 obj
+<< /Length 2208 >>
+stream
+BT
+/F1 10 Tf
+50 790 Td
+14 TL
+() Tj
+T* (Purpose: Build confidence with R as a calculator, programming language and statistical) Tj
+T* (  working environment.) Tj
+T* () Tj
+T* (Core workshop activity) Tj
+T* () Tj
+T* (? Distinguish R, RStudio, scripts and the console.) Tj
+T* (? Create an RStudio project and use relative paths.) Tj
+T* (? Use assignment, object names and comments.) Tj
+T* (? Create and inspect vectors.) Tj
+T* (? Use indexing and logical conditions.) Tj
+T* (? Represent and handle missing values with NA and na.rm.) Tj
+T* (? Create simple data frames.) Tj
+T* (? Compute means, medians, standard deviations and simple grouped summaries.) Tj
+T* (? Read common error messages and use help.) Tj
+T* () Tj
+T* (Optional demonstration) Tj
+T* () Tj
+T* (? Matrices and basic matrix operations.) Tj
+T* (? Factors beyond simple category labels.) Tj
+T* (? Lists and detailed storage-type discussion using typeof\(\).) Tj
+T* () Tj
+T* (Reference or take-home material) Tj
+T* () Tj
+T* (? Extended debugging examples.) Tj
+T* (? More practice with subsetting and data structures.) Tj
+T* () Tj
+T* (Daily deliverable: A project folder containing a script that creates objects, summarises a) Tj
+T* (  small dataset and records the Day 1 baseline task.) Tj
+T* () Tj
+T* (Day 2: Importing, Cleaning and Preparing Data) Tj
+T* () Tj
+T* (Purpose: Turn messy raw data into a documented analysis-ready dataset.) Tj
+T* () Tj
+T* (Core workshop activity) Tj
+T* () Tj
+T* (? Import CSV data with readr.) Tj
+T* (? Keep raw data unchanged and create a separate working object.) Tj
+T* (? Inspect structure, names, ranges and missingness before transforming.) Tj
+T* (? Flag invalid age, attendance, satisfaction, pre-test score and post-test score values.) Tj
+T* (? Standardise category labels.) Tj
+T* (? Identify and resolve duplicates.) Tj
+T* (? Produce a data-quality report and missingness report.) Tj
+T* (? Create a short data dictionary.) Tj
+T* (? Export clean data to Data/processed/.) Tj
+T* () Tj
+T* (Optional demonstration) Tj
+T* () Tj
+T* (? Reshaping with pivot_longer\(\) and pivot_wider\(\).) Tj
+T* (? Importing Excel, SPSS, Stata and SAS files.) Tj
+T* () Tj
+T* (Reference or take-home material) Tj
+T* (Page 3 of 7) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Length 2229 >>
+stream
+BT
+/F1 10 Tf
+50 790 Td
+14 TL
+() Tj
+T* (? Audit trails for cleaning decisions.) Tj
+T* (? More examples of validation rules.) Tj
+T* () Tj
+T* (Daily deliverable: Clean anchor dataset, data-quality report, missingness report and data) Tj
+T* (  dictionary.) Tj
+T* () Tj
+T* (Day 3: Exploratory Data Analysis and Statistical Graphics) Tj
+T* () Tj
+T* (Purpose: Choose graphics from research questions and interpret visual evidence responsibly.) Tj
+T* () Tj
+T* (Core workshop activity) Tj
+T* () Tj
+T* (? Start with a research question rather than a chart type.) Tj
+T* (? Use the grammar of graphics: data, aesthetics, geoms, scales, labels and themes.) Tj
+T* (? Make and interpret bar charts, histograms, box plots and scatter plots.) Tj
+T* (? Add clear titles, axis labels and units.) Tj
+T* (? Export publication-ready graphics.) Tj
+T* (? Write cautious visual claims that do not overstate causality.) Tj
+T* () Tj
+T* (Optional demonstration) Tj
+T* () Tj
+T* (? Density plots and violin plots, including warnings for small samples.) Tj
+T* (? Two-way categorical graphics.) Tj
+T* (? Faceting and annotations.) Tj
+T* (? Missing-data visualisation.) Tj
+T* (? Honest versus misleading graphics.) Tj
+T* () Tj
+T* (Reference or take-home material) Tj
+T* () Tj
+T* (? Theme customisation.) Tj
+T* (? Multiple annotation approaches.) Tj
+T* () Tj
+T* (Daily deliverable: Three exported graphics from the anchor dataset, each with a two- or) Tj
+T* (  three-sentence interpretation.) Tj
+T* () Tj
+T* (Day 4: Probability, Sampling, Simulation and Inference) Tj
+T* () Tj
+T* (Purpose: Connect probability models, sampling variation and inferential reporting in R.) Tj
+T* () Tj
+T* (Core workshop activity) Tj
+T* () Tj
+T* (? Use the d, p, q and r distribution-function pattern.) Tj
+T* (? Set random seeds for reproducible simulation.) Tj
+T* (? Run one simulation experiment.) Tj
+T* (? Demonstrate the Central Limit Theorem with repeated samples.) Tj
+T* (? Estimate and interpret one confidence interval.) Tj
+T* (? Select a test based on study design.) Tj
+T* (? Run one independent or paired test on the anchor dataset.) Tj
+T* (? Report statistical and practical significance in plain language.) Tj
+T* () Tj
+T* (Optional demonstration) Tj
+T* (Page 4 of 7) Tj
+ET
+endstream
+endobj
+6 0 obj
+<< /Length 2030 >>
+stream
+BT
+/F1 10 Tf
+50 790 Td
+14 TL
+() Tj
+T* (? Coverage simulation.) Tj
+T* (? Chi-square and Fisher's exact tests.) Tj
+T* (? Non-parametric alternatives.) Tj
+T* (? Detailed effect-size calculations.) Tj
+T* (? Additional theorem demonstrations.) Tj
+T* () Tj
+T* (Reference or take-home material) Tj
+T* () Tj
+T* (? Assumption checks for multiple tests.) Tj
+T* (? Templates for reporting p-values and confidence intervals.) Tj
+T* () Tj
+T* (Daily deliverable: A short inference notebook or script answering one capstone question.) Tj
+T* () Tj
+T* (Day 5: Regression, ANOVA and Generalised Linear Models) Tj
+T* () Tj
+T* (Purpose: Fit, diagnose and report a model that addresses a statistical question.) Tj
+T* () Tj
+T* (Core workshop activity) Tj
+T* () Tj
+T* (? Translate a research question into formula notation.) Tj
+T* (? Fit and interpret a multiple linear regression model.) Tj
+T* (? Include categorical predictors and explain reference categories.) Tj
+T* (? Fit and interpret one interaction.) Tj
+T* (? Check residuals, fitted values and influential observations.) Tj
+T* (? Run and interpret a one-way ANOVA where appropriate.) Tj
+T* (? Report coefficients, uncertainty and model limitations.) Tj
+T* () Tj
+T* (Optional demonstration) Tj
+T* () Tj
+T* (? Logistic regression.) Tj
+T* (? Poisson regression.) Tj
+T* (? Nested-model comparison.) Tj
+T* (? Advanced influence measures.) Tj
+T* (? Two-way ANOVA if time allows.) Tj
+T* () Tj
+T* (Reference or take-home material) Tj
+T* () Tj
+T* (? Model-selection cautions.) Tj
+T* (? Post-hoc comparison examples.) Tj
+T* () Tj
+T* (Daily deliverable: Diagnosed model report for the capstone dataset.) Tj
+T* () Tj
+T* (Day 6: Coding Statistical Models from Their Equations) Tj
+T* () Tj
+T* (Purpose: Show how model equations become matrix calculations and reusable R code.) Tj
+T* () Tj
+T* (Core workshop activity) Tj
+T* () Tj
+T* (? Read statistical notation and identify dimensions.) Tj
+T* (? Build a design matrix.) Tj
+T* (? Derive and compute ordinary least squares estimates.) Tj
+T* (Page 5 of 7) Tj
+ET
+endstream
+endobj
+7 0 obj
+<< /Length 2207 >>
+stream
+BT
+/F1 10 Tf
+50 790 Td
+14 TL
+(? Calculate fitted values and residuals.) Tj
+T* (? Implement a small custom OLS function.) Tj
+T* (? Validate the function against lm\(\).) Tj
+T* (? Discuss one numerical failure mode such as rank deficiency or poor conditioning.) Tj
+T* () Tj
+T* (Important implementation note: The first custom OLS function should either assume an) Tj
+T* (  intercept explicitly or reject interceptless formulas with a clear error. R-squared,) Tj
+T* (  degrees of freedom and the overall F-test require adjustment when there is no intercept.) Tj
+T* () Tj
+T* (Optional demonstration) Tj
+T* () Tj
+T* (? Bootstrap uncertainty.) Tj
+T* (? Maximum likelihood.) Tj
+T* (? Detailed conditioning analysis.) Tj
+T* (? Extended inference calculations.) Tj
+T* () Tj
+T* (Reference or take-home material) Tj
+T* () Tj
+T* (? QR-based fitting and why explicit matrix inversion is usually avoided.) Tj
+T* (? Interceptless-model extensions.) Tj
+T* () Tj
+T* (Daily deliverable: Equation-based implementation that reproduces or audits part of the Day 5) Tj
+T* (  model.) Tj
+T* () Tj
+T* (Day 7: Reproducible Research and Capstone Presentation) Tj
+T* () Tj
+T* (Purpose: Convert the analysis into a reproducible report and communicate it clearly.) Tj
+T* () Tj
+T* (Core workshop activity) Tj
+T* () Tj
+T* (? Organise projects into raw data, processed data, scripts, outputs and reports.) Tj
+T* (? Use relative paths and document the project with a README.) Tj
+T* (? Create a Quarto report with YAML metadata.) Tj
+T* (? Use code-cell options for readable output.) Tj
+T* (? Include figures, tables, equations and inline results.) Tj
+T* (? Render to HTML, Word and PDF where tools are available.) Tj
+T* (? Test the report in a clean session.) Tj
+T* (? Include sessionInfo\(\).) Tj
+T* (? Conduct peer review with a short checklist.) Tj
+T* (? Present the capstone in five minutes.) Tj
+T* () Tj
+T* (Optional demonstration) Tj
+T* () Tj
+T* (? Confidential-data handling.) Tj
+T* (? Multi-format formatting differences.) Tj
+T* (? Advanced Quarto options.) Tj
+T* () Tj
+T* (Reference or take-home material) Tj
+T* () Tj
+T* (? Troubleshooting rendering problems.) Tj
+T* (? Report-polishing checklist.) Tj
+T* () Tj
+T* (Page 6 of 7) Tj
+ET
+endstream
+endobj
+8 0 obj
+<< /Length 1559 >>
+stream
+BT
+/F1 10 Tf
+50 790 Td
+14 TL
+(Daily deliverable: Rendered capstone report and short presentation.) Tj
+T* () Tj
+T* (7. Minimum package requirements) Tj
+T* () Tj
+T* (The final distribution should include:) Tj
+T* () Tj
+T* (```text) Tj
+T* (R-Workshop/) Tj
+T* (|-- Curriculum/) Tj
+T* (|   |-- R Workshop - Curriculum.md) Tj
+T* (|   |-- R Workshop - Curriculum.tex) Tj
+T* (|   |-- R Workshop - Curriculum.pdf) Tj
+T* (|-- Materials/) Tj
+T* (|   |-- Day 1.tex) Tj
+T* (|   |-- Day 1.pdf) Tj
+T* (|   |-- ...) Tj
+T* (|   |-- Day 7.tex) Tj
+T* (|   |-- Day 7.pdf) Tj
+T* (|-- Data/) Tj
+T* (|   |-- raw/) Tj
+T* (|   |-- processed/) Tj
+T* (|-- Starter-Scripts/) Tj
+T* (|-- Solution-Scripts/) Tj
+T* (|-- Quarto-Template/) Tj
+T* (|-- install_packages.R) Tj
+T* (|-- Workshop-Evidence-Log.md) Tj
+T* (|-- README.md) Tj
+T* (```) Tj
+T* () Tj
+T* (Before release, recover or recreate the Day 3 and Day 5 LaTeX sources and compile all) Tj
+T* (  curriculum and workbook sources from a clean environment.) Tj
+T* () Tj
+T* (8. Facilitator checklist) Tj
+T* () Tj
+T* (? Confirm R, RStudio, Quarto and required R packages are installed.) Tj
+T* (? Confirm the anchor dataset is available in Data/raw/.) Tj
+T* (? Confirm each workbook section is labelled Core, Optional demonstration or Reference/take-) Tj
+T* (  home material.) Tj
+T* (? Confirm the Day 2 cleaning pipeline creates all promised outputs.) Tj
+T* (? Confirm Day 7 is used for integration and presentation, not for starting the capstone.) Tj
+T* (? Confirm participants complete the evidence log each day.) Tj
+T* (Page 7 of 7) Tj
+ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 16 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 2 0 R >>
+endobj
+10 0 obj
+<< /Type /Page /Parent 16 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 3 0 R >>
+endobj
+11 0 obj
+<< /Type /Page /Parent 16 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 4 0 R >>
+endobj
+12 0 obj
+<< /Type /Page /Parent 16 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 5 0 R >>
+endobj
+13 0 obj
+<< /Type /Page /Parent 16 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 6 0 R >>
+endobj
+14 0 obj
+<< /Type /Page /Parent 16 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 7 0 R >>
+endobj
+15 0 obj
+<< /Type /Page /Parent 16 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 8 0 R >>
+endobj
+16 0 obj
+<< /Type /Pages /Kids [9 0 R 10 0 R 11 0 R 12 0 R 13 0 R 14 0 R 15 0 R] /Count 7 >>
+endobj
+17 0 obj
+<< /Type /Catalog /Pages 16 0 R >>
+endobj
+xref
+0 18
+0000000000 65535 f 
+0000000009 00000 n 
+0000000079 00000 n 
+0000003093 00000 n 
+0000006545 00000 n 
+0000008805 00000 n 
+0000011086 00000 n 
+0000013168 00000 n 
+0000015427 00000 n 
+0000017038 00000 n 
+0000017165 00000 n 
+0000017293 00000 n 
+0000017421 00000 n 
+0000017549 00000 n 
+0000017677 00000 n 
+0000017805 00000 n 
+0000017933 00000 n 
+0000018033 00000 n 
+trailer << /Size 18 /Root 17 0 R >>
+startxref
+18084
+%%EOF

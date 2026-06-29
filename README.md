@@ -17,7 +17,9 @@ This repository is organised as a workshop distribution package for a seven-day 
 ```text
 R-Workshop/
 ├── Curriculum/
-│   └── R-Workshop-Curriculum.tex
+│   ├── R Workshop - Curriculum.md
+│   ├── R Workshop - Curriculum.tex
+│   └── R Workshop - Curriculum.pdf
 ├── Materials/
 │   └── README.md
 ├── Data/
@@ -44,6 +46,7 @@ R-Workshop/
 - [ ] Mark all workbook sections as Core, Optional demonstration, or Reference/take-home material.
 - [ ] Add `rmarkdown` and `knitr` to setup requirements.
 - [ ] Compile all LaTeX sources from a clean environment.
+- [x] Provide practical curriculum in Markdown, LaTeX and PDF formats.
 - [ ] Render the Quarto capstone template to HTML, Word and PDF.
 
 ## Setup
