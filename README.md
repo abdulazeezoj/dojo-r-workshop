@@ -44,6 +44,15 @@ dojo-r-workshop/
 |   |-- day4_inference.R
 |   |-- day5_regression.R
 |   `-- day6_manual_ols.R
+|-- Final-Scripts/
+|   |-- README.md
+|   |-- day1_final.R
+|   |-- day2_final.R
+|   |-- day3_final.R
+|   |-- day4_final.R
+|   |-- day5_final.R
+|   |-- day6_final.R
+|   `-- day7_final.R
 |-- Solution-Scripts/
 |   |-- README.md
 |   |-- day1_practice_solution.R

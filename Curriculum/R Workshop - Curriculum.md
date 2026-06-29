@@ -311,6 +311,8 @@ dojo-r-workshop/
 |   |-- day4_inference.R
 |   |-- day5_regression.R
 |   `-- day6_manual_ols.R
+|-- Final-Scripts/
+|   |-- day1_final.R  ...  day7_final.R  (complete guided-coding code, one per day)
 |-- Solution-Scripts/
 |   |-- day1_practice_solution.R
 |   |-- day2_anchor_cleaning_solution.R
