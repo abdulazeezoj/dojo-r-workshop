@@ -1,0 +1,42 @@
+---
+title: "R Workshop Capstone Report"
+author: "Participant name"
+format:
+  html: default
+  docx: default
+  pdf: default
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+```{r}
+#| label: setup
+library(tidyverse)
+```
+
+## Research question
+
+State the capstone research question and identify the anchor dataset.
+
+## Data preparation
+
+Describe cleaning decisions and link to the data dictionary.
+
+## Exploratory analysis
+
+Include at least two interpreted figures.
+
+## Inference or model
+
+Report one inferential result or fitted model with assumptions and interpretation.
+
+## Reproducibility
+
+Describe the project structure and include session information.
+
+```{r}
+#| label: session-info
+sessionInfo()
+```
