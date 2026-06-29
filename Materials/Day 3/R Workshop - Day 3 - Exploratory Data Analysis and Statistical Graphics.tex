@@ -1,0 +1,461 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=0.8in]{geometry}
+\usepackage{calc}
+\usepackage{array,longtable,booktabs}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{fancyvrb}
+\usepackage{fvextra}
+\usepackage{framed}
+\usepackage{color}
+\fvset{breaklines=true, breakanywhere=true}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,breakanywhere,commandchars=\\\{\}}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\setlist[itemize]{leftmargin=*}
+\setlist[enumerate]{leftmargin=*}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\title{R Workshop -- Day 3 -- Exploratory Data Analysis and Statistical Graphics}
+\author{Applied R for Statistical Teaching, Research and Reproducible Analysis}
+\date{}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\hypertarget{r-workshop-day-3-exploratory-data-analysis-and-statistical-graphics}{%
+\section{R Workshop -- Day 3 -- Exploratory Data Analysis and
+Statistical
+Graphics}\label{r-workshop-day-3-exploratory-data-analysis-and-statistical-graphics}}
+
+\textbf{Session 3 of 7 \textbar{} Duration: 3 hours} \textbf{Programme:}
+Applied R for Statistical Teaching, Research and Reproducible Analysis
+
+\hypertarget{learning-objectives}{%
+\subsection{Learning objectives}\label{learning-objectives}}
+
+By the end of this session you will be able to:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Start from a research question and choose a chart type that answers
+  it, rather than choosing a chart type first.
+\item
+  Explain and use the grammar of graphics: data, aesthetics, geoms,
+  scales, labels and themes.
+\item
+  Build and interpret bar charts, histograms, box plots and scatter
+  plots in \texttt{ggplot2}.
+\item
+  Add titles, axis labels and units so a plot stands on its own.
+\item
+  Export publication-ready graphics to a file.
+\item
+  Write a visual claim that is accurate about what the chart can and
+  cannot show.
+\end{enumerate}
+
+\hypertarget{capstone-link}{%
+\subsection{Capstone link}\label{capstone-link}}
+
+Today you produce the first visual evidence for your capstone report:
+three exported, interpreted graphics built from the cleaned anchor
+dataset (\texttt{Data/processed/anchor\_dataset\_clean.csv}, produced on
+Day 2).
+
+\hypertarget{segment-plan-3-hours}{%
+\subsection{Segment plan (3 hours)}\label{segment-plan-3-hours}}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3000}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Segment
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Time
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Purpose
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Opening and recap & 10 min & Reload the clean anchor dataset, recap the
+research question \\
+Concept bridge & 25 min & Question-led plotting and the grammar of
+graphics \\
+Guided coding & 60 min & Bar chart, histogram, box plot, scatter plot \\
+Participant practice & 45 min & Build and label three graphics on the
+anchor dataset \\
+Interpretation and reporting & 25 min & Write a two- to three-sentence
+interpretation per plot \\
+Evidence log and capstone update & 15 min & Export and log the three
+graphics \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{part-1-concept-bridge-core-workshop-activity}{%
+\subsection{Part 1 -- Concept bridge (Core workshop
+activity)}\label{part-1-concept-bridge-core-workshop-activity}}
+
+\hypertarget{start-with-the-question-not-the-chart}{%
+\subsubsection{Start with the question, not the
+chart}\label{start-with-the-question-not-the-chart}}
+
+A chart type is a means, not an end. Three workshop-relevant questions
+and their natural chart types:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Question
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Natural chart
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+How many lecturers are in each training track? & Bar chart of counts \\
+How is post-training score distributed? & Histogram \\
+Does post-training score differ by training track? & Box plot, score by
+track \\
+Is post-training score related to attendance? & Scatter plot \\
+\end{longtable}
+
+If you find yourself with a question and no obvious chart, it is worth
+restating the question more precisely before opening \texttt{ggplot2}.
+
+\hypertarget{the-grammar-of-graphics-briefly}{%
+\subsubsection{The grammar of graphics,
+briefly}\label{the-grammar-of-graphics-briefly}}
+
+\texttt{ggplot2} builds a plot in layers:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{data} -- the data frame.
+\item
+  \textbf{aesthetics (\texttt{aes()})} -- which columns map to which
+  visual properties (x, y, colour, fill).
+\item
+  \textbf{geoms} -- the visual representation (\texttt{geom\_bar()},
+  \texttt{geom\_histogram()}, \texttt{geom\_boxplot()},
+  \texttt{geom\_point()}).
+\item
+  \textbf{scales} -- how data values map to visual ranges (axis breaks,
+  colour palettes).
+\item
+  \textbf{labels and themes} -- titles, axis labels, units, and overall
+  appearance.
+\end{itemize}
+
+Every \texttt{ggplot2} call you write this week follows the same shape:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ ..., }\AttributeTok{y =}\NormalTok{ ...)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_...}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"..."}\NormalTok{, }\AttributeTok{x =} \StringTok{"..."}\NormalTok{, }\AttributeTok{y =} \StringTok{"..."}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{part-2-guided-coding-core-workshop-activity}{%
+\subsection{Part 2 -- Guided coding (Core workshop
+activity)}\label{part-2-guided-coding-core-workshop-activity}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+
+\NormalTok{lecturers }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"Data/processed/anchor\_dataset\_clean.csv"}\NormalTok{, }\AttributeTok{show\_col\_types =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{bar-chart-counts-by-training-track}{%
+\subsubsection{2.1 Bar chart -- counts by training
+track}\label{bar-chart-counts-by-training-track}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(lecturers, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ training\_track)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{fill =} \StringTok{"\#2C7FB8"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Participants by training track"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"Training track"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Number of participants"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\emph{Interpretation example:} ``Online was the most common track,
+followed by In-Person and then Blended. This affects how much weight an
+Online-driven result should carry in later analysis.''
+
+\hypertarget{histogram-distribution-of-post-training-scores}{%
+\subsubsection{2.2 Histogram -- distribution of post-training
+scores}\label{histogram-distribution-of-post-training-scores}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(lecturers, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ post\_score)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{binwidth =} \DecValTok{5}\NormalTok{, }\AttributeTok{fill =} \StringTok{"\#41AB5D"}\NormalTok{, }\AttributeTok{colour =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Distribution of post{-}training scores"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"Post{-}training score (0{-}100)"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Number of participants"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\texttt{binwidth} controls how fine-grained the histogram is. Try 2, 5
+and 10 and discuss how the same data can look smoother or noisier purely
+from a plotting choice -- this is itself an honesty-in-graphics point.
+
+\hypertarget{box-plot-score-by-training-track}{%
+\subsubsection{2.3 Box plot -- score by training
+track}\label{box-plot-score-by-training-track}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(lecturers, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ training\_track, }\AttributeTok{y =}\NormalTok{ post\_score)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{fill =} \StringTok{"\#FEB24C"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Post{-}training score by training track"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"Training track"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Post{-}training score (0{-}100)"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+A box plot shows the median, the interquartile range and likely outliers
+in one view -- a natural bridge into the Day 5 question of whether track
+is associated with score.
+
+\hypertarget{scatter-plot-score-against-attendance}{%
+\subsubsection{2.4 Scatter plot -- score against
+attendance}\label{scatter-plot-score-against-attendance}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(lecturers, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ attendance, }\AttributeTok{y =}\NormalTok{ post\_score)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{alpha =} \FloatTok{0.6}\NormalTok{, }\AttributeTok{colour =} \StringTok{"\#6A51A3"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Post{-}training score by attendance"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"Attendance (\%)"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Post{-}training score (0{-}100)"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{export}{%
+\subsubsection{2.5 Export}\label{export}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dir.create}\NormalTok{(}\StringTok{"Outputs"}\NormalTok{, }\AttributeTok{showWarnings =} \ConstantTok{FALSE}\NormalTok{)}
+
+\NormalTok{p\_track\_counts }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(lecturers, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ training\_track)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{fill =} \StringTok{"\#2C7FB8"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Participants by training track"}\NormalTok{,}
+       \AttributeTok{x =} \StringTok{"Training track"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Number of participants"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+
+\FunctionTok{ggsave}\NormalTok{(}\StringTok{"Outputs/day3\_bar\_track\_counts.png"}\NormalTok{, p\_track\_counts, }\AttributeTok{width =} \DecValTok{7}\NormalTok{, }\AttributeTok{height =} \DecValTok{5}\NormalTok{, }\AttributeTok{dpi =} \DecValTok{300}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Always export at a fixed \texttt{width}/\texttt{height}/\texttt{dpi} so
+figures look the same in your report regardless of your current RStudio
+window size.
+
+\hypertarget{writing-a-cautious-visual-claim}{%
+\subsubsection{2.6 Writing a cautious visual
+claim}\label{writing-a-cautious-visual-claim}}
+
+A chart shows association, not cause. Compare:
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{Overclaiming:} ``Attendance increases post-training scores.''
+\item
+  \emph{Accurate:} ``Participants with higher attendance tended to have
+  higher post-training scores in this sample; this plot does not
+  establish that attendance caused the difference.''
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{part-3-participant-practice-core-workshop-activity}{%
+\subsection{Part 3 -- Participant practice (Core workshop
+activity)}\label{part-3-participant-practice-core-workshop-activity}}
+
+Using \texttt{lecturers}, produce and export \textbf{three} graphics,
+each with a two- to three-sentence interpretation:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  One categorical-summary chart (bar chart) for a variable of your
+  choice (e.g.~\texttt{region}, \texttt{institution\_type},
+  \texttt{completed}).
+\item
+  One distribution chart (histogram or box plot) for \texttt{pre\_score}
+  or \texttt{post\_score}.
+\item
+  One relationship chart (scatter plot) connecting two numeric
+  variables, or a box plot connecting a category to a numeric variable,
+  relevant to your research question.
+\end{enumerate}
+
+For each: add a title, axis labels with units, export to
+\texttt{Outputs/}, and write your interpretation as a comment directly
+above the \texttt{ggsave()} call.
+
+A facilitator-reviewed solution is in
+\texttt{Solution-Scripts/day3\_eda\_solution.R}.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{optional-demonstration}{%
+\subsection{Optional demonstration}\label{optional-demonstration}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Density plots and violin plots} -- smoother alternatives to
+  histograms/box plots; flag that both can mislead with very small
+  groups (e.g.~fewer than \textasciitilde10 observations per group).
+\item
+  \textbf{Two-way categorical graphics} -- stacked or grouped bar
+  charts, e.g.~\texttt{completed} by \texttt{training\_track}.
+\item
+  \textbf{Faceting} --
+  \texttt{facet\_wrap(\textasciitilde{}\ training\_track)} to repeat one
+  chart across groups.
+\item
+  \textbf{Missing-data visualisation} -- a simple bar chart of
+  \texttt{colSums(is.na(lecturers))}.
+\item
+  \textbf{Honest versus misleading graphics} -- truncated y-axes, 3D pie
+  charts, dual axes with mismatched scales.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Optional: faceted histogram of post\_score by training\_track}
+\FunctionTok{ggplot}\NormalTok{(lecturers, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ post\_score)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{binwidth =} \DecValTok{5}\NormalTok{, }\AttributeTok{fill =} \StringTok{"\#41AB5D"}\NormalTok{, }\AttributeTok{colour =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ training\_track) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Post{-}training score by training track"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Post{-}training score"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Count"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{reference-or-take-home-material}{%
+\subsection{Reference or take-home
+material}\label{reference-or-take-home-material}}
+
+\begin{itemize}
+\tightlist
+\item
+  Theme customisation: \texttt{theme()}, \texttt{theme\_bw()},
+  \texttt{theme\_classic()}, institutional colour palettes.
+\item
+  Annotation approaches: \texttt{geom\_text()}, \texttt{geom\_label()},
+  \texttt{annotate()}.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{daily-deliverable}{%
+\subsection{Daily deliverable}\label{daily-deliverable}}
+
+Three exported graphics from the anchor dataset
+(\texttt{Outputs/day3\_*.png}), each with a two- to three-sentence
+interpretation saved alongside the script.
+
+\hypertarget{evidence-log-entry}{%
+\subsubsection{Evidence log entry}\label{evidence-log-entry}}
+
+Complete the Day 3 row in \texttt{Workshop-Evidence-Log.md}: list the
+three graphics produced and note one early pattern in the data relevant
+to your research question.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{facilitator-notes}{%
+\subsection{Facilitator notes}\label{facilitator-notes}}
+
+\begin{itemize}
+\tightlist
+\item
+  If a participant's research question does not map naturally onto
+  bar/histogram/box plot/scatter, help them restate the question rather
+  than forcing an awkward chart type.
+\item
+  Watch for binwidth and bar-width choices made purely for aesthetics
+  without checking whether they hide or exaggerate a pattern -- this is
+  a good moment to circle back to the ``honest versus misleading
+  graphics'' discussion even if it is technically optional.
+\item
+  Confirm every exported PNG actually has a title and axis labels before
+  participants move on; an unlabelled plot is treated as incomplete for
+  the deliverable.
+\end{itemize}
+\end{document}

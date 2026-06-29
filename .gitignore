@@ -47,3 +47,12 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+
+# Generated outputs (recreated by running the Day 2-7 scripts)
+Data/processed/*
+!Data/processed/.gitkeep
+Outputs/
+*.aux
+*.log
+*.out
+*.toc

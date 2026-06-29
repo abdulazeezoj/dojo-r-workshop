@@ -1,0 +1,523 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=0.8in]{geometry}
+\usepackage{calc}
+\usepackage{array,longtable,booktabs}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{fancyvrb}
+\usepackage{fvextra}
+\usepackage{framed}
+\usepackage{color}
+\fvset{breaklines=true, breakanywhere=true}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,breakanywhere,commandchars=\\\{\}}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\setlist[itemize]{leftmargin=*}
+\setlist[enumerate]{leftmargin=*}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\title{R Workshop -- Day 1 -- Getting Comfortable with R}
+\author{Applied R for Statistical Teaching, Research and Reproducible Analysis}
+\date{}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\hypertarget{r-workshop-day-1-getting-comfortable-with-r}{%
+\section{R Workshop -- Day 1 -- Getting Comfortable with
+R}\label{r-workshop-day-1-getting-comfortable-with-r}}
+
+\textbf{Session 1 of 7 \textbar{} Duration: 3 hours} \textbf{Programme:}
+Applied R for Statistical Teaching, Research and Reproducible Analysis
+
+\hypertarget{learning-objectives}{%
+\subsection{Learning objectives}\label{learning-objectives}}
+
+By the end of this session you will be able to:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Tell R, RStudio, scripts and the console apart, and know which one to
+  use for what.
+\item
+  Start every piece of work from an RStudio Project, using relative
+  paths instead of hard-coded folder names.
+\item
+  Create R objects with assignment, and write comments that explain
+  \emph{why}, not \emph{what}.
+\item
+  Create, inspect and index vectors using positions and logical
+  conditions.
+\item
+  Represent missing values with \texttt{NA} and use \texttt{na.rm}
+  correctly.
+\item
+  Build a small data frame and compute descriptive statistics, including
+  grouped summaries.
+\item
+  Read an R error or warning message and find the relevant help page.
+\end{enumerate}
+
+\hypertarget{capstone-link}{%
+\subsection{Capstone link}\label{capstone-link}}
+
+Day 1 has no anchor dataset yet -- that begins on Day 2. Today you
+complete a \textbf{baseline task} that you will repeat, with an
+equivalent dataset, on Day 7. The comparison between your Day 1 and Day
+7 work is your own evidence of progress through the workshop.
+
+\hypertarget{segment-plan-3-hours}{%
+\subsection{Segment plan (3 hours)}\label{segment-plan-3-hours}}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3000}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Segment
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Time
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Purpose
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Opening and recap & 10 min & Introductions, software check, workshop
+map \\
+Concept bridge & 25 min & R vs RStudio, why scripts and projects
+matter \\
+Guided coding & 60 min & Objects, vectors, indexing, \texttt{NA}, data
+frames, summaries \\
+Participant practice & 45 min & Apply the same workflow to a new vector
+and data frame \\
+Interpretation and reporting & 25 min & Turn a summary into a sentence a
+colleague could read \\
+Evidence log and capstone update & 15 min & Save the baseline task and
+log it \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{part-1-concept-bridge-core-workshop-activity}{%
+\subsection{Part 1 -- Concept bridge (Core workshop
+activity)}\label{part-1-concept-bridge-core-workshop-activity}}
+
+\hypertarget{r-rstudio-scripts-and-the-console}{%
+\subsubsection{R, RStudio, scripts and the
+console}\label{r-rstudio-scripts-and-the-console}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{R} is the language and the engine that runs your code. It
+  exists whether or not you ever open RStudio.
+\item
+  \textbf{RStudio} is an \emph{integrated development environment}
+  (IDE): a window manager around R that adds a script editor, a file
+  browser, a plot viewer and a help pane.
+\item
+  The \textbf{console} (bottom-left pane by default) runs one command at
+  a time and forgets it once you close R. Use it for quick checks, not
+  for anything you want to keep.
+\item
+  A \textbf{script} (a \texttt{.R} file) is a saved, repeatable sequence
+  of commands. Everything that matters for your analysis should end up
+  in a script, not only in the console.
+\end{itemize}
+
+\begin{quote}
+\textbf{Working rule for this workshop:} if you would be unhappy to lose
+it, it belongs in a script, not just in the console.
+\end{quote}
+
+\hypertarget{why-an-rstudio-project}{%
+\subsubsection{Why an RStudio Project}\label{why-an-rstudio-project}}
+
+An RStudio Project (\texttt{.Rproj} file) pins your working directory to
+the project folder. This means:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{read\_csv("Data/raw/file.csv")} works for you and for anyone
+  else who opens the same project, on any computer.
+\item
+  You never need \texttt{setwd("C:/Users/yourname/Desktop/...")}, which
+  breaks the moment the script moves to another machine.
+\end{itemize}
+
+\textbf{Today's setup steps:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \texttt{File\ -\textgreater{}\ New\ Project\ -\textgreater{}\ New\ Directory\ -\textgreater{}\ New\ Project}.
+\item
+  Name it something durable, e.g.~\texttt{r-workshop}.
+\item
+  Inside the project, create folders \texttt{Data/raw},
+  \texttt{Data/processed}, \texttt{Scripts}, \texttt{Outputs} (you will
+  reuse this structure through Day 7).
+\item
+  Create a new script \texttt{Scripts/day1\_baseline.R} and save it
+  immediately.
+\end{enumerate}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{part-2-guided-coding-core-workshop-activity}{%
+\subsection{Part 2 -- Guided coding (Core workshop
+activity)}\label{part-2-guided-coding-core-workshop-activity}}
+
+Type each block into your script and run it line by line
+(\texttt{Ctrl/Cmd\ +\ Enter}), not by pasting it all at once. Read the
+output before moving on.
+
+\hypertarget{assignment-object-names-and-comments}{%
+\subsubsection{2.1 Assignment, object names and
+comments}\label{assignment-object-names-and-comments}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Comments start with \# and explain *why*, not *what the code obviously does*}
+\NormalTok{workshop\_day }\OtherTok{\textless{}{-}} \DecValTok{1}          \CommentTok{\# use \textless{}{-} for assignment, not =}
+\NormalTok{participant\_count }\OtherTok{\textless{}{-}} \DecValTok{24}
+\NormalTok{average\_age }\OtherTok{\textless{}{-}} \FloatTok{41.6}
+
+\NormalTok{workshop\_day}
+\FunctionTok{print}\NormalTok{(participant\_count)}
+\end{Highlighting}
+\end{Shaded}
+
+Object names should be readable in six months: \texttt{average\_age},
+not \texttt{x}, not \texttt{avgAge1}.
+
+\hypertarget{vectors}{%
+\subsubsection{2.2 Vectors}\label{vectors}}
+
+A vector is an ordered collection of values of the \emph{same} type.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ages }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{34}\NormalTok{, }\DecValTok{41}\NormalTok{, }\DecValTok{29}\NormalTok{, }\DecValTok{52}\NormalTok{, }\DecValTok{38}\NormalTok{, }\ConstantTok{NA}\NormalTok{, }\DecValTok{45}\NormalTok{)}
+\FunctionTok{class}\NormalTok{(ages)}
+\FunctionTok{length}\NormalTok{(ages)}
+
+\NormalTok{regions }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"North West"}\NormalTok{, }\StringTok{"South East"}\NormalTok{, }\StringTok{"South West"}\NormalTok{, }\StringTok{"North Central"}\NormalTok{)}
+\FunctionTok{class}\NormalTok{(regions)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{indexing-and-logical-conditions}{%
+\subsubsection{2.3 Indexing and logical
+conditions}\label{indexing-and-logical-conditions}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ages[}\DecValTok{1}\NormalTok{]              }\CommentTok{\# first element}
+\NormalTok{ages[}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{)]        }\CommentTok{\# first and third}
+\NormalTok{ages[ages }\SpecialCharTok{\textgreater{}} \DecValTok{40}\NormalTok{]      }\CommentTok{\# logical indexing: keep ages above 40}
+
+\NormalTok{over\_40 }\OtherTok{\textless{}{-}}\NormalTok{ ages }\SpecialCharTok{\textgreater{}} \DecValTok{40} \CommentTok{\# this is itself a vector of TRUE/FALSE/NA}
+\NormalTok{over\_40}
+\end{Highlighting}
+\end{Shaded}
+
+Logical indexing is the single most useful R skill for the rest of this
+workshop: almost every data-cleaning rule you write from Day 2 onward is
+a logical condition like this one.
+
+\hypertarget{missing-values}{%
+\subsubsection{2.4 Missing values}\label{missing-values}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mean}\NormalTok{(ages)            }\CommentTok{\# returns NA {-}{-} R refuses to silently guess}
+\FunctionTok{mean}\NormalTok{(ages, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(ages))      }\CommentTok{\# how many missing values?}
+\FunctionTok{which}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(ages))    }\CommentTok{\# which positions?}
+\end{Highlighting}
+\end{Shaded}
+
+\texttt{NA} means ``unknown'', not zero and not ``missing on purpose''.
+R propagates \texttt{NA} through almost every calculation until you tell
+it otherwise with \texttt{na.rm\ =\ TRUE}. This is a safety feature, not
+an inconvenience -- it stops you reporting a mean you did not actually
+compute.
+
+\hypertarget{a-small-data-frame}{%
+\subsubsection{2.5 A small data frame}\label{a-small-data-frame}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{participants }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{participant\_id =} \FunctionTok{c}\NormalTok{(}\StringTok{"P01"}\NormalTok{, }\StringTok{"P02"}\NormalTok{, }\StringTok{"P03"}\NormalTok{, }\StringTok{"P04"}\NormalTok{, }\StringTok{"P05"}\NormalTok{),}
+  \AttributeTok{age =} \FunctionTok{c}\NormalTok{(}\DecValTok{34}\NormalTok{, }\DecValTok{41}\NormalTok{, }\DecValTok{29}\NormalTok{, }\DecValTok{52}\NormalTok{, }\DecValTok{38}\NormalTok{),}
+  \AttributeTok{region =} \FunctionTok{c}\NormalTok{(}\StringTok{"North West"}\NormalTok{, }\StringTok{"South East"}\NormalTok{, }\StringTok{"South West"}\NormalTok{, }\StringTok{"North Central"}\NormalTok{, }\StringTok{"South East"}\NormalTok{),}
+  \AttributeTok{pre\_score =} \FunctionTok{c}\NormalTok{(}\DecValTok{58}\NormalTok{, }\DecValTok{64}\NormalTok{, }\DecValTok{71}\NormalTok{, }\DecValTok{49}\NormalTok{, }\DecValTok{60}\NormalTok{)}
+\NormalTok{)}
+
+\FunctionTok{str}\NormalTok{(participants)}
+\FunctionTok{head}\NormalTok{(participants, }\DecValTok{3}\NormalTok{)}
+\FunctionTok{nrow}\NormalTok{(participants)}
+\FunctionTok{ncol}\NormalTok{(participants)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{descriptive-statistics-including-grouped-summaries}{%
+\subsubsection{2.6 Descriptive statistics, including grouped
+summaries}\label{descriptive-statistics-including-grouped-summaries}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mean}\NormalTok{(participants}\SpecialCharTok{$}\NormalTok{pre\_score)}
+\FunctionTok{median}\NormalTok{(participants}\SpecialCharTok{$}\NormalTok{pre\_score)}
+\FunctionTok{sd}\NormalTok{(participants}\SpecialCharTok{$}\NormalTok{pre\_score)}
+
+\CommentTok{\# Grouped summary without extra packages}
+\FunctionTok{tapply}\NormalTok{(participants}\SpecialCharTok{$}\NormalTok{pre\_score, participants}\SpecialCharTok{$}\NormalTok{region, mean)}
+\end{Highlighting}
+\end{Shaded}
+
+We will redo grouped summaries with \texttt{dplyr::group\_by()} and
+\texttt{summarise()} from Day 2 onward, because it scales better to many
+groups and many statistics at once. \texttt{tapply()} is shown here so
+the underlying idea -- split, compute, combine -- is clear before the
+package hides the mechanics.
+
+\hypertarget{reading-error-messages}{%
+\subsubsection{2.7 Reading error
+messages}\label{reading-error-messages}}
+
+Run this deliberately:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mean}\NormalTok{(participnts}\SpecialCharTok{$}\NormalTok{pre\_score)}
+\end{Highlighting}
+\end{Shaded}
+
+R replies with something like
+\texttt{Error\ in\ mean(participnts\$pre\_score)\ :\ object\ \textquotesingle{}participnts\textquotesingle{}\ not\ found}.
+Read right to left: \emph{what} went wrong (object not found) and
+\emph{where} (inside \texttt{mean(...)}). Most beginner errors are
+typos, mismatched brackets/quotes, or using \texttt{=} where \texttt{==}
+was meant. When stuck, run \texttt{?function\_name}
+(e.g.~\texttt{?mean}) to open the help page, or
+\texttt{example(function\_name)} for runnable examples.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{part-3-participant-practice-core-workshop-activity}{%
+\subsection{Part 3 -- Participant practice (Core workshop
+activity)}\label{part-3-participant-practice-core-workshop-activity}}
+
+Work in your script. Do not look at the solution until you have tried
+each step.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Create a vector \texttt{attendance} with 8 values between 0 and 100,
+  including one \texttt{NA}.
+\item
+  Compute the mean attendance, ignoring the \texttt{NA}.
+\item
+  Create a logical vector flagging attendance below 70.
+\item
+  Build a data frame with columns \texttt{student\_id} (made up),
+  \texttt{attendance}, and \texttt{pass} (\texttt{TRUE}/\texttt{FALSE}
+  for attendance \textgreater= 70, using your logical vector or an
+  \texttt{ifelse()}).
+\item
+  Compute the proportion of students who pass.
+\item
+  Deliberately introduce one typo and read the resulting error message
+  out loud to your neighbour before fixing it.
+\end{enumerate}
+
+A facilitator-reviewed solution is available in
+\texttt{Solution-Scripts/day1\_practice\_solution.R} -- check it only
+after attempting the task yourself.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{optional-demonstration}{%
+\subsection{Optional demonstration}\label{optional-demonstration}}
+
+These are useful if the group is moving quickly. They are not required
+for the daily deliverable.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Matrices and basic matrix operations} -- \texttt{matrix()},
+  \texttt{t()}, \texttt{\%*\%}. These return in full on Day 6 when you
+  build a design matrix by hand.
+\item
+  \textbf{Factors} -- \texttt{factor()} for ordered or fixed categories,
+  and why factors behave differently from plain character vectors in
+  summaries and models.
+\item
+  \textbf{Lists and \texttt{typeof()}} -- a list can hold mixed types
+  and different lengths; \texttt{typeof()} and \texttt{class()}
+  distinguish the underlying storage from the object's behaviour.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Optional: factors}
+\NormalTok{satisfaction }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"Low"}\NormalTok{, }\StringTok{"High"}\NormalTok{, }\StringTok{"Medium"}\NormalTok{, }\StringTok{"High"}\NormalTok{),}
+                        \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Low"}\NormalTok{, }\StringTok{"Medium"}\NormalTok{, }\StringTok{"High"}\NormalTok{), }\AttributeTok{ordered =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{satisfaction}
+\NormalTok{satisfaction }\SpecialCharTok{\textless{}} \StringTok{"High"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{reference-or-take-home-material}{%
+\subsection{Reference or take-home
+material}\label{reference-or-take-home-material}}
+
+\begin{itemize}
+\tightlist
+\item
+  Extended debugging examples (mismatched parentheses, dangling commas,
+  case-sensitive names).
+\item
+  More practice with subsetting: \texttt{{[}}, \texttt{{[}{[}},
+  \texttt{\$}, and when each is required.
+\item
+  RStudio keyboard shortcuts: \texttt{Ctrl/Cmd\ +\ Enter} (run line),
+  \texttt{Ctrl/Cmd\ +\ Shift\ +\ M} (pipe
+  \texttt{\textbar{}\textgreater{}}), \texttt{Ctrl/Cmd\ +\ 1/2} (move
+  between script and console).
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{daily-deliverable-and-the-day-1-baseline-task}{%
+\subsection{Daily deliverable and the Day 1 baseline
+task}\label{daily-deliverable-and-the-day-1-baseline-task}}
+
+\textbf{Deliverable:} a working RStudio project containing
+\texttt{Scripts/day1\_baseline.R}, your practice exercise, and the
+baseline task below, all saved inside the project folder.
+
+\hypertarget{baseline-task-repeated-on-day-7}{%
+\subsubsection{Baseline task (repeated on Day
+7)}\label{baseline-task-repeated-on-day-7}}
+
+A small dataset is provided at
+\texttt{Data/raw/day1\_baseline\_sample.csv} (12 students, two columns
+of interest plus an ID). It contains at least one missing value and at
+least one invalid value -- you do not need to find every issue today,
+just demonstrate the workflow.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Import the dataset with \texttt{read.csv()} (we introduce
+  \texttt{readr::read\_csv()} properly on Day 2).
+\item
+  Identify missing or clearly invalid values (for example, a negative
+  score or an attendance percentage above 100) using the indexing skills
+  from Part 2.
+\item
+  Produce one numerical summary (e.g.~mean test score, ignoring
+  missing/invalid values) and one labelled plot (a basic \texttt{hist()}
+  or \texttt{plot()} is enough today -- \texttt{ggplot2} starts Day 3).
+\item
+  Write three sentences interpreting the result for a non-technical
+  reader (a department head, not a statistician).
+\item
+  Save the script, the plot, and your three sentences inside the project
+  folder, e.g.~\texttt{Outputs/day1\_baseline\_summary.txt}.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{baseline }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"Data/raw/day1\_baseline\_sample.csv"}\NormalTok{)}
+\FunctionTok{str}\NormalTok{(baseline)}
+\FunctionTok{summary}\NormalTok{(baseline}\SpecialCharTok{$}\NormalTok{test\_score)}
+\FunctionTok{hist}\NormalTok{(baseline}\SpecialCharTok{$}\NormalTok{test\_score, }\AttributeTok{main =} \StringTok{"Day 1 baseline: test scores"}\NormalTok{, }\AttributeTok{xlab =} \StringTok{"Score"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{evidence-log-entry}{%
+\subsubsection{Evidence log entry}\label{evidence-log-entry}}
+
+Open \texttt{Workshop-Evidence-Log.md} and complete the Day 1 row: note
+the baseline task is saved, and that your R/RStudio setup is confirmed
+working.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{facilitator-notes}{%
+\subsection{Facilitator notes}\label{facilitator-notes}}
+
+\begin{itemize}
+\tightlist
+\item
+  Confirm every participant has R \textgreater= 4.x and a recent RStudio
+  Desktop installed \emph{before} this session; software installation
+  should not consume live-session time.
+\item
+  The Day 1 baseline task is intentionally small. Its only purpose is to
+  give Day 7 something to compare against -- do not let it expand into a
+  full analysis.
+\item
+  Keep ``Optional demonstration'' genuinely optional: if the group needs
+  the full 60 minutes of guided coding plus 45 minutes of practice, skip
+  the optional section entirely.
+\end{itemize}
+\end{document}

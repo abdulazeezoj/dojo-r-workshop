@@ -1,395 +1,768 @@
 \documentclass[11pt]{article}
 \usepackage[a4paper,margin=0.8in]{geometry}
+\usepackage{calc}
+\usepackage{amsmath,amssymb}
 \usepackage{array,longtable,booktabs}
 \usepackage{xcolor}
 \usepackage{hyperref}
 \usepackage{enumitem}
+\usepackage{fancyvrb}
+\usepackage{fvextra}
+\usepackage{framed}
+\usepackage{color}
+\fvset{breaklines=true, breakanywhere=true}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,breakanywhere,commandchars=\\\{\}}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \setlist[itemize]{leftmargin=*}
 \setlist[enumerate]{leftmargin=*}
 \hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
-\title{R Workshop: Practical Curriculum}
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\title{R Workshop -- Curriculum}
 \author{Applied R for Statistical Teaching, Research and Reproducible Analysis}
 \date{}
 \begin{document}
 \maketitle
 \tableofcontents
 \newpage
-\section{R Workshop: Practical Curriculum}
+\hypertarget{r-workshop-practical-curriculum}{%
+\section{R Workshop: Practical
+Curriculum}\label{r-workshop-practical-curriculum}}
 
-\textbf{Programme:} Applied R for Statistical Teaching, Research and Reproducible Analysis  
-\textbf{Audience:} Statistics lecturers and academic staff who need to teach, analyse and report with R  
-\textbf{Format:} Seven guided sessions, three hours each, supported by reference workbooks and independent capstone work
+\textbf{Programme:} Applied R for Statistical Teaching, Research and
+Reproducible Analysis\\
+\textbf{Audience:} Statistics lecturers and academic staff who need to
+teach, analyse and report with R\\
+\textbf{Format:} Seven guided sessions, three hours each, supported by
+reference workbooks and independent capstone work
 
-\section{1. Curriculum promise}
+\hypertarget{curriculum-promise}{%
+\subsection{1. Curriculum promise}\label{curriculum-promise}}
 
-This is not a race through seven dense manuals. The workshop uses the full workbooks as a lasting reference handbook, while the live sessions focus on the essential tasks participants need in order to build one coherent analysis.
+This is not a race through seven dense manuals. The workshop uses the
+full workbooks as a lasting reference handbook, while the live sessions
+focus on the essential tasks participants need in order to build one
+coherent analysis.
 
-The workshop will briefly revisit statistical theory where necessary to connect equations, assumptions and interpretation to their implementation in R. It will not attempt to reteach an entire statistics degree, nor will it become a machine-learning or Shiny course.
+The workshop will briefly revisit statistical theory where necessary to
+connect equations, assumptions and interpretation to their
+implementation in R. It will not attempt to reteach an entire statistics
+degree, nor will it become a machine-learning or Shiny course.
 
-\section{2. Delivery model}
+\hypertarget{delivery-model}{%
+\subsection{2. Delivery model}\label{delivery-model}}
 
-Each workbook section should be labelled in the teaching copy as one of the following.
+Each workbook section should be labelled in the teaching copy as one of
+the following.
 
-\begin{longtable}{p{0.18\linewidth}p{0.38\linewidth}p{0.38\linewidth}}
-\toprule
-Label & Meaning & Live-session expectation \\
-\midrule
-Core workshop activity & Essential skill or concept needed for the daily deliverable and capstone & Teach and practise during the three-hour session \\
-Optional demonstration & Useful extension if the group is fast or the facilitator wants to show breadth & Demonstrate briefly or skip \\
-Reference or take-home material & Valuable background, extra methods or fuller explanations & Assign for independent study \\
-\bottomrule
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Label
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Meaning
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Live-session expectation
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Core workshop activity & Essential skill or concept needed for the daily
+deliverable and capstone & Teach and practise during the three-hour
+session \\
+Optional demonstration & Useful extension if the group is fast or the
+facilitator wants to show breadth & Demonstrate briefly or skip \\
+Reference or take-home material & Valuable background, extra methods or
+fuller explanations & Assign for independent study \\
 \end{longtable}
 
 A realistic three-hour session should include approximately:
 
-\begin{longtable}{p{0.18\linewidth}p{0.38\linewidth}p{0.38\linewidth}}
-\toprule
-Segment & Time & Purpose \\
-\midrule
-Opening and recap & 10 minutes & Reconnect with the anchor dataset and prior deliverable \\
-Concept bridge & 25 minutes & Explain the statistical or reproducibility idea \\
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3000}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Segment
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Time
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Purpose
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Opening and recap & 10 minutes & Reconnect with the anchor dataset and
+prior deliverable \\
+Concept bridge & 25 minutes & Explain the statistical or reproducibility
+idea \\
 Guided coding & 60 minutes & Work through the core R workflow \\
-Participant practice & 45 minutes & Apply the workflow to the anchor dataset \\
-Interpretation and reporting & 25 minutes & Translate outputs into statistical language \\
-Evidence log and capstone update & 15 minutes & Save artefacts and plan next steps \\
-\bottomrule
+Participant practice & 45 minutes & Apply the workflow to the anchor
+dataset \\
+Interpretation and reporting & 25 minutes & Translate outputs into
+statistical language \\
+Evidence log and capstone update & 15 minutes & Save artefacts and plan
+next steps \\
 \end{longtable}
 
-\section{3. Anchor dataset and capstone thread}
+\hypertarget{anchor-dataset-and-capstone-thread}{%
+\subsection{3. Anchor dataset and capstone
+thread}\label{anchor-dataset-and-capstone-thread}}
 
-Use one anchor dataset from Day 2 through Day 7. Demonstration datasets may still appear, but they must be labelled as demonstration datasets and should not replace the capstone thread.
+Use one anchor dataset from Day 2 through Day 7. Demonstration datasets
+may still appear, but they must be labelled as demonstration datasets
+and should not replace the capstone thread.
 
-\begin{longtable}{p{0.18\linewidth}p{0.76\linewidth}}
-\toprule
-Day & Capstone progress \\
-\midrule
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Day
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Capstone progress
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
 Day 1 & Confirm software setup and complete a baseline task \\
-Day 2 & Select a research question, clean the anchor dataset and document variables \\
+Day 2 & Select a research question, clean the anchor dataset and
+document variables \\
 Day 3 & Produce exploratory figures and write initial observations \\
-Day 4 & Perform one inferential analysis linked to the research question \\
+Day 4 & Perform one inferential analysis linked to the research
+question \\
 Day 5 & Fit and diagnose the principal statistical model \\
 Day 6 & Recreate or examine part of the model from its equation \\
 Day 7 & Integrate, render, peer-review and present the report \\
-\bottomrule
 \end{longtable}
 
-By the start of Day 7, every participant should already have a cleaned dataset, a defined research question, at least two visualisations, one inferential result or model and draft interpretations.
+By the start of Day 7, every participant should already have a cleaned
+dataset, a defined research question, at least two visualisations, one
+inferential result or model and draft interpretations.
 
-\section{4. Assessment and evidence}
+\hypertarget{assessment-and-evidence}{%
+\subsection{4. Assessment and evidence}\label{assessment-and-evidence}}
 
-Assessment is evidence-based and practical. Participants maintain a workshop evidence log with four checks: evidence produced, participant check, peer check and capstone update.
+Assessment is evidence-based and practical. Participants maintain a
+workshop evidence log with four checks: evidence produced, participant
+check, peer check and capstone update.
 
-The same short task should be attempted on Day 1 and repeated on Day 7 with an equivalent dataset:
+The same short task should be attempted on Day 1 and repeated on Day 7
+with an equivalent dataset:
 
 \begin{enumerate}
-\item Import a small dataset.
-\item Identify missing or invalid values.
-\item Produce one numerical summary and one labelled plot.
-\item Write three sentences interpreting the result for a non-technical reader.
-\item Save the script, output and interpretation in the project folder.
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Import a small dataset.
+\item
+  Identify missing or invalid values.
+\item
+  Produce one numerical summary and one labelled plot.
+\item
+  Write three sentences interpreting the result for a non-technical
+  reader.
+\item
+  Save the script, output and interpretation in the project folder.
 \end{enumerate}
 
-\section{5. Curriculum at a glance}
+\hypertarget{curriculum-at-a-glance}{%
+\subsection{5. Curriculum at a glance}\label{curriculum-at-a-glance}}
 
-\begin{longtable}{p{0.18\linewidth}p{0.19\linewidth}p{0.19\linewidth}p{0.19\linewidth}p{0.19\linewidth}}
-\toprule
-Day & Session title & Core live focus & Daily deliverable & Capstone link \\
-\midrule
-1 & Getting Comfortable with R & RStudio projects, assignment, vectors, indexing, missing values, data frames, descriptive statistics and reading error messages & Working R project and first script & Baseline task and software readiness \\
-2 & Importing, Cleaning and Preparing Data & Import, inspect, flag invalid values, standardise categories, handle missingness, remove duplicates, export clean data & Clean anchor dataset, data-quality report and data dictionary & Research question, cleaned data and variable documentation \\
-3 & Exploratory Data Analysis and Statistical Graphics & Question-led plot choice, bar charts, histograms, box plots, scatter plots, labels, themes, export and interpretation & Three interpreted graphics & Initial visual evidence for the capstone \\
-4 & Probability, Sampling, Simulation and Inference & \texttt{d/p/q/r} functions, \texttt{set.seed()}, one simulation, one CLT demonstration, one confidence interval, test selection and plain-language reporting & Inference or simulation notebook & One inferential answer to the capstone question \\
-5 & Regression, ANOVA and Generalised Linear Models & Formula notation, multiple linear regression, categorical predictors, one interaction, diagnostics, one-way ANOVA and reporting & Diagnosed model report & Principal model for the capstone \\
-6 & Coding Statistical Models from Their Equations & Matrix operations, design matrices, OLS derivation, custom function, validation against \texttt{lm()} and one numerical failure mode & Equation-based implementation & Mathematical audit of part of the model \\
-7 & Reproducible Research and Capstone Presentation & Project organisation, Quarto basics, code-cell options, multi-format rendering, clean-session checks, peer review and presentations & Reproducible final report & Integrated capstone report and presentation \\
-\bottomrule
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Day
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Session title
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Core live focus
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Daily deliverable
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Capstone link
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+1 & Getting Comfortable with R & RStudio projects, assignment, vectors,
+indexing, missing values, data frames, descriptive statistics and
+reading error messages & Working R project and first script & Baseline
+task and software readiness \\
+2 & Importing, Cleaning and Preparing Data & Import, inspect, flag
+invalid values, standardise categories, handle missingness, remove
+duplicates, export clean data & Clean anchor dataset, data-quality
+report and data dictionary & Research question, cleaned data and
+variable documentation \\
+3 & Exploratory Data Analysis and Statistical Graphics & Question-led
+plot choice, bar charts, histograms, box plots, scatter plots, labels,
+themes, export and interpretation & Three interpreted graphics & Initial
+visual evidence for the capstone \\
+4 & Probability, Sampling, Simulation and Inference & \texttt{d/p/q/r}
+functions, \texttt{set.seed()}, one simulation, one CLT demonstration,
+one confidence interval, test selection and plain-language reporting &
+Inference or simulation notebook & One inferential answer to the
+capstone question \\
+5 & Regression, ANOVA and Generalised Linear Models & Formula notation,
+multiple linear regression, categorical predictors, one interaction,
+diagnostics, one-way ANOVA and reporting & Diagnosed model report &
+Principal model for the capstone \\
+6 & Coding Statistical Models from Their Equations & Matrix operations,
+design matrices, OLS derivation, custom function, validation against
+\texttt{lm()} and one numerical failure mode & Equation-based
+implementation & Mathematical audit of part of the model \\
+7 & Reproducible Research and Capstone Presentation & Project
+organisation, Quarto basics, code-cell options, multi-format rendering,
+clean-session checks, peer review and presentations & Reproducible final
+report & Integrated capstone report and presentation \\
 \end{longtable}
 
-\section{6. Day-by-day teaching plan}
+\hypertarget{day-by-day-teaching-plan}{%
+\subsection{6. Day-by-day teaching
+plan}\label{day-by-day-teaching-plan}}
 
-\subsection{Day 1: Getting Comfortable with R}
+\hypertarget{day-1-getting-comfortable-with-r}{%
+\subsubsection{Day 1: Getting Comfortable with
+R}\label{day-1-getting-comfortable-with-r}}
 
-\textbf{Purpose:} Build confidence with R as a calculator, programming language and statistical working environment.
+\textbf{Purpose:} Build confidence with R as a calculator, programming
+language and statistical working environment.
 
 \textbf{Core workshop activity}
 
 \begin{itemize}
-\item Distinguish R, RStudio, scripts and the console.
-\item Create an RStudio project and use relative paths.
-\item Use assignment, object names and comments.
-\item Create and inspect vectors.
-\item Use indexing and logical conditions.
-\item Represent and handle missing values with \texttt{NA} and \texttt{na.rm}.
-\item Create simple data frames.
-\item Compute means, medians, standard deviations and simple grouped summaries.
-\item Read common error messages and use help.
+\tightlist
+\item
+  Distinguish R, RStudio, scripts and the console.
+\item
+  Create an RStudio project and use relative paths.
+\item
+  Use assignment, object names and comments.
+\item
+  Create and inspect vectors.
+\item
+  Use indexing and logical conditions.
+\item
+  Represent and handle missing values with \texttt{NA} and
+  \texttt{na.rm}.
+\item
+  Create simple data frames.
+\item
+  Compute means, medians, standard deviations and simple grouped
+  summaries.
+\item
+  Read common error messages and use help.
 \end{itemize}
 
 \textbf{Optional demonstration}
 
 \begin{itemize}
-\item Matrices and basic matrix operations.
-\item Factors beyond simple category labels.
-\item Lists and detailed storage-type discussion using \texttt{typeof()}.
+\tightlist
+\item
+  Matrices and basic matrix operations.
+\item
+  Factors beyond simple category labels.
+\item
+  Lists and detailed storage-type discussion using \texttt{typeof()}.
 \end{itemize}
 
 \textbf{Reference or take-home material}
 
 \begin{itemize}
-\item Extended debugging examples.
-\item More practice with subsetting and data structures.
+\tightlist
+\item
+  Extended debugging examples.
+\item
+  More practice with subsetting and data structures.
 \end{itemize}
 
-\textbf{Daily deliverable:} A project folder containing a script that creates objects, summarises a small dataset and records the Day 1 baseline task.
+\textbf{Daily deliverable:} A project folder containing a script that
+creates objects, summarises a small dataset and records the Day 1
+baseline task.
 
-\subsection{Day 2: Importing, Cleaning and Preparing Data}
+\hypertarget{day-2-importing-cleaning-and-preparing-data}{%
+\subsubsection{Day 2: Importing, Cleaning and Preparing
+Data}\label{day-2-importing-cleaning-and-preparing-data}}
 
-\textbf{Purpose:} Turn messy raw data into a documented analysis-ready dataset.
+\textbf{Purpose:} Turn messy raw data into a documented analysis-ready
+dataset.
 
 \textbf{Core workshop activity}
 
 \begin{itemize}
-\item Import CSV data with \texttt{readr}.
-\item Keep raw data unchanged and create a separate working object.
-\item Inspect structure, names, ranges and missingness before transforming.
-\item Flag invalid age, attendance, satisfaction, pre-test score and post-test score values.
-\item Standardise category labels.
-\item Identify and resolve duplicates.
-\item Produce a data-quality report and missingness report.
-\item Create a short data dictionary.
-\item Export clean data to \texttt{Data/processed/}.
+\tightlist
+\item
+  Import CSV data with \texttt{readr}.
+\item
+  Keep raw data unchanged and create a separate working object.
+\item
+  Inspect structure, names, ranges and missingness before transforming.
+\item
+  Flag invalid age, attendance, satisfaction, pre-test score and
+  post-test score values.
+\item
+  Standardise category labels.
+\item
+  Identify and resolve duplicates.
+\item
+  Produce a data-quality report and missingness report.
+\item
+  Create a short data dictionary.
+\item
+  Export clean data to \texttt{Data/processed/}.
 \end{itemize}
 
 \textbf{Optional demonstration}
 
 \begin{itemize}
-\item Reshaping with \texttt{pivot\_longer()} and \texttt{pivot\_wider()}.
-\item Importing Excel, SPSS, Stata and SAS files.
+\tightlist
+\item
+  Reshaping with \texttt{pivot\_longer()} and \texttt{pivot\_wider()}.
+\item
+  Importing Excel, SPSS, Stata and SAS files.
 \end{itemize}
 
 \textbf{Reference or take-home material}
 
 \begin{itemize}
-\item Audit trails for cleaning decisions.
-\item More examples of validation rules.
+\tightlist
+\item
+  Audit trails for cleaning decisions.
+\item
+  More examples of validation rules.
 \end{itemize}
 
-\textbf{Daily deliverable:} Clean anchor dataset, data-quality report, missingness report and data dictionary.
+\textbf{Daily deliverable:} Clean anchor dataset, data-quality report,
+missingness report and data dictionary.
 
-\subsection{Day 3: Exploratory Data Analysis and Statistical Graphics}
+\hypertarget{day-3-exploratory-data-analysis-and-statistical-graphics}{%
+\subsubsection{Day 3: Exploratory Data Analysis and Statistical
+Graphics}\label{day-3-exploratory-data-analysis-and-statistical-graphics}}
 
-\textbf{Purpose:} Choose graphics from research questions and interpret visual evidence responsibly.
+\textbf{Purpose:} Choose graphics from research questions and interpret
+visual evidence responsibly.
 
 \textbf{Core workshop activity}
 
 \begin{itemize}
-\item Start with a research question rather than a chart type.
-\item Use the grammar of graphics: data, aesthetics, geoms, scales, labels and themes.
-\item Make and interpret bar charts, histograms, box plots and scatter plots.
-\item Add clear titles, axis labels and units.
-\item Export publication-ready graphics.
-\item Write cautious visual claims that do not overstate causality.
+\tightlist
+\item
+  Start with a research question rather than a chart type.
+\item
+  Use the grammar of graphics: data, aesthetics, geoms, scales, labels
+  and themes.
+\item
+  Make and interpret bar charts, histograms, box plots and scatter
+  plots.
+\item
+  Add clear titles, axis labels and units.
+\item
+  Export publication-ready graphics.
+\item
+  Write cautious visual claims that do not overstate causality.
 \end{itemize}
 
 \textbf{Optional demonstration}
 
 \begin{itemize}
-\item Density plots and violin plots, including warnings for small samples.
-\item Two-way categorical graphics.
-\item Faceting and annotations.
-\item Missing-data visualisation.
-\item Honest versus misleading graphics.
+\tightlist
+\item
+  Density plots and violin plots, including warnings for small samples.
+\item
+  Two-way categorical graphics.
+\item
+  Faceting and annotations.
+\item
+  Missing-data visualisation.
+\item
+  Honest versus misleading graphics.
 \end{itemize}
 
 \textbf{Reference or take-home material}
 
 \begin{itemize}
-\item Theme customisation.
-\item Multiple annotation approaches.
+\tightlist
+\item
+  Theme customisation.
+\item
+  Multiple annotation approaches.
 \end{itemize}
 
-\textbf{Daily deliverable:} Three exported graphics from the anchor dataset, each with a two- or three-sentence interpretation.
+\textbf{Daily deliverable:} Three exported graphics from the anchor
+dataset, each with a two- or three-sentence interpretation.
 
-\subsection{Day 4: Probability, Sampling, Simulation and Inference}
+\hypertarget{day-4-probability-sampling-simulation-and-inference}{%
+\subsubsection{Day 4: Probability, Sampling, Simulation and
+Inference}\label{day-4-probability-sampling-simulation-and-inference}}
 
-\textbf{Purpose:} Connect probability models, sampling variation and inferential reporting in R.
+\textbf{Purpose:} Connect probability models, sampling variation and
+inferential reporting in R.
 
 \textbf{Core workshop activity}
 
 \begin{itemize}
-\item Use the \texttt{d}, \texttt{p}, \texttt{q} and \texttt{r} distribution-function pattern.
-\item Set random seeds for reproducible simulation.
-\item Run one simulation experiment.
-\item Demonstrate the Central Limit Theorem with repeated samples.
-\item Estimate and interpret one confidence interval.
-\item Select a test based on study design.
-\item Run one independent or paired test on the anchor dataset.
-\item Report statistical and practical significance in plain language.
+\tightlist
+\item
+  Use the \texttt{d}, \texttt{p}, \texttt{q} and \texttt{r}
+  distribution-function pattern.
+\item
+  Set random seeds for reproducible simulation.
+\item
+  Run one simulation experiment.
+\item
+  Demonstrate the Central Limit Theorem with repeated samples.
+\item
+  Estimate and interpret one confidence interval.
+\item
+  Select a test based on study design.
+\item
+  Run one independent or paired test on the anchor dataset.
+\item
+  Report statistical and practical significance in plain language.
 \end{itemize}
 
 \textbf{Optional demonstration}
 
 \begin{itemize}
-\item Coverage simulation.
-\item Chi-square and Fisher's exact tests.
-\item Non-parametric alternatives.
-\item Detailed effect-size calculations.
-\item Additional theorem demonstrations.
+\tightlist
+\item
+  Coverage simulation.
+\item
+  Chi-square and Fisher's exact tests.
+\item
+  Non-parametric alternatives.
+\item
+  Detailed effect-size calculations.
+\item
+  Additional theorem demonstrations.
 \end{itemize}
 
 \textbf{Reference or take-home material}
 
 \begin{itemize}
-\item Assumption checks for multiple tests.
-\item Templates for reporting p-values and confidence intervals.
+\tightlist
+\item
+  Assumption checks for multiple tests.
+\item
+  Templates for reporting p-values and confidence intervals.
 \end{itemize}
 
-\textbf{Daily deliverable:} A short inference notebook or script answering one capstone question.
+\textbf{Daily deliverable:} A short inference notebook or script
+answering one capstone question.
 
-\subsection{Day 5: Regression, ANOVA and Generalised Linear Models}
+\hypertarget{day-5-regression-anova-and-generalised-linear-models}{%
+\subsubsection{Day 5: Regression, ANOVA and Generalised Linear
+Models}\label{day-5-regression-anova-and-generalised-linear-models}}
 
-\textbf{Purpose:} Fit, diagnose and report a model that addresses a statistical question.
+\textbf{Purpose:} Fit, diagnose and report a model that addresses a
+statistical question.
 
 \textbf{Core workshop activity}
 
 \begin{itemize}
-\item Translate a research question into formula notation.
-\item Fit and interpret a multiple linear regression model.
-\item Include categorical predictors and explain reference categories.
-\item Fit and interpret one interaction.
-\item Check residuals, fitted values and influential observations.
-\item Run and interpret a one-way ANOVA where appropriate.
-\item Report coefficients, uncertainty and model limitations.
+\tightlist
+\item
+  Translate a research question into formula notation.
+\item
+  Fit and interpret a multiple linear regression model.
+\item
+  Include categorical predictors and explain reference categories.
+\item
+  Fit and interpret one interaction.
+\item
+  Check residuals, fitted values and influential observations.
+\item
+  Run and interpret a one-way ANOVA where appropriate.
+\item
+  Report coefficients, uncertainty and model limitations.
 \end{itemize}
 
 \textbf{Optional demonstration}
 
 \begin{itemize}
-\item Logistic regression.
-\item Poisson regression.
-\item Nested-model comparison.
-\item Advanced influence measures.
-\item Two-way ANOVA if time allows.
+\tightlist
+\item
+  Logistic regression.
+\item
+  Poisson regression.
+\item
+  Nested-model comparison.
+\item
+  Advanced influence measures.
+\item
+  Two-way ANOVA if time allows.
 \end{itemize}
 
 \textbf{Reference or take-home material}
 
 \begin{itemize}
-\item Model-selection cautions.
-\item Post-hoc comparison examples.
+\tightlist
+\item
+  Model-selection cautions.
+\item
+  Post-hoc comparison examples.
 \end{itemize}
 
-\textbf{Daily deliverable:} Diagnosed model report for the capstone dataset.
+\textbf{Daily deliverable:} Diagnosed model report for the capstone
+dataset.
 
-\subsection{Day 6: Coding Statistical Models from Their Equations}
+\hypertarget{day-6-coding-statistical-models-from-their-equations}{%
+\subsubsection{Day 6: Coding Statistical Models from Their
+Equations}\label{day-6-coding-statistical-models-from-their-equations}}
 
-\textbf{Purpose:} Show how model equations become matrix calculations and reusable R code.
+\textbf{Purpose:} Show how model equations become matrix calculations
+and reusable R code.
 
 \textbf{Core workshop activity}
 
 \begin{itemize}
-\item Read statistical notation and identify dimensions.
-\item Build a design matrix.
-\item Derive and compute ordinary least squares estimates.
-\item Calculate fitted values and residuals.
-\item Implement a small custom OLS function.
-\item Validate the function against \texttt{lm()}.
-\item Discuss one numerical failure mode such as rank deficiency or poor conditioning.
+\tightlist
+\item
+  Read statistical notation and identify dimensions.
+\item
+  Build a design matrix.
+\item
+  Derive and compute ordinary least squares estimates.
+\item
+  Calculate fitted values and residuals.
+\item
+  Implement a small custom OLS function.
+\item
+  Validate the function against \texttt{lm()}.
+\item
+  Discuss one numerical failure mode such as rank deficiency or poor
+  conditioning.
 \end{itemize}
 
-\textbf{Important implementation note:} The first custom OLS function should either assume an intercept explicitly or reject interceptless formulas with a clear error. R-squared, degrees of freedom and the overall F-test require adjustment when there is no intercept.
+\textbf{Important implementation note:} The first custom OLS function
+should either assume an intercept explicitly or reject interceptless
+formulas with a clear error. R-squared, degrees of freedom and the
+overall F-test require adjustment when there is no intercept.
 
 \textbf{Optional demonstration}
 
 \begin{itemize}
-\item Bootstrap uncertainty.
-\item Maximum likelihood.
-\item Detailed conditioning analysis.
-\item Extended inference calculations.
+\tightlist
+\item
+  Bootstrap uncertainty.
+\item
+  Maximum likelihood.
+\item
+  Detailed conditioning analysis.
+\item
+  Extended inference calculations.
 \end{itemize}
 
 \textbf{Reference or take-home material}
 
 \begin{itemize}
-\item QR-based fitting and why explicit matrix inversion is usually avoided.
-\item Interceptless-model extensions.
+\tightlist
+\item
+  QR-based fitting and why explicit matrix inversion is usually avoided.
+\item
+  Interceptless-model extensions.
 \end{itemize}
 
-\textbf{Daily deliverable:} Equation-based implementation that reproduces or audits part of the Day 5 model.
+\textbf{Daily deliverable:} Equation-based implementation that
+reproduces or audits part of the Day 5 model.
 
-\subsection{Day 7: Reproducible Research and Capstone Presentation}
+\hypertarget{day-7-reproducible-research-and-capstone-presentation}{%
+\subsubsection{Day 7: Reproducible Research and Capstone
+Presentation}\label{day-7-reproducible-research-and-capstone-presentation}}
 
-\textbf{Purpose:} Convert the analysis into a reproducible report and communicate it clearly.
+\textbf{Purpose:} Convert the analysis into a reproducible report and
+communicate it clearly.
 
 \textbf{Core workshop activity}
 
 \begin{itemize}
-\item Organise projects into raw data, processed data, scripts, outputs and reports.
-\item Use relative paths and document the project with a README.
-\item Create a Quarto report with YAML metadata.
-\item Use code-cell options for readable output.
-\item Include figures, tables, equations and inline results.
-\item Render to HTML, Word and PDF where tools are available.
-\item Test the report in a clean session.
-\item Include \texttt{sessionInfo()}.
-\item Conduct peer review with a short checklist.
-\item Present the capstone in five minutes.
+\tightlist
+\item
+  Organise projects into raw data, processed data, scripts, outputs and
+  reports.
+\item
+  Use relative paths and document the project with a README.
+\item
+  Create a Quarto report with YAML metadata.
+\item
+  Use code-cell options for readable output.
+\item
+  Include figures, tables, equations and inline results.
+\item
+  Render to HTML, Word and PDF where tools are available.
+\item
+  Test the report in a clean session.
+\item
+  Include \texttt{sessionInfo()}.
+\item
+  Conduct peer review with a short checklist.
+\item
+  Present the capstone in five minutes.
 \end{itemize}
 
 \textbf{Optional demonstration}
 
 \begin{itemize}
-\item Confidential-data handling.
-\item Multi-format formatting differences.
-\item Advanced Quarto options.
+\tightlist
+\item
+  Confidential-data handling.
+\item
+  Multi-format formatting differences.
+\item
+  Advanced Quarto options.
 \end{itemize}
 
 \textbf{Reference or take-home material}
 
 \begin{itemize}
-\item Troubleshooting rendering problems.
-\item Report-polishing checklist.
+\tightlist
+\item
+  Troubleshooting rendering problems.
+\item
+  Report-polishing checklist.
 \end{itemize}
 
-\textbf{Daily deliverable:} Rendered capstone report and short presentation.
+\textbf{Daily deliverable:} Rendered capstone report and short
+presentation.
 
-\section{7. Minimum package requirements}
+\hypertarget{minimum-package-requirements}{%
+\subsection{7. Minimum package
+requirements}\label{minimum-package-requirements}}
 
-The final distribution should include:
+The final distribution includes:
 
-\begin{verbatim}
-R-Workshop/
-├── Curriculum/
-│   ├── R Workshop - Curriculum.md
-│   ├── R Workshop - Curriculum.tex
-│   └── R Workshop - Curriculum.pdf
-├── Materials/
-│   ├── Day 1.tex
-│   ├── Day 1.pdf
-│   ├── ...
-│   ├── Day 7.tex
-│   └── Day 7.pdf
-├── Data/
-│   ├── raw/
-│   └── processed/
-├── Starter-Scripts/
-├── Solution-Scripts/
-├── Quarto-Template/
-├── install_packages.R
-├── Workshop-Evidence-Log.md
-└── README.md
-\end{verbatim}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dojo{-}r{-}workshop/}
+\NormalTok{|{-}{-} Curriculum/}
+\NormalTok{|   |{-}{-} R Workshop {-} Curriculum.md}
+\NormalTok{|   |{-}{-} R Workshop {-} Curriculum.tex}
+\NormalTok{|   \textasciigrave{}{-}{-} R Workshop {-} Curriculum.pdf}
+\NormalTok{|{-}{-} Materials/}
+\NormalTok{|   |{-}{-} Day 1/}
+\NormalTok{|   |   |{-}{-} R Workshop {-} Day 1 {-} Getting Comfortable with R.md}
+\NormalTok{|   |   |{-}{-} ... .tex}
+\NormalTok{|   |   \textasciigrave{}{-}{-} ... .pdf}
+\NormalTok{|   |{-}{-} Day 2/  (Importing, Cleaning and Preparing Data)}
+\NormalTok{|   |{-}{-} Day 3/  (Exploratory Data Analysis and Statistical Graphics)}
+\NormalTok{|   |{-}{-} Day 4/  (Probability, Sampling, Simulation and Inference)}
+\NormalTok{|   |{-}{-} Day 5/  (Regression, ANOVA and Generalised Linear Models)}
+\NormalTok{|   |{-}{-} Day 6/  (Coding Statistical Models from Their Equations)}
+\NormalTok{|   \textasciigrave{}{-}{-} Day 7/  (Reproducible Research and Capstone Presentation)}
+\NormalTok{|{-}{-} Data/}
+\NormalTok{|   |{-}{-} raw/}
+\NormalTok{|   |   |{-}{-} anchor\_dataset.csv}
+\NormalTok{|   |   |{-}{-} day1\_baseline\_sample.csv}
+\NormalTok{|   |   \textasciigrave{}{-}{-} day7\_baseline\_sample.csv}
+\NormalTok{|   \textasciigrave{}{-}{-} processed/  (created by Day 2 pipeline; not committed)}
+\NormalTok{|{-}{-} Starter{-}Scripts/}
+\NormalTok{|   |{-}{-} day1\_baseline.R}
+\NormalTok{|   |{-}{-} day2\_anchor\_cleaning.R}
+\NormalTok{|   |{-}{-} day3\_eda.R}
+\NormalTok{|   |{-}{-} day4\_inference.R}
+\NormalTok{|   |{-}{-} day5\_regression.R}
+\NormalTok{|   \textasciigrave{}{-}{-} day6\_manual\_ols.R}
+\NormalTok{|{-}{-} Final{-}Scripts/}
+\NormalTok{|   |{-}{-} day1\_final.R  ...  day7\_final.R  (complete guided{-}coding code, one per day)}
+\NormalTok{|{-}{-} Solution{-}Scripts/}
+\NormalTok{|   |{-}{-} day1\_practice\_solution.R}
+\NormalTok{|   |{-}{-} day2\_anchor\_cleaning\_solution.R}
+\NormalTok{|   |{-}{-} day3\_eda\_solution.R}
+\NormalTok{|   |{-}{-} day4\_inference\_solution.R}
+\NormalTok{|   |{-}{-} day5\_regression\_solution.R}
+\NormalTok{|   |{-}{-} day6\_manual\_ols\_solution.R}
+\NormalTok{|   \textasciigrave{}{-}{-} day7\_capstone\_report\_solution.qmd}
+\NormalTok{|{-}{-} Quarto{-}Template/}
+\NormalTok{|   \textasciigrave{}{-}{-} capstone{-}report.qmd}
+\NormalTok{|{-}{-} install\_packages.R}
+\NormalTok{|{-}{-} Workshop{-}Evidence{-}Log.md}
+\NormalTok{\textasciigrave{}{-}{-} README.md}
+\end{Highlighting}
+\end{Shaded}
 
-Before release, recover or recreate the Day 3 and Day 5 LaTeX sources and compile all curriculum and workbook sources from a clean environment.
+Each \texttt{Materials/Day\ N/} folder holds the matching \texttt{.md},
+\texttt{.tex} and \texttt{.pdf} for that day, named
+\texttt{R\ Workshop\ -\ Day\ N\ -\ \textless{}Title\textgreater{}}. All
+seven days' sources compile cleanly from the workbook \texttt{.md} files
+using the shared pandoc + LaTeX template.
 
-\section{8. Facilitator checklist}
+\hypertarget{facilitator-checklist}{%
+\subsection{8. Facilitator checklist}\label{facilitator-checklist}}
 
 \begin{itemize}
-\item Confirm R, RStudio, Quarto and required R packages are installed.
-\item Confirm the anchor dataset is available in \texttt{Data/raw/}.
-\item Confirm each workbook section is labelled Core, Optional demonstration or Reference/take-home material.
-\item Confirm the Day 2 cleaning pipeline creates all promised outputs.
-\item Confirm Day 7 is used for integration and presentation, not for starting the capstone.
-\item Confirm participants complete the evidence log each day.
+\tightlist
+\item
+  Confirm R, RStudio and required R packages
+  (\texttt{install\_packages.R}) are installed.
+\item
+  Confirm the Quarto CLI is installed separately for Day 7 (the
+  \texttt{quarto} R package alone is not sufficient); have HTML as a
+  fallback output format if PDF rendering via LaTeX is not available.
+\item
+  Confirm the anchor dataset and both baseline samples are available in
+  \texttt{Data/raw/}.
+\item
+  Confirm each workbook section is labelled Core, Optional demonstration
+  or Reference/take-home material.
+\item
+  Confirm the Day 2 cleaning pipeline creates all promised outputs in
+  \texttt{Data/processed/}.
+\item
+  Confirm Day 7 is used for integration and presentation, not for
+  starting the capstone.
+\item
+  Confirm participants complete the evidence log each day.
 \end{itemize}
 \end{document}

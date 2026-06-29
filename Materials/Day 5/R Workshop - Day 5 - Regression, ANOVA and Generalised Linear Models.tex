@@ -1,0 +1,418 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=0.8in]{geometry}
+\usepackage{calc}
+\usepackage{array,longtable,booktabs}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{fancyvrb}
+\usepackage{fvextra}
+\usepackage{framed}
+\usepackage{color}
+\fvset{breaklines=true, breakanywhere=true}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,breakanywhere,commandchars=\\\{\}}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\setlist[itemize]{leftmargin=*}
+\setlist[enumerate]{leftmargin=*}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\title{R Workshop -- Day 5 -- Regression, ANOVA and Generalised Linear Models}
+\author{Applied R for Statistical Teaching, Research and Reproducible Analysis}
+\date{}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\hypertarget{r-workshop-day-5-regression-anova-and-generalised-linear-models}{%
+\section{R Workshop -- Day 5 -- Regression, ANOVA and Generalised Linear
+Models}\label{r-workshop-day-5-regression-anova-and-generalised-linear-models}}
+
+\textbf{Session 5 of 7 \textbar{} Duration: 3 hours} \textbf{Programme:}
+Applied R for Statistical Teaching, Research and Reproducible Analysis
+
+\hypertarget{learning-objectives}{%
+\subsection{Learning objectives}\label{learning-objectives}}
+
+By the end of this session you will be able to:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Translate a research question into R formula notation.
+\item
+  Fit and interpret a multiple linear regression model with
+  \texttt{lm()}.
+\item
+  Include categorical predictors and correctly explain the reference
+  category.
+\item
+  Fit and interpret one interaction term.
+\item
+  Check residuals, fitted values and influential observations.
+\item
+  Run and interpret a one-way ANOVA where appropriate.
+\item
+  Report coefficients, uncertainty and model limitations in plain
+  language.
+\end{enumerate}
+
+\hypertarget{capstone-link}{%
+\subsection{Capstone link}\label{capstone-link}}
+
+Today you fit the \textbf{principal statistical model} for your
+capstone: a regression of post-training score on pre-training score,
+attendance and training track (with an interaction), directly answering
+the Day 2 research question.
+
+\hypertarget{segment-plan-3-hours}{%
+\subsection{Segment plan (3 hours)}\label{segment-plan-3-hours}}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3000}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Segment
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Time
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Purpose
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Opening and recap & 10 min & Recap Day 4 inference, preview today's
+model \\
+Concept bridge & 25 min & Formula notation, what a coefficient means \\
+Guided coding & 60 min & Fit, extend and diagnose a regression model \\
+Participant practice & 45 min & Fit, interpret and diagnose the capstone
+model \\
+Interpretation and reporting & 25 min & Report coefficients and
+limitations \\
+Evidence log and capstone update & 15 min & Save the diagnosed model
+report \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{part-1-concept-bridge-core-workshop-activity}{%
+\subsection{Part 1 -- Concept bridge (Core workshop
+activity)}\label{part-1-concept-bridge-core-workshop-activity}}
+
+\hypertarget{formula-notation}{%
+\subsubsection{Formula notation}\label{formula-notation}}
+
+\texttt{lm(post\_score\ \textasciitilde{}\ pre\_score\ +\ attendance\ +\ training\_track,\ data\ =\ lecturers)}
+reads as: model \texttt{post\_score} as a function of
+\texttt{pre\_score}, \texttt{attendance} and \texttt{training\_track}.
+The left-hand side is the outcome; the right-hand side lists predictors
+separated by \texttt{+}. An interaction between two predictors is
+written \texttt{a:b}, or \texttt{a*b} as shorthand for
+\texttt{a\ +\ b\ +\ a:b}.
+
+\hypertarget{what-a-coefficient-means}{%
+\subsubsection{What a coefficient
+means}\label{what-a-coefficient-means}}
+
+For a numeric predictor, the coefficient is the expected change in the
+outcome for a one-unit increase in that predictor, holding other
+predictors in the model constant. For a categorical predictor, R picks
+one level as the \textbf{reference category} (by default, the first
+alphabetically) and reports every other level's coefficient as a
+difference \emph{from that reference}, holding other predictors
+constant.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{part-2-guided-coding-core-workshop-activity}{%
+\subsection{Part 2 -- Guided coding (Core workshop
+activity)}\label{part-2-guided-coding-core-workshop-activity}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(broom)}
+
+\NormalTok{lecturers }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"Data/processed/anchor\_dataset\_clean.csv"}\NormalTok{, }\AttributeTok{show\_col\_types =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{training\_track =} \FunctionTok{factor}\NormalTok{(training\_track, }\AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Online"}\NormalTok{, }\StringTok{"In{-}Person"}\NormalTok{, }\StringTok{"Blended"}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+Setting the factor levels explicitly fixes the reference category at
+``Online'' rather than leaving it to alphabetical order, and documents
+the choice.
+
+\hypertarget{multiple-linear-regression}{%
+\subsubsection{2.1 Multiple linear
+regression}\label{multiple-linear-regression}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model\_main }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(post\_score }\SpecialCharTok{\textasciitilde{}}\NormalTok{ pre\_score }\SpecialCharTok{+}\NormalTok{ attendance }\SpecialCharTok{+}\NormalTok{ training\_track, }\AttributeTok{data =}\NormalTok{ lecturers)}
+\FunctionTok{summary}\NormalTok{(model\_main)}
+\FunctionTok{tidy}\NormalTok{(model\_main, }\AttributeTok{conf.int =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Reading the output:} the intercept is the predicted post-score
+for an Online participant with \texttt{pre\_score\ =\ 0} and
+\texttt{attendance\ =\ 0} -- rarely meaningful on its own, but necessary
+algebraically. The \texttt{training\_trackIn-Person} and
+\texttt{training\_trackBlended} coefficients are the expected score
+difference for those tracks \emph{relative to Online}, holding pre-score
+and attendance fixed.
+
+\hypertarget{one-interaction}{%
+\subsubsection{2.2 One interaction}\label{one-interaction}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model\_interaction }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(post\_score }\SpecialCharTok{\textasciitilde{}}\NormalTok{ pre\_score }\SpecialCharTok{+}\NormalTok{ attendance }\SpecialCharTok{*}\NormalTok{ training\_track, }\AttributeTok{data =}\NormalTok{ lecturers)}
+\FunctionTok{summary}\NormalTok{(model\_interaction)}
+\end{Highlighting}
+\end{Shaded}
+
+The interaction \texttt{attendance:training\_track} asks: does the
+\emph{effect of attendance} on post-score differ by track? Compare
+\texttt{model\_main} and \texttt{model\_interaction} with
+\texttt{anova(model\_main,\ model\_interaction)} to see whether the
+interaction earns its place in the model.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{anova}\NormalTok{(model\_main, model\_interaction)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{diagnostics}{%
+\subsubsection{2.3 Diagnostics}\label{diagnostics}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{))}
+\FunctionTok{plot}\NormalTok{(model\_main)}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+Read the four panels as: residuals vs fitted (look for curvature -- a
+violation of linearity), Q-Q plot (look for departure from the line --
+non-normal residuals), scale-location (look for a fan shape --
+non-constant variance), and residuals vs leverage (look for points
+outside Cook's distance contours -- influential observations).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{influence\_check }\OtherTok{\textless{}{-}} \FunctionTok{augment}\NormalTok{(model\_main) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(.cooksd)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(.rownames, .cooksd) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{head}\NormalTok{(}\DecValTok{5}\NormalTok{)}
+\NormalTok{influence\_check}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{one-way-anova}{%
+\subsubsection{2.4 One-way ANOVA}\label{one-way-anova}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{anova\_track }\OtherTok{\textless{}{-}} \FunctionTok{aov}\NormalTok{(post\_score }\SpecialCharTok{\textasciitilde{}}\NormalTok{ training\_track, }\AttributeTok{data =}\NormalTok{ lecturers)}
+\FunctionTok{summary}\NormalTok{(anova\_track)}
+\end{Highlighting}
+\end{Shaded}
+
+A one-way ANOVA on
+\texttt{post\_score\ \textasciitilde{}\ training\_track} tests whether
+mean post-score differs across the three tracks, ignoring
+\texttt{pre\_score} and \texttt{attendance}. It answers a narrower
+question than the regression model above, and is appropriate when you
+genuinely only care about one categorical factor.
+
+\hypertarget{reporting}{%
+\subsubsection{2.5 Reporting}\label{reporting}}
+
+\textbf{Reporting template:} ``Controlling for pre-training score and
+attendance, {[}In-Person/Blended{]} participants scored on average
+\texttt{coefficient} points {[}higher/lower{]} than Online participants
+(95\% CI: \texttt{lower} to \texttt{upper}, p = \texttt{p\_value}). The
+model explained \texttt{r.squared} of the variance in post-training
+scores. {[}Note any diagnostic concern, e.g.~one influential observation
+flagged by Cook's distance.{]}''
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{glance}\NormalTok{(model\_main)}\SpecialCharTok{$}\NormalTok{r.squared}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{part-3-participant-practice-core-workshop-activity}{%
+\subsection{Part 3 -- Participant practice (Core workshop
+activity)}\label{part-3-participant-practice-core-workshop-activity}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Fit \texttt{model\_main} and \texttt{model\_interaction} on your own
+  copy of the cleaned anchor dataset.
+\item
+  Write, in plain language, what the \texttt{training\_track}
+  coefficients mean relative to your chosen reference category.
+\item
+  Run the four-panel diagnostic plot and note, in a comment, anything
+  that concerns you (or confirms the model is reasonable).
+\item
+  Identify the single most influential observation by Cook's distance
+  and decide, with a one-sentence justification, whether it should be
+  investigated further or left in the model.
+\item
+  Run the one-way ANOVA on \texttt{training\_track} alone and compare
+  its conclusion to the regression's \texttt{training\_track}
+  coefficients.
+\item
+  Save a short written model report
+  (\texttt{Outputs/day5\_model\_report.md} or \texttt{.R} with comments)
+  covering points 1-5.
+\end{enumerate}
+
+A facilitator-reviewed solution is in
+\texttt{Solution-Scripts/day5\_regression\_solution.R}.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{optional-demonstration}{%
+\subsection{Optional demonstration}\label{optional-demonstration}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Logistic regression} -- model \texttt{completed} (Yes/No) with
+  \texttt{glm(completed\_numeric\ \textasciitilde{}\ ...,\ family\ =\ binomial)}.
+\item
+  \textbf{Poisson regression} -- for count outcomes, if a suitable
+  variable is available or simulated.
+\item
+  \textbf{Nested-model comparison} --
+  \texttt{anova(model\_a,\ model\_b)} beyond the one interaction already
+  shown.
+\item
+  \textbf{Advanced influence measures} -- DFBETAS, DFFITS via
+  \texttt{car::influence.measures()}.
+\item
+  \textbf{Two-way ANOVA} --
+  \texttt{aov(post\_score\ \textasciitilde{}\ training\_track\ *\ institution\_type,\ data\ =\ lecturers)},
+  if time allows.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Optional: logistic regression on completion}
+\NormalTok{lecturers\_glm }\OtherTok{\textless{}{-}}\NormalTok{ lecturers }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate}\NormalTok{(}\AttributeTok{completed\_numeric =} \FunctionTok{if\_else}\NormalTok{(completed }\SpecialCharTok{==} \StringTok{"Yes"}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{))}
+\NormalTok{model\_logit }\OtherTok{\textless{}{-}} \FunctionTok{glm}\NormalTok{(completed\_numeric }\SpecialCharTok{\textasciitilde{}}\NormalTok{ attendance }\SpecialCharTok{+}\NormalTok{ satisfaction, }\AttributeTok{data =}\NormalTok{ lecturers\_glm, }\AttributeTok{family =}\NormalTok{ binomial)}
+\FunctionTok{summary}\NormalTok{(model\_logit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{reference-or-take-home-material}{%
+\subsection{Reference or take-home
+material}\label{reference-or-take-home-material}}
+
+\begin{itemize}
+\tightlist
+\item
+  Model-selection cautions: do not chase the highest R-squared by adding
+  every available variable; justify each predictor from the research
+  question.
+\item
+  Post-hoc comparison examples:
+  \texttt{emmeans::emmeans(anova\_track,\ pairwise\ \textasciitilde{}\ training\_track)}
+  for pairwise track comparisons after a significant ANOVA.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{daily-deliverable}{%
+\subsection{Daily deliverable}\label{daily-deliverable}}
+
+A diagnosed model report for the capstone dataset: the fitted model, its
+coefficients with confidence intervals, a diagnostic-plot summary, and a
+plain-language interpretation.
+
+\hypertarget{evidence-log-entry}{%
+\subsubsection{Evidence log entry}\label{evidence-log-entry}}
+
+Complete the Day 5 row in \texttt{Workshop-Evidence-Log.md}: name your
+principal model and note one limitation you would mention if presenting
+this result to a non-statistician.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{facilitator-notes}{%
+\subsection{Facilitator notes}\label{facilitator-notes}}
+
+\begin{itemize}
+\tightlist
+\item
+  By construction, the synthetic dataset has a real
+  \texttt{training\_track} effect (Blended \textgreater{} In-Person
+  \textgreater{} Online) and a real positive \texttt{attendance} effect,
+  so a correctly specified \texttt{model\_main} should show both as
+  statistically meaningful -- use this as your answer key.
+\item
+  Watch for participants treating the regression intercept as if it
+  described a typical participant; it describes a hypothetical one with
+  all numeric predictors at zero, which is rarely realistic here.
+\item
+  The Day 5 model becomes the Day 6 audit target -- make sure
+  participants keep a copy of \texttt{model\_main}'s formula and
+  coefficients accessible (e.g.~save the fitted object with
+  \texttt{saveRDS()}), since Day 6 reproduces part of it by hand.
+\end{itemize}
+\end{document}

@@ -1,0 +1,114 @@
+---
+title: "R Workshop Capstone Report"
+subtitle: "Training track, attendance and post-training assessment scores"
+author: "Facilitator-reviewed example"
+format:
+  html: default
+  docx: default
+  pdf: default
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+```{r}
+#| label: setup
+library(tidyverse)
+library(broom)
+
+lecturers <- read_csv("../Data/processed/anchor_dataset_clean.csv", show_col_types = FALSE) %>%
+  mutate(training_track = factor(training_track, levels = c("Online", "In-Person", "Blended")))
+```
+
+## Research question
+
+Does training track (Online, In-Person, Blended) and class attendance predict
+improvement in lecturers' post-training assessment scores, after accounting
+for their pre-training score? The anchor dataset is a synthetic evaluation of
+a national statistics-lecturer training programme (`Data/raw/anchor_dataset.csv`).
+
+## Data preparation
+
+The raw dataset was imported with `readr::read_csv()` and kept untouched.
+Invalid values (e.g. attendance above 100%, satisfaction outside 1-5) were
+flagged and set to `NA` rather than deleted, category labels (gender, region,
+institution type, training track) were standardised, and 6 exact duplicate
+rows were removed using `distinct()` on `participant_id`. The full pipeline
+is in `Starter-Scripts/day2_anchor_cleaning.R`; the data dictionary is in
+`Data/processed/data_dictionary.csv`.
+
+## Exploratory analysis
+
+```{r}
+#| label: fig-track-counts
+#| fig-cap: "Participants by training track"
+ggplot(lecturers, aes(x = training_track)) +
+  geom_bar(fill = "#2C7FB8") +
+  labs(x = "Training track", y = "Number of participants") +
+  theme_minimal()
+```
+
+```{r}
+#| label: fig-score-by-track
+#| fig-cap: "Post-training score by training track"
+ggplot(lecturers, aes(x = training_track, y = post_score)) +
+  geom_boxplot(fill = "#FEB24C") +
+  labs(x = "Training track", y = "Post-training score (0-100)") +
+  theme_minimal()
+```
+
+Online was the most common track. Post-training scores appear higher, on
+average, for In-Person and Blended participants than for Online participants
+-- this motivates the inferential and model work below.
+
+## Inference
+
+```{r}
+#| label: paired-test
+paired_data <- lecturers %>% filter(!is.na(pre_score), !is.na(post_score))
+paired_result <- t.test(paired_data$post_score, paired_data$pre_score, paired = TRUE)
+mean_gain <- mean(paired_data$post_score - paired_data$pre_score)
+paired_result
+```
+
+Post-training scores were on average `r round(mean_gain, 1)` points higher
+than pre-training scores (paired t-test, p `r ifelse(paired_result$p.value < 0.001, "< 0.001", paste("=", round(paired_result$p.value, 3)))`).
+This is both statistically and practically significant on a 0-100 scale.
+
+## Model
+
+```{r}
+#| label: model
+model_main <- lm(post_score ~ pre_score + attendance + training_track, data = lecturers)
+tidy(model_main, conf.int = TRUE)
+glance(model_main)$r.squared
+```
+
+Controlling for pre-training score and attendance, In-Person and Blended
+participants scored higher on average than Online participants (the
+reference category). Attendance was positively associated with post-training
+score. The model explained roughly
+`r round(glance(model_main)$r.squared * 100, 0)`% of the variance in
+post-training scores. Diagnostic plots (Day 5 workbook) showed no major
+violation of linearity or constant variance.
+
+A custom OLS implementation (`Solution-Scripts/day6_manual_ols_solution.R`)
+reproduced these coefficients directly from the design matrix, confirming
+the regression result independently of `lm()`.
+
+## Limitations
+
+This is a single cross-sectional cohort with no random assignment to
+training track, so the track effect should be read as an association
+controlled for measured covariates, not as a causal claim. Roughly 15-20%
+of rows had at least one missing value, handled here by case-wise deletion
+within each model; a sensitivity analysis with multiple imputation would
+strengthen the conclusion.
+
+## Reproducibility
+
+```{r}
+#| label: session-info
+sessionInfo()
+```

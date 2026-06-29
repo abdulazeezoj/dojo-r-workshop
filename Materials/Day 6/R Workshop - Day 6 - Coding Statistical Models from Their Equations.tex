@@ -1,0 +1,456 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=0.8in]{geometry}
+\usepackage{calc}
+\usepackage{amsmath,amssymb}
+\usepackage{array,longtable,booktabs}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{fancyvrb}
+\usepackage{fvextra}
+\usepackage{framed}
+\usepackage{color}
+\fvset{breaklines=true, breakanywhere=true}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,breakanywhere,commandchars=\\\{\}}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\setlist[itemize]{leftmargin=*}
+\setlist[enumerate]{leftmargin=*}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\title{R Workshop -- Day 6 -- Coding Statistical Models from Their Equations}
+\author{Applied R for Statistical Teaching, Research and Reproducible Analysis}
+\date{}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\hypertarget{r-workshop-day-6-coding-statistical-models-from-their-equations}{%
+\section{R Workshop -- Day 6 -- Coding Statistical Models from Their
+Equations}\label{r-workshop-day-6-coding-statistical-models-from-their-equations}}
+
+\textbf{Session 6 of 7 \textbar{} Duration: 3 hours} \textbf{Programme:}
+Applied R for Statistical Teaching, Research and Reproducible Analysis
+
+\hypertarget{learning-objectives}{%
+\subsection{Learning objectives}\label{learning-objectives}}
+
+By the end of this session you will be able to:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Read ordinary least squares (OLS) notation and identify the dimensions
+  of each matrix involved.
+\item
+  Build a design matrix from a formula and a data frame.
+\item
+  Derive and compute OLS coefficient estimates directly from matrix
+  algebra.
+\item
+  Calculate fitted values and residuals from first principles.
+\item
+  Implement a small, reusable custom OLS function.
+\item
+  Validate that function against \texttt{lm()}.
+\item
+  Discuss one numerical failure mode, such as rank deficiency or poor
+  conditioning.
+\end{enumerate}
+
+\hypertarget{capstone-link}{%
+\subsection{Capstone link}\label{capstone-link}}
+
+Today you open the ``black box'' behind the Day 5 model: you reproduce
+(or partially audit) its coefficients by computing them directly from
+the design matrix, rather than from \texttt{lm()}.
+
+\hypertarget{segment-plan-3-hours}{%
+\subsection{Segment plan (3 hours)}\label{segment-plan-3-hours}}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3000}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Segment
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Time
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Purpose
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Opening and recap & 10 min & Recap the Day 5 model, preview today's
+equation-to-code work \\
+Concept bridge & 25 min & OLS notation, dimensions, the normal
+equations \\
+Guided coding & 60 min & Design matrix, manual OLS, custom function \\
+Participant practice & 45 min & Validate against \texttt{lm()}, test one
+failure mode \\
+Interpretation and reporting & 25 min & Explain the equation in your own
+words \\
+Evidence log and capstone update & 15 min & Save the equation-based
+implementation \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{part-1-concept-bridge-core-workshop-activity}{%
+\subsection{Part 1 -- Concept bridge (Core workshop
+activity)}\label{part-1-concept-bridge-core-workshop-activity}}
+
+\hypertarget{notation-and-dimensions}{%
+\subsubsection{Notation and dimensions}\label{notation-and-dimensions}}
+
+For \(n\) observations and \(p\) predictors (including the intercept),
+ordinary least squares assumes:
+
+\[y = X\beta + \varepsilon\]
+
+where \(y\) is an \(n \times 1\) vector of outcomes, \(X\) is an
+\(n \times p\) \textbf{design matrix} (a column of 1s for the intercept,
+plus one column per predictor), \(\beta\) is a \(p \times 1\) vector of
+coefficients, and \(\varepsilon\) is an \(n \times 1\) vector of errors.
+
+\hypertarget{the-normal-equations}{%
+\subsubsection{The normal equations}\label{the-normal-equations}}
+
+OLS chooses \(\hat\beta\) to minimise the sum of squared residuals,
+\((y - X\beta)^\top(y - X\beta)\). Differentiating and setting to zero
+gives the \textbf{normal equations}:
+
+\[X^\top X \hat\beta = X^\top y \quad\Longrightarrow\quad \hat\beta = (X^\top X)^{-1} X^\top y\]
+
+This single line is the algebraic content of every \texttt{lm()} call
+you have run this week.
+
+\textbf{Important implementation note:} the formula above assumes \(X\)
+includes an intercept column and is full rank (no exact linear
+dependence among predictor columns). Our first custom function will
+assume an intercept explicitly; a model fitted without one needs
+different degrees-of-freedom and R-squared bookkeeping, which is out of
+scope today (see Reference material).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{part-2-guided-coding-core-workshop-activity}{%
+\subsection{Part 2 -- Guided coding (Core workshop
+activity)}\label{part-2-guided-coding-core-workshop-activity}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lecturers }\OtherTok{\textless{}{-}}\NormalTok{ readr}\SpecialCharTok{::}\FunctionTok{read\_csv}\NormalTok{(}\StringTok{"Data/processed/anchor\_dataset\_clean.csv"}\NormalTok{, }\AttributeTok{show\_col\_types =} \ConstantTok{FALSE}\NormalTok{)}
+\NormalTok{model\_data }\OtherTok{\textless{}{-}}\NormalTok{ lecturers[stats}\SpecialCharTok{::}\FunctionTok{complete.cases}\NormalTok{(}
+\NormalTok{  lecturers[, }\FunctionTok{c}\NormalTok{(}\StringTok{"post\_score"}\NormalTok{, }\StringTok{"pre\_score"}\NormalTok{, }\StringTok{"attendance"}\NormalTok{)]}
+\NormalTok{), ]}
+\end{Highlighting}
+\end{Shaded}
+
+We use the simpler two-predictor model
+\texttt{post\_score\ \textasciitilde{}\ pre\_score\ +\ attendance}
+today, so the matrix algebra stays easy to follow; the same method
+extends to the full Day 5 model.
+
+\hypertarget{build-the-design-matrix}{%
+\subsubsection{2.1 Build the design
+matrix}\label{build-the-design-matrix}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{X }\OtherTok{\textless{}{-}} \FunctionTok{model.matrix}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ pre\_score }\SpecialCharTok{+}\NormalTok{ attendance, }\AttributeTok{data =}\NormalTok{ model\_data)}
+\NormalTok{y }\OtherTok{\textless{}{-}}\NormalTok{ model\_data}\SpecialCharTok{$}\NormalTok{post\_score}
+
+\FunctionTok{dim}\NormalTok{(X)     }\CommentTok{\# n rows, 3 columns: intercept, pre\_score, attendance}
+\FunctionTok{head}\NormalTok{(X, }\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\texttt{model.matrix()} does exactly what you would otherwise do by
+hand: add an intercept column of 1s and bind the predictor columns
+alongside it.
+
+\hypertarget{compute-ols-coefficients-directly}{%
+\subsubsection{2.2 Compute OLS coefficients
+directly}\label{compute-ols-coefficients-directly}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{XtX }\OtherTok{\textless{}{-}} \FunctionTok{t}\NormalTok{(X) }\SpecialCharTok{\%*\%}\NormalTok{ X}
+\NormalTok{XtY }\OtherTok{\textless{}{-}} \FunctionTok{t}\NormalTok{(X) }\SpecialCharTok{\%*\%}\NormalTok{ y}
+\NormalTok{beta\_hat }\OtherTok{\textless{}{-}} \FunctionTok{solve}\NormalTok{(XtX) }\SpecialCharTok{\%*\%}\NormalTok{ XtY}
+\NormalTok{beta\_hat}
+\end{Highlighting}
+\end{Shaded}
+
+Compare directly:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model\_lm }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(post\_score }\SpecialCharTok{\textasciitilde{}}\NormalTok{ pre\_score }\SpecialCharTok{+}\NormalTok{ attendance, }\AttributeTok{data =}\NormalTok{ model\_data)}
+\FunctionTok{coef}\NormalTok{(model\_lm)}
+\end{Highlighting}
+\end{Shaded}
+
+The two sets of numbers should match to several decimal places.
+
+\hypertarget{fitted-values-and-residuals}{%
+\subsubsection{2.3 Fitted values and
+residuals}\label{fitted-values-and-residuals}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fitted\_manual }\OtherTok{\textless{}{-}}\NormalTok{ X }\SpecialCharTok{\%*\%}\NormalTok{ beta\_hat}
+\NormalTok{residuals\_manual }\OtherTok{\textless{}{-}}\NormalTok{ y }\SpecialCharTok{{-}}\NormalTok{ fitted\_manual}
+
+\CommentTok{\# Compare with lm()}
+\FunctionTok{max}\NormalTok{(}\FunctionTok{abs}\NormalTok{(fitted\_manual }\SpecialCharTok{{-}} \FunctionTok{fitted}\NormalTok{(model\_lm)))}
+\FunctionTok{max}\NormalTok{(}\FunctionTok{abs}\NormalTok{(residuals\_manual }\SpecialCharTok{{-}} \FunctionTok{residuals}\NormalTok{(model\_lm)))}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{a-small-custom-ols-function}{%
+\subsubsection{2.4 A small custom OLS
+function}\label{a-small-custom-ols-function}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my\_lm }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(formula, data) \{}
+\NormalTok{  X }\OtherTok{\textless{}{-}} \FunctionTok{model.matrix}\NormalTok{(formula, }\AttributeTok{data =}\NormalTok{ data)}
+\NormalTok{  response\_name }\OtherTok{\textless{}{-}} \FunctionTok{all.vars}\NormalTok{(formula)[}\DecValTok{1}\NormalTok{]}
+\NormalTok{  y }\OtherTok{\textless{}{-}}\NormalTok{ data[[response\_name]][stats}\SpecialCharTok{::}\FunctionTok{complete.cases}\NormalTok{(}\FunctionTok{model.matrix}\NormalTok{(formula, }\AttributeTok{data =}\NormalTok{ data))]}
+
+  \ControlFlowTok{if}\NormalTok{ (}\FunctionTok{colnames}\NormalTok{(X)[}\DecValTok{1}\NormalTok{] }\SpecialCharTok{!=} \StringTok{"(Intercept)"}\NormalTok{) \{}
+    \FunctionTok{stop}\NormalTok{(}\StringTok{"my\_lm() requires an intercept; interceptless formulas are not supported."}\NormalTok{)}
+\NormalTok{  \}}
+
+\NormalTok{  beta\_hat }\OtherTok{\textless{}{-}} \FunctionTok{solve}\NormalTok{(}\FunctionTok{t}\NormalTok{(X) }\SpecialCharTok{\%*\%}\NormalTok{ X) }\SpecialCharTok{\%*\%}\NormalTok{ (}\FunctionTok{t}\NormalTok{(X) }\SpecialCharTok{\%*\%}\NormalTok{ y)}
+\NormalTok{  fitted\_values }\OtherTok{\textless{}{-}}\NormalTok{ X }\SpecialCharTok{\%*\%}\NormalTok{ beta\_hat}
+\NormalTok{  resid\_values }\OtherTok{\textless{}{-}}\NormalTok{ y }\SpecialCharTok{{-}}\NormalTok{ fitted\_values}
+
+\NormalTok{  n }\OtherTok{\textless{}{-}} \FunctionTok{nrow}\NormalTok{(X)}
+\NormalTok{  p }\OtherTok{\textless{}{-}} \FunctionTok{ncol}\NormalTok{(X)}
+\NormalTok{  rss }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(resid\_values}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
+\NormalTok{  tss }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{((y }\SpecialCharTok{{-}} \FunctionTok{mean}\NormalTok{(y))}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
+\NormalTok{  r\_squared }\OtherTok{\textless{}{-}} \DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ rss }\SpecialCharTok{/}\NormalTok{ tss}
+\NormalTok{  sigma2 }\OtherTok{\textless{}{-}}\NormalTok{ rss }\SpecialCharTok{/}\NormalTok{ (n }\SpecialCharTok{{-}}\NormalTok{ p)}
+\NormalTok{  var\_beta }\OtherTok{\textless{}{-}}\NormalTok{ sigma2 }\SpecialCharTok{*} \FunctionTok{solve}\NormalTok{(}\FunctionTok{t}\NormalTok{(X) }\SpecialCharTok{\%*\%}\NormalTok{ X)}
+\NormalTok{  se\_beta }\OtherTok{\textless{}{-}} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{diag}\NormalTok{(var\_beta))}
+
+  \FunctionTok{list}\NormalTok{(}
+    \AttributeTok{coefficients =} \FunctionTok{setNames}\NormalTok{(}\FunctionTok{as.vector}\NormalTok{(beta\_hat), }\FunctionTok{colnames}\NormalTok{(X)),}
+    \AttributeTok{std\_errors =} \FunctionTok{setNames}\NormalTok{(se\_beta, }\FunctionTok{colnames}\NormalTok{(X)),}
+    \AttributeTok{fitted\_values =} \FunctionTok{as.vector}\NormalTok{(fitted\_values),}
+    \AttributeTok{residuals =} \FunctionTok{as.vector}\NormalTok{(resid\_values),}
+    \AttributeTok{r\_squared =}\NormalTok{ r\_squared,}
+    \AttributeTok{df\_residual =}\NormalTok{ n }\SpecialCharTok{{-}}\NormalTok{ p}
+\NormalTok{  )}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{validate-against-lm}{%
+\subsubsection{\texorpdfstring{2.5 Validate against
+\texttt{lm()}}{2.5 Validate against lm()}}\label{validate-against-lm}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{my\_fit }\OtherTok{\textless{}{-}} \FunctionTok{my\_lm}\NormalTok{(post\_score }\SpecialCharTok{\textasciitilde{}}\NormalTok{ pre\_score }\SpecialCharTok{+}\NormalTok{ attendance, }\AttributeTok{data =}\NormalTok{ model\_data)}
+\NormalTok{my\_fit}\SpecialCharTok{$}\NormalTok{coefficients}
+\FunctionTok{coef}\NormalTok{(model\_lm)}
+
+\NormalTok{my\_fit}\SpecialCharTok{$}\NormalTok{r\_squared}
+\FunctionTok{summary}\NormalTok{(model\_lm)}\SpecialCharTok{$}\NormalTok{r.squared}
+
+\NormalTok{my\_fit}\SpecialCharTok{$}\NormalTok{std\_errors}
+\FunctionTok{summary}\NormalTok{(model\_lm)}\SpecialCharTok{$}\NormalTok{coefficients[, }\StringTok{"Std. Error"}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+All three comparisons should agree closely. Small differences in the
+last few decimal places are expected and come from differing numerical
+routines, not from a mistake.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{part-3-participant-practice-core-workshop-activity}{%
+\subsection{Part 3 -- Participant practice (Core workshop
+activity)}\label{part-3-participant-practice-core-workshop-activity}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Run \texttt{my\_lm()} on the Day 5 model formula
+  (\texttt{post\_score\ \textasciitilde{}\ pre\_score\ +\ attendance\ +\ training\_track})
+  and confirm coefficients, R-squared and standard errors match
+  \texttt{lm()}.
+
+  \emph{Hint:} \texttt{training\_track} must be converted to numeric
+  dummy columns -- \texttt{model.matrix()} does this automatically once
+  \texttt{training\_track} is a factor.
+\item
+  Deliberately create a \textbf{rank-deficient} design matrix
+  (e.g.~include both \texttt{attendance} and an exact duplicate column
+  \texttt{attendance\_copy\ \textless{}-\ attendance}) and run it
+  through \texttt{my\_lm()}. Read and explain the resulting error from
+  \texttt{solve()}.
+\item
+  Investigate \textbf{poor conditioning}: compute
+  \texttt{kappa(t(X)\ \%*\%\ X)} for the well-specified model and for a
+  version where one predictor is rescaled to a tiny range
+  (e.g.~\texttt{attendance\ /\ 10000}). Note how the condition number
+  changes.
+\item
+  Write two or three sentences, in your own words, explaining what
+  \((X^\top X)^{-1} X^\top y\) is doing -- as if explaining it to a
+  colleague who knows regression results but has never seen the matrix
+  form.
+\end{enumerate}
+
+A facilitator-reviewed solution is in
+\texttt{Solution-Scripts/day6\_manual\_ols\_solution.R}.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{optional-demonstration}{%
+\subsection{Optional demonstration}\label{optional-demonstration}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Bootstrap uncertainty} -- resample rows with replacement,
+  refit \texttt{my\_lm()} each time, and compare the bootstrap standard
+  errors to the analytic ones above.
+\item
+  \textbf{Maximum likelihood} -- show that, under normal errors, the OLS
+  estimator is also the maximum-likelihood estimator (a one-paragraph
+  derivation, not a full implementation).
+\item
+  \textbf{Detailed conditioning analysis} --
+  \texttt{solve(t(X)\ \%*\%\ X)} versus \texttt{MASS::ginv()} when
+  \(X^\top X\) is nearly singular.
+\item
+  \textbf{Extended inference} -- compute \(t\)-statistics and p-values
+  from \texttt{std\_errors} inside \texttt{my\_lm()} and compare to
+  \texttt{summary(model\_lm)}.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Optional: bootstrap standard error for the attendance coefficient}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2024}\NormalTok{)}
+\NormalTok{boot\_coefs }\OtherTok{\textless{}{-}} \FunctionTok{replicate}\NormalTok{(}\DecValTok{500}\NormalTok{, \{}
+\NormalTok{  boot\_rows }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\FunctionTok{seq\_len}\NormalTok{(}\FunctionTok{nrow}\NormalTok{(model\_data)), }\AttributeTok{replace =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{  boot\_fit }\OtherTok{\textless{}{-}} \FunctionTok{my\_lm}\NormalTok{(post\_score }\SpecialCharTok{\textasciitilde{}}\NormalTok{ pre\_score }\SpecialCharTok{+}\NormalTok{ attendance, }\AttributeTok{data =}\NormalTok{ model\_data[boot\_rows, ])}
+\NormalTok{  boot\_fit}\SpecialCharTok{$}\NormalTok{coefficients[}\StringTok{"attendance"}\NormalTok{]}
+\NormalTok{\})}
+\FunctionTok{sd}\NormalTok{(boot\_coefs)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{reference-or-take-home-material}{%
+\subsection{Reference or take-home
+material}\label{reference-or-take-home-material}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{QR-based fitting:} \texttt{lm()} does not actually invert
+  \(X^\top X\) -- it uses a QR decomposition of \(X\) for better
+  numerical stability. Explicit matrix inversion (as we did today, for
+  teaching clarity) is more sensitive to poor conditioning than QR-based
+  methods, and is avoided in production statistical software.
+\item
+  \textbf{Interceptless-model extensions:} if a model genuinely has no
+  intercept (\texttt{y\ \textasciitilde{}\ x\ -\ 1}), R-squared, degrees
+  of freedom and the overall F-test all require different formulas; see
+  \texttt{?summary.lm} for how R itself handles this case.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{daily-deliverable}{%
+\subsection{Daily deliverable}\label{daily-deliverable}}
+
+An equation-based implementation (\texttt{my\_lm()} and its outputs)
+that reproduces or audits part of the Day 5 model, with a short written
+explanation of the matrix algebra in your own words.
+
+\hypertarget{evidence-log-entry}{%
+\subsubsection{Evidence log entry}\label{evidence-log-entry}}
+
+Complete the Day 6 row in \texttt{Workshop-Evidence-Log.md}: confirm
+your custom function matches \texttt{lm()} and note what the
+rank-deficiency exercise taught you about when a model cannot be fitted
+at all.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{facilitator-notes}{%
+\subsection{Facilitator notes}\label{facilitator-notes}}
+
+\begin{itemize}
+\tightlist
+\item
+  The rank-deficiency exercise should produce a clear, interpretable
+  error from \texttt{solve()} (a singular-matrix error); if a
+  participant's \texttt{attendance\_copy} is not an exact duplicate, the
+  matrix may instead be merely ill-conditioned rather than singular --
+  worth distinguishing live.
+\item
+  Numerical agreement with \texttt{lm()} should be exact to at least 6-8
+  significant figures for the well-conditioned cases; larger
+  discrepancies usually indicate a data-preparation mismatch
+  (e.g.~different rows being dropped due to missingness) rather than an
+  algebra error.
+\item
+  This session is mathematically the densest of the workshop. If the
+  group needs more guided-coding time, drop the bootstrap optional
+  demonstration first.
+\end{itemize}
+\end{document}

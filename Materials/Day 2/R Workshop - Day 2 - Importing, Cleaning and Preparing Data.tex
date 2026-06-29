@@ -1,0 +1,514 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=0.8in]{geometry}
+\usepackage{calc}
+\usepackage{array,longtable,booktabs}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{fancyvrb}
+\usepackage{fvextra}
+\usepackage{framed}
+\usepackage{color}
+\fvset{breaklines=true, breakanywhere=true}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,breakanywhere,commandchars=\\\{\}}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\setlist[itemize]{leftmargin=*}
+\setlist[enumerate]{leftmargin=*}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\title{R Workshop -- Day 2 -- Importing, Cleaning and Preparing Data}
+\author{Applied R for Statistical Teaching, Research and Reproducible Analysis}
+\date{}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\hypertarget{r-workshop-day-2-importing-cleaning-and-preparing-data}{%
+\section{R Workshop -- Day 2 -- Importing, Cleaning and Preparing
+Data}\label{r-workshop-day-2-importing-cleaning-and-preparing-data}}
+
+\textbf{Session 2 of 7 \textbar{} Duration: 3 hours} \textbf{Programme:}
+Applied R for Statistical Teaching, Research and Reproducible Analysis
+
+\hypertarget{learning-objectives}{%
+\subsection{Learning objectives}\label{learning-objectives}}
+
+By the end of this session you will be able to:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Import a CSV file with \texttt{readr::read\_csv()} and explain why you
+  keep a raw, untouched copy.
+\item
+  Inspect structure, names, ranges and missingness before transforming
+  any data.
+\item
+  Write logical rules that flag invalid values without silently deleting
+  rows.
+\item
+  Standardise inconsistent category labels.
+\item
+  Detect and remove duplicate records.
+\item
+  Produce a data-quality report, a missingness report and a short data
+  dictionary.
+\item
+  Export a clean dataset to \texttt{Data/processed/} so later sessions
+  can rely on it.
+\end{enumerate}
+
+\hypertarget{capstone-link}{%
+\subsection{Capstone link}\label{capstone-link}}
+
+Today the \textbf{anchor dataset} is introduced. From this point through
+Day 7, every session works on this same dataset: a synthetic evaluation
+of a national statistics-lecturer training programme. Today's task is to
+choose a research question and turn the raw file into a documented,
+analysis-ready dataset.
+
+\textbf{Working research question for this workshop (you may adapt the
+wording):} \emph{Does training track (Online, In-Person, Blended) and
+class attendance predict improvement in lecturers' post-training
+assessment scores, after accounting for their pre-training score?}
+
+\hypertarget{segment-plan-3-hours}{%
+\subsection{Segment plan (3 hours)}\label{segment-plan-3-hours}}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3000}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Segment
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Time
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Purpose
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Opening and recap & 10 min & Revisit Day 1 baseline task, introduce the
+anchor dataset \\
+Concept bridge & 25 min & Why raw data stays untouched; what ``clean''
+means \\
+Guided coding & 60 min & Import, inspect, flag, standardise,
+deduplicate \\
+Participant practice & 45 min & Apply the pipeline end-to-end on the
+anchor dataset \\
+Interpretation and reporting & 25 min & Write the data-quality
+narrative \\
+Evidence log and capstone update & 15 min & Save outputs, log research
+question and variables \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{part-1-concept-bridge-core-workshop-activity}{%
+\subsection{Part 1 -- Concept bridge (Core workshop
+activity)}\label{part-1-concept-bridge-core-workshop-activity}}
+
+\hypertarget{the-anchor-dataset}{%
+\subsubsection{The anchor dataset}\label{the-anchor-dataset}}
+
+\texttt{Data/raw/anchor\_dataset.csv} contains one row per training
+participant, with deliberately realistic problems: missing values, a
+handful of out-of-range values, a few duplicate records, and category
+labels typed in different ways by different data-entry staff
+(\texttt{"Online"}, \texttt{"online"}, \texttt{"ONLINE\ "}). This is not
+a bug in the workshop materials -- it is the exercise.
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+Variable & Type & Description \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{participant\_id} & character & Unique lecturer identifier \\
+\texttt{age} & numeric & Age in years \\
+\texttt{gender} & character & Male / Female \\
+\texttt{region} & character & Geopolitical zone \\
+\texttt{institution\_type} & character & Public / Private \\
+\texttt{years\_teaching} & numeric & Years of teaching experience \\
+\texttt{training\_track} & character & Online / In-Person / Blended \\
+\texttt{attendance} & numeric & Percentage of sessions attended
+(0-100) \\
+\texttt{satisfaction} & numeric & Likert scale, 1 (low) to 5 (high) \\
+\texttt{pre\_score} & numeric & Pre-training assessment score (0-100) \\
+\texttt{post\_score} & numeric & Post-training assessment score
+(0-100) \\
+\texttt{completed} & character & Yes / No -- finished the programme \\
+\end{longtable}
+
+\hypertarget{raw-versus-working-data}{%
+\subsubsection{Raw versus working data}\label{raw-versus-working-data}}
+
+\textbf{Never overwrite the raw file, and never edit it by hand.} Read
+it into one object (e.g.~\texttt{raw\_lecturers}) and do all
+transformation on a second object (e.g.~\texttt{clean\_lecturers}). If a
+cleaning rule turns out to be wrong, you re-run the script against the
+untouched raw file -- you do not try to remember what you changed.
+
+\hypertarget{what-clean-means-here}{%
+\subsubsection{What ``clean'' means here}\label{what-clean-means-here}}
+
+Cleaning is not ``make the numbers look nicer.'' It is a documented,
+reproducible set of decisions:
+
+\begin{itemize}
+\tightlist
+\item
+  Which values are \emph{impossible} (e.g.~attendance of 140\%) versus
+  merely \emph{unusual} (e.g.~age 24, the youngest in the group)? Only
+  impossible values become \texttt{NA}.
+\item
+  Which category labels are the \emph{same thing typed differently}
+  versus genuinely different categories?
+\item
+  Which rows are \emph{exact duplicates} of another row, and should one
+  copy be kept?
+\end{itemize}
+
+Every decision should be visible in the script, not only in your head.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{part-2-guided-coding-core-workshop-activity}{%
+\subsection{Part 2 -- Guided coding (Core workshop
+activity)}\label{part-2-guided-coding-core-workshop-activity}}
+
+\hypertarget{import-with-readr}{%
+\subsubsection{\texorpdfstring{2.1 Import with
+\texttt{readr}}{2.1 Import with readr}}\label{import-with-readr}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+
+\NormalTok{raw\_lecturers }\OtherTok{\textless{}{-}}\NormalTok{ readr}\SpecialCharTok{::}\FunctionTok{read\_csv}\NormalTok{(}\StringTok{"Data/raw/anchor\_dataset.csv"}\NormalTok{, }\AttributeTok{show\_col\_types =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\texttt{read\_csv()} (with an underscore, from \texttt{readr}) is
+preferred over base \texttt{read.csv()} from today onward: it is faster
+on larger files, guesses column types more transparently, and returns a
+tibble that prints sensibly.
+
+\hypertarget{inspect-before-you-touch-anything}{%
+\subsubsection{2.2 Inspect before you touch
+anything}\label{inspect-before-you-touch-anything}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{glimpse}\NormalTok{(raw\_lecturers)}
+\FunctionTok{summary}\NormalTok{(raw\_lecturers)}
+\FunctionTok{nrow}\NormalTok{(raw\_lecturers)}
+\FunctionTok{sum}\NormalTok{(}\FunctionTok{duplicated}\NormalTok{(raw\_lecturers))}
+\FunctionTok{colSums}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(raw\_lecturers))}
+\end{Highlighting}
+\end{Shaded}
+
+Look specifically for: implausible minimums/maximums in
+\texttt{summary()}, the duplicate count, and which columns carry the
+most missingness.
+
+\hypertarget{flag-invalid-values-do-not-delete-rows}{%
+\subsubsection{2.3 Flag invalid values (do not delete
+rows)}\label{flag-invalid-values-do-not-delete-rows}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{flagged\_lecturers }\OtherTok{\textless{}{-}}\NormalTok{ raw\_lecturers }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{invalid\_age =} \SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(age) }\SpecialCharTok{\&}\NormalTok{ (age }\SpecialCharTok{\textless{}} \DecValTok{18} \SpecialCharTok{|}\NormalTok{ age }\SpecialCharTok{\textgreater{}} \DecValTok{100}\NormalTok{),}
+    \AttributeTok{invalid\_attendance =} \SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(attendance) }\SpecialCharTok{\&}\NormalTok{ (attendance }\SpecialCharTok{\textless{}} \DecValTok{0} \SpecialCharTok{|}\NormalTok{ attendance }\SpecialCharTok{\textgreater{}} \DecValTok{100}\NormalTok{),}
+    \AttributeTok{invalid\_satisfaction =} \SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(satisfaction) }\SpecialCharTok{\&} \SpecialCharTok{!}\NormalTok{satisfaction }\SpecialCharTok{\%in\%} \DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{,}
+    \AttributeTok{invalid\_pre\_score =} \SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(pre\_score) }\SpecialCharTok{\&}\NormalTok{ (pre\_score }\SpecialCharTok{\textless{}} \DecValTok{0} \SpecialCharTok{|}\NormalTok{ pre\_score }\SpecialCharTok{\textgreater{}} \DecValTok{100}\NormalTok{),}
+    \AttributeTok{invalid\_post\_score =} \SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(post\_score) }\SpecialCharTok{\&}\NormalTok{ (post\_score }\SpecialCharTok{\textless{}} \DecValTok{0} \SpecialCharTok{|}\NormalTok{ post\_score }\SpecialCharTok{\textgreater{}} \DecValTok{100}\NormalTok{)}
+\NormalTok{  )}
+
+\NormalTok{flagged\_lecturers }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\FunctionTok{starts\_with}\NormalTok{(}\StringTok{"invalid\_"}\NormalTok{), sum, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+Flagging first means you can count and report invalid values
+\emph{before} you remove them -- this count is exactly what goes into
+your data-quality report.
+
+\hypertarget{replace-flagged-values-with-na}{%
+\subsubsection{\texorpdfstring{2.4 Replace flagged values with
+\texttt{NA}}{2.4 Replace flagged values with NA}}\label{replace-flagged-values-with-na}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{clean\_lecturers }\OtherTok{\textless{}{-}}\NormalTok{ flagged\_lecturers }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{age =} \FunctionTok{if\_else}\NormalTok{(invalid\_age, }\ConstantTok{NA\_real\_}\NormalTok{, age),}
+    \AttributeTok{attendance =} \FunctionTok{if\_else}\NormalTok{(invalid\_attendance, }\ConstantTok{NA\_real\_}\NormalTok{, attendance),}
+    \AttributeTok{satisfaction =} \FunctionTok{if\_else}\NormalTok{(invalid\_satisfaction, }\ConstantTok{NA\_real\_}\NormalTok{, satisfaction),}
+    \AttributeTok{pre\_score =} \FunctionTok{if\_else}\NormalTok{(invalid\_pre\_score, }\ConstantTok{NA\_real\_}\NormalTok{, pre\_score),}
+    \AttributeTok{post\_score =} \FunctionTok{if\_else}\NormalTok{(invalid\_post\_score, }\ConstantTok{NA\_real\_}\NormalTok{, post\_score)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{standardise-category-labels}{%
+\subsubsection{2.5 Standardise category
+labels}\label{standardise-category-labels}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{clean\_lecturers }\OtherTok{\textless{}{-}}\NormalTok{ clean\_lecturers }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{gender =} \FunctionTok{str\_trim}\NormalTok{(gender),}
+    \AttributeTok{gender =} \FunctionTok{case\_when}\NormalTok{(}
+      \FunctionTok{str\_to\_lower}\NormalTok{(gender) }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"m"}\NormalTok{, }\StringTok{"male"}\NormalTok{) }\SpecialCharTok{\textasciitilde{}} \StringTok{"Male"}\NormalTok{,}
+      \FunctionTok{str\_to\_lower}\NormalTok{(gender) }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"f"}\NormalTok{, }\StringTok{"female"}\NormalTok{) }\SpecialCharTok{\textasciitilde{}} \StringTok{"Female"}\NormalTok{,}
+      \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}}\NormalTok{ gender}
+\NormalTok{    ),}
+    \AttributeTok{region =} \FunctionTok{str\_to\_title}\NormalTok{(}\FunctionTok{str\_trim}\NormalTok{(region)),}
+    \AttributeTok{institution\_type =} \FunctionTok{str\_to\_title}\NormalTok{(}\FunctionTok{str\_trim}\NormalTok{(institution\_type)),}
+    \AttributeTok{training\_track =} \FunctionTok{str\_trim}\NormalTok{(training\_track),}
+    \AttributeTok{training\_track =} \FunctionTok{case\_when}\NormalTok{(}
+      \FunctionTok{str\_to\_lower}\NormalTok{(training\_track) }\SpecialCharTok{==} \StringTok{"online"} \SpecialCharTok{\textasciitilde{}} \StringTok{"Online"}\NormalTok{,}
+      \FunctionTok{str\_to\_lower}\NormalTok{(training\_track) }\SpecialCharTok{==} \StringTok{"blended"} \SpecialCharTok{\textasciitilde{}} \StringTok{"Blended"}\NormalTok{,}
+      \FunctionTok{str\_to\_lower}\NormalTok{(training\_track) }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"in{-}person"}\NormalTok{, }\StringTok{"in person"}\NormalTok{, }\StringTok{"inperson"}\NormalTok{) }\SpecialCharTok{\textasciitilde{}} \StringTok{"In{-}Person"}\NormalTok{,}
+      \ConstantTok{TRUE} \SpecialCharTok{\textasciitilde{}}\NormalTok{ training\_track}
+\NormalTok{    )}
+\NormalTok{  )}
+
+\FunctionTok{count}\NormalTok{(clean\_lecturers, gender)}
+\FunctionTok{count}\NormalTok{(clean\_lecturers, training\_track)}
+\end{Highlighting}
+\end{Shaded}
+
+\texttt{str\_trim()} removes leading/trailing whitespace;
+\texttt{str\_to\_lower()}/\texttt{str\_to\_title()} normalise case
+before you compare or display values. \texttt{case\_when()} reads top to
+bottom and stops at the first match -- always finish with a fallback
+(\texttt{TRUE\ \textasciitilde{}\ ...}) so unexpected values are not
+silently dropped.
+
+\hypertarget{duplicates}{%
+\subsubsection{2.6 Duplicates}\label{duplicates}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n\_before }\OtherTok{\textless{}{-}} \FunctionTok{nrow}\NormalTok{(clean\_lecturers)}
+\NormalTok{clean\_lecturers }\OtherTok{\textless{}{-}}\NormalTok{ clean\_lecturers }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{distinct}\NormalTok{(participant\_id, }\AttributeTok{.keep\_all =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{n\_duplicates\_removed }\OtherTok{\textless{}{-}}\NormalTok{ n\_before }\SpecialCharTok{{-}} \FunctionTok{nrow}\NormalTok{(clean\_lecturers)}
+\NormalTok{n\_duplicates\_removed}
+\end{Highlighting}
+\end{Shaded}
+
+Deduplicate on the identifier \emph{after} standardising labels --
+otherwise \texttt{"Online"} and \texttt{"online"} rows for the same
+participant might look like different records.
+
+\hypertarget{data-quality-and-missingness-reports}{%
+\subsubsection{2.7 Data-quality and missingness
+reports}\label{data-quality-and-missingness-reports}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{quality\_report }\OtherTok{\textless{}{-}}\NormalTok{ flagged\_lecturers }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{rows =} \FunctionTok{n}\NormalTok{(),}
+    \AttributeTok{duplicates\_removed =}\NormalTok{ n\_duplicates\_removed,}
+    \AttributeTok{invalid\_age =} \FunctionTok{sum}\NormalTok{(invalid\_age, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{invalid\_attendance =} \FunctionTok{sum}\NormalTok{(invalid\_attendance, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{invalid\_satisfaction =} \FunctionTok{sum}\NormalTok{(invalid\_satisfaction, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{invalid\_pre\_score =} \FunctionTok{sum}\NormalTok{(invalid\_pre\_score, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{invalid\_post\_score =} \FunctionTok{sum}\NormalTok{(invalid\_post\_score, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{  )}
+
+\NormalTok{missingness\_report }\OtherTok{\textless{}{-}}\NormalTok{ clean\_lecturers }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{starts\_with}\NormalTok{(}\StringTok{"invalid\_"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\FunctionTok{everything}\NormalTok{(), }\SpecialCharTok{\textasciitilde{}} \FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(.x)))) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{pivot\_longer}\NormalTok{(}\FunctionTok{everything}\NormalTok{(), }\AttributeTok{names\_to =} \StringTok{"variable"}\NormalTok{, }\AttributeTok{values\_to =} \StringTok{"missing\_count"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{export}{%
+\subsubsection{2.8 Export}\label{export}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{clean\_lecturers }\OtherTok{\textless{}{-}}\NormalTok{ clean\_lecturers }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\FunctionTok{starts\_with}\NormalTok{(}\StringTok{"invalid\_"}\NormalTok{))}
+
+\FunctionTok{dir.create}\NormalTok{(}\StringTok{"Data/processed"}\NormalTok{, }\AttributeTok{showWarnings =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{recursive =} \ConstantTok{TRUE}\NormalTok{)}
+\FunctionTok{write\_csv}\NormalTok{(clean\_lecturers, }\StringTok{"Data/processed/anchor\_dataset\_clean.csv"}\NormalTok{)}
+\FunctionTok{write\_csv}\NormalTok{(quality\_report, }\StringTok{"Data/processed/data\_quality\_report.csv"}\NormalTok{)}
+\FunctionTok{write\_csv}\NormalTok{(missingness\_report, }\StringTok{"Data/processed/missingness\_report.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{part-3-participant-practice-core-workshop-activity}{%
+\subsection{Part 3 -- Participant practice (Core workshop
+activity)}\label{part-3-participant-practice-core-workshop-activity}}
+
+Open \texttt{Starter-Scripts/day2\_anchor\_cleaning.R}. It already
+contains the skeleton above with \texttt{TODO} markers. Work through
+each \texttt{TODO} yourself rather than copying Part 2 verbatim -- in
+particular:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Run the import and inspection steps and write down, in a comment,
+  which columns concerned you most before cleaning.
+\item
+  Complete the invalid-value replacement step.
+\item
+  Complete the category-standardisation step, then check
+  \texttt{count()} on each categorical column until every label set
+  looks correct.
+\item
+  Remove duplicates and confirm the row count drop matches what you
+  expected from \texttt{sum(duplicated(...))}.
+\item
+  Build the two reports and the export.
+\item
+  Create \texttt{Data/processed/data\_dictionary.csv} with one row per
+  variable: \texttt{variable}, \texttt{type}, \texttt{description},
+  \texttt{valid\_range\_or\_levels}.
+\end{enumerate}
+
+A facilitator-reviewed solution is in
+\texttt{Solution-Scripts/day2\_anchor\_cleaning\_solution.R}.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{optional-demonstration}{%
+\subsection{Optional demonstration}\label{optional-demonstration}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Reshaping} with
+  \texttt{pivot\_longer()}/\texttt{pivot\_wider()} -- useful once you
+  start comparing pre- and post-scores side by side as one ``time''
+  column rather than two columns.
+\item
+  \textbf{Importing other formats:} \texttt{readxl::read\_excel()},
+  \texttt{haven::read\_sav()} (SPSS), \texttt{haven::read\_dta()}
+  (Stata), \texttt{haven::read\_sas()} (SAS). Demonstrate one if
+  participants' own data comes from these formats.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Optional: reshape pre/post scores into long format for later plotting}
+\NormalTok{clean\_lecturers }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(participant\_id, pre\_score, post\_score) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{pivot\_longer}\NormalTok{(}\AttributeTok{cols =} \FunctionTok{c}\NormalTok{(pre\_score, post\_score),}
+               \AttributeTok{names\_to =} \StringTok{"timing"}\NormalTok{, }\AttributeTok{values\_to =} \StringTok{"score"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{reference-or-take-home-material}{%
+\subsection{Reference or take-home
+material}\label{reference-or-take-home-material}}
+
+\begin{itemize}
+\tightlist
+\item
+  Keeping an audit trail: instead of overwriting values, some teams add
+  a \texttt{*\_original} column before correcting a value, so the
+  original is always recoverable.
+\item
+  More validation-rule examples (date ranges, cross-field checks such as
+  \texttt{post\_score} requiring a non-missing \texttt{pre\_score}).
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{daily-deliverable}{%
+\subsection{Daily deliverable}\label{daily-deliverable}}
+
+A clean anchor dataset, a data-quality report, a missingness report, and
+a short data dictionary, all saved in \texttt{Data/processed/}, plus a
+one-paragraph statement of your chosen research question.
+
+\hypertarget{evidence-log-entry}{%
+\subsubsection{Evidence log entry}\label{evidence-log-entry}}
+
+Complete the Day 2 row in \texttt{Workshop-Evidence-Log.md}: note your
+research question, confirm the clean dataset and dictionary are saved,
+and record one cleaning decision you are unsure about so you can revisit
+it later.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{facilitator-notes}{%
+\subsection{Facilitator notes}\label{facilitator-notes}}
+
+\begin{itemize}
+\tightlist
+\item
+  The dataset is generated with a fixed random seed, so every
+  participant's raw file is identical -- this lets you state exact
+  expected counts (240 unique participants, 6 duplicate rows, around 5\%
+  missingness per column) if you want to use them as a checkpoint.
+\item
+  Watch for participants who delete invalid rows outright instead of
+  flagging then setting to \texttt{NA}. Deleting rows silently changes
+  the denominator for every later analysis; this is the single most
+  common and most consequential mistake on Day 2.
+\item
+  If a participant's \texttt{training\_track} recode misses a label,
+  \texttt{count(clean\_lecturers,\ training\_track)} will show it
+  immediately -- use this as a live debugging demonstration.
+\end{itemize}
+\end{document}

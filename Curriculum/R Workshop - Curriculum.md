@@ -279,38 +279,63 @@ The same short task should be attempted on Day 1 and repeated on Day 7 with an e
 
 ## 7. Minimum package requirements
 
-The final distribution should include:
+The final distribution includes:
 
 ```text
-R-Workshop/
-├── Curriculum/
-│   ├── R Workshop - Curriculum.md
-│   ├── R Workshop - Curriculum.tex
-│   └── R Workshop - Curriculum.pdf
-├── Materials/
-│   ├── Day 1.tex
-│   ├── Day 1.pdf
-│   ├── ...
-│   ├── Day 7.tex
-│   └── Day 7.pdf
-├── Data/
-│   ├── raw/
-│   └── processed/
-├── Starter-Scripts/
-├── Solution-Scripts/
-├── Quarto-Template/
-├── install_packages.R
-├── Workshop-Evidence-Log.md
-└── README.md
+dojo-r-workshop/
+|-- Curriculum/
+|   |-- R Workshop - Curriculum.md
+|   |-- R Workshop - Curriculum.tex
+|   `-- R Workshop - Curriculum.pdf
+|-- Materials/
+|   |-- Day 1/
+|   |   |-- R Workshop - Day 1 - Getting Comfortable with R.md
+|   |   |-- ... .tex
+|   |   `-- ... .pdf
+|   |-- Day 2/  (Importing, Cleaning and Preparing Data)
+|   |-- Day 3/  (Exploratory Data Analysis and Statistical Graphics)
+|   |-- Day 4/  (Probability, Sampling, Simulation and Inference)
+|   |-- Day 5/  (Regression, ANOVA and Generalised Linear Models)
+|   |-- Day 6/  (Coding Statistical Models from Their Equations)
+|   `-- Day 7/  (Reproducible Research and Capstone Presentation)
+|-- Data/
+|   |-- raw/
+|   |   |-- anchor_dataset.csv
+|   |   |-- day1_baseline_sample.csv
+|   |   `-- day7_baseline_sample.csv
+|   `-- processed/  (created by Day 2 pipeline; not committed)
+|-- Starter-Scripts/
+|   |-- day1_baseline.R
+|   |-- day2_anchor_cleaning.R
+|   |-- day3_eda.R
+|   |-- day4_inference.R
+|   |-- day5_regression.R
+|   `-- day6_manual_ols.R
+|-- Final-Scripts/
+|   |-- day1_final.R  ...  day7_final.R  (complete guided-coding code, one per day)
+|-- Solution-Scripts/
+|   |-- day1_practice_solution.R
+|   |-- day2_anchor_cleaning_solution.R
+|   |-- day3_eda_solution.R
+|   |-- day4_inference_solution.R
+|   |-- day5_regression_solution.R
+|   |-- day6_manual_ols_solution.R
+|   `-- day7_capstone_report_solution.qmd
+|-- Quarto-Template/
+|   `-- capstone-report.qmd
+|-- install_packages.R
+|-- Workshop-Evidence-Log.md
+`-- README.md
 ```
 
-Before release, recover or recreate the Day 3 and Day 5 LaTeX sources and compile all curriculum and workbook sources from a clean environment.
+Each `Materials/Day N/` folder holds the matching `.md`, `.tex` and `.pdf` for that day, named `R Workshop - Day N - <Title>`. All seven days' sources compile cleanly from the workbook `.md` files using the shared pandoc + LaTeX template.
 
 ## 8. Facilitator checklist
 
-- Confirm R, RStudio, Quarto and required R packages are installed.
-- Confirm the anchor dataset is available in `Data/raw/`.
+- Confirm R, RStudio and required R packages (`install_packages.R`) are installed.
+- Confirm the Quarto CLI is installed separately for Day 7 (the `quarto` R package alone is not sufficient); have HTML as a fallback output format if PDF rendering via LaTeX is not available.
+- Confirm the anchor dataset and both baseline samples are available in `Data/raw/`.
 - Confirm each workbook section is labelled Core, Optional demonstration or Reference/take-home material.
-- Confirm the Day 2 cleaning pipeline creates all promised outputs.
+- Confirm the Day 2 cleaning pipeline creates all promised outputs in `Data/processed/`.
 - Confirm Day 7 is used for integration and presentation, not for starting the capstone.
 - Confirm participants complete the evidence log each day.

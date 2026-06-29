@@ -1,0 +1,468 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=0.8in]{geometry}
+\usepackage{calc}
+\usepackage{array,longtable,booktabs}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{fancyvrb}
+\usepackage{fvextra}
+\usepackage{framed}
+\usepackage{color}
+\fvset{breaklines=true, breakanywhere=true}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,breakanywhere,commandchars=\\\{\}}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\setlist[itemize]{leftmargin=*}
+\setlist[enumerate]{leftmargin=*}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\title{R Workshop -- Day 4 -- Probability, Sampling, Simulation and Inference}
+\author{Applied R for Statistical Teaching, Research and Reproducible Analysis}
+\date{}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\hypertarget{r-workshop-day-4-probability-sampling-simulation-and-inference}{%
+\section{R Workshop -- Day 4 -- Probability, Sampling, Simulation and
+Inference}\label{r-workshop-day-4-probability-sampling-simulation-and-inference}}
+
+\textbf{Session 4 of 7 \textbar{} Duration: 3 hours} \textbf{Programme:}
+Applied R for Statistical Teaching, Research and Reproducible Analysis
+
+\hypertarget{learning-objectives}{%
+\subsection{Learning objectives}\label{learning-objectives}}
+
+By the end of this session you will be able to:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Use the \texttt{d}/\texttt{p}/\texttt{q}/\texttt{r}
+  distribution-function pattern for at least the normal and binomial
+  distributions.
+\item
+  Set a random seed and explain why it matters for reproducible
+  simulation.
+\item
+  Run a simulation experiment and demonstrate the Central Limit Theorem
+  with repeated sampling.
+\item
+  Estimate and interpret a confidence interval in plain language.
+\item
+  Choose an appropriate test based on study design and run it on the
+  anchor dataset.
+\item
+  Report statistical and practical significance without overstating
+  certainty.
+\end{enumerate}
+
+\hypertarget{capstone-link}{%
+\subsection{Capstone link}\label{capstone-link}}
+
+Today produces one inferential answer to your capstone research
+question: typically, whether post-training scores improved relative to
+pre-training scores, and/or whether scores differ between two groups
+(e.g.~completers versus non-completers).
+
+\hypertarget{segment-plan-3-hours}{%
+\subsection{Segment plan (3 hours)}\label{segment-plan-3-hours}}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3000}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Segment
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Time
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Purpose
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Opening and recap & 10 min & Recap Day 3 graphics, preview today's
+inferential question \\
+Concept bridge & 25 min & Probability functions, sampling variation, the
+CLT \\
+Guided coding & 60 min & Simulation, confidence interval, one hypothesis
+test \\
+Participant practice & 45 min & Run inference on the anchor dataset \\
+Interpretation and reporting & 25 min & Plain-language statistical
+reporting \\
+Evidence log and capstone update & 15 min & Save the inference
+notebook/script \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{part-1-concept-bridge-core-workshop-activity}{%
+\subsection{Part 1 -- Concept bridge (Core workshop
+activity)}\label{part-1-concept-bridge-core-workshop-activity}}
+
+\hypertarget{the-dpqr-pattern}{%
+\subsubsection{\texorpdfstring{The
+\texttt{d}/\texttt{p}/\texttt{q}/\texttt{r}
+pattern}{The d/p/q/r pattern}}\label{the-dpqr-pattern}}
+
+Every distribution in R follows a naming convention, illustrated for the
+normal distribution:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Prefix
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Meaning
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Example
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{d} & density (height of the curve at x) &
+\texttt{dnorm(70,\ mean\ =\ 65,\ sd\ =\ 10)} \\
+\texttt{p} & cumulative probability, P(X \textless= x) &
+\texttt{pnorm(70,\ mean\ =\ 65,\ sd\ =\ 10)} \\
+\texttt{q} & quantile, the x for a given cumulative probability &
+\texttt{qnorm(0.95,\ mean\ =\ 65,\ sd\ =\ 10)} \\
+\texttt{r} & random draws from the distribution &
+\texttt{rnorm(10,\ mean\ =\ 65,\ sd\ =\ 10)} \\
+\end{longtable}
+
+The same four letters apply to \texttt{binom} (binomial), \texttt{unif}
+(uniform), \texttt{t} (t-distribution), and others.
+
+\hypertarget{why-set.seed}{%
+\subsubsection{\texorpdfstring{Why
+\texttt{set.seed()}}{Why set.seed()}}\label{why-set.seed}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2024}\NormalTok{)}
+\FunctionTok{rnorm}\NormalTok{(}\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Running the line above twice with the same seed gives the same three
+numbers. Without \texttt{set.seed()}, every run of a simulation differs,
+which makes results impossible to check or reproduce. Set the seed once,
+near the top of the script, before the first random draw.
+
+\hypertarget{sampling-variation-and-the-central-limit-theorem-clt}{%
+\subsubsection{Sampling variation and the Central Limit Theorem
+(CLT)}\label{sampling-variation-and-the-central-limit-theorem-clt}}
+
+A single sample mean is one estimate of the population mean; a different
+sample would give a different estimate. The CLT says that, as sample
+size grows, the distribution of the \emph{sample mean} across repeated
+samples becomes approximately normal, regardless of the shape of the
+original population -- which is why so much of classical inference
+relies on the normal distribution.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{part-2-guided-coding-core-workshop-activity}{%
+\subsection{Part 2 -- Guided coding (Core workshop
+activity)}\label{part-2-guided-coding-core-workshop-activity}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+
+\NormalTok{lecturers }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"Data/processed/anchor\_dataset\_clean.csv"}\NormalTok{, }\AttributeTok{show\_col\_types =} \ConstantTok{FALSE}\NormalTok{)}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2024}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{one-simulation-experiment}{%
+\subsubsection{2.1 One simulation
+experiment}\label{one-simulation-experiment}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Simulate 1,000 lecturers\textquotesingle{} post{-}training scores under an assumed}
+\CommentTok{\# population mean of 65 and sd of 12, purely to see typical sample noise.}
+\NormalTok{simulated\_scores }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\AttributeTok{mean =} \DecValTok{65}\NormalTok{, }\AttributeTok{sd =} \DecValTok{12}\NormalTok{)}
+\FunctionTok{mean}\NormalTok{(simulated\_scores)}
+\FunctionTok{sd}\NormalTok{(simulated\_scores)}
+\FunctionTok{hist}\NormalTok{(simulated\_scores, }\AttributeTok{main =} \StringTok{"Simulated post{-}training scores"}\NormalTok{, }\AttributeTok{xlab =} \StringTok{"Score"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{demonstrating-the-clt-with-repeated-samples}{%
+\subsubsection{2.2 Demonstrating the CLT with repeated
+samples}\label{demonstrating-the-clt-with-repeated-samples}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sample\_means }\OtherTok{\textless{}{-}} \FunctionTok{replicate}\NormalTok{(}\DecValTok{2000}\NormalTok{, \{}
+\NormalTok{  one\_sample }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(lecturers}\SpecialCharTok{$}\NormalTok{post\_score[}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(lecturers}\SpecialCharTok{$}\NormalTok{post\_score)], }\AttributeTok{size =} \DecValTok{30}\NormalTok{)}
+  \FunctionTok{mean}\NormalTok{(one\_sample)}
+\NormalTok{\})}
+
+\FunctionTok{hist}\NormalTok{(sample\_means, }\AttributeTok{main =} \StringTok{"Distribution of sample means (n = 30, 2000 repeats)"}\NormalTok{,}
+     \AttributeTok{xlab =} \StringTok{"Sample mean post{-}training score"}\NormalTok{)}
+\FunctionTok{sd}\NormalTok{(sample\_means) }\CommentTok{\# the standard error, empirically}
+\end{Highlighting}
+\end{Shaded}
+
+Compare \texttt{sd(sample\_means)} to
+\texttt{sd(lecturers\$post\_score,\ na.rm\ =\ TRUE)\ /\ sqrt(30)} -- the
+two should be close, which is the CLT's standard-error formula made
+concrete.
+
+\hypertarget{one-confidence-interval}{%
+\subsubsection{2.3 One confidence
+interval}\label{one-confidence-interval}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{post\_scores }\OtherTok{\textless{}{-}}\NormalTok{ lecturers}\SpecialCharTok{$}\NormalTok{post\_score[}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(lecturers}\SpecialCharTok{$}\NormalTok{post\_score)]}
+\NormalTok{n }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(post\_scores)}
+\NormalTok{sample\_mean }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(post\_scores)}
+\NormalTok{sample\_se }\OtherTok{\textless{}{-}} \FunctionTok{sd}\NormalTok{(post\_scores) }\SpecialCharTok{/} \FunctionTok{sqrt}\NormalTok{(n)}
+
+\NormalTok{ci\_lower }\OtherTok{\textless{}{-}}\NormalTok{ sample\_mean }\SpecialCharTok{{-}} \FunctionTok{qt}\NormalTok{(}\FloatTok{0.975}\NormalTok{, }\AttributeTok{df =}\NormalTok{ n }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ sample\_se}
+\NormalTok{ci\_upper }\OtherTok{\textless{}{-}}\NormalTok{ sample\_mean }\SpecialCharTok{+} \FunctionTok{qt}\NormalTok{(}\FloatTok{0.975}\NormalTok{, }\AttributeTok{df =}\NormalTok{ n }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ sample\_se}
+\FunctionTok{c}\NormalTok{(ci\_lower, ci\_upper)}
+
+\CommentTok{\# Or, directly from a t{-}test:}
+\FunctionTok{t.test}\NormalTok{(post\_scores)}\SpecialCharTok{$}\NormalTok{conf.int}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Plain-language template:} ``We are 95\% confident that the true
+mean post-training score for the population this sample represents lies
+between \texttt{ci\_lower} and \texttt{ci\_upper}.''
+
+\hypertarget{selecting-and-running-one-test}{%
+\subsubsection{2.4 Selecting and running one
+test}\label{selecting-and-running-one-test}}
+
+Test choice follows study design, not habit:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Design
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Typical test
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+One numeric variable vs.~a fixed value & One-sample t-test \\
+Same individuals measured twice (pre/post) & Paired t-test \\
+Two independent groups, one numeric outcome & Independent (two-sample)
+t-test \\
+Two categorical variables & Chi-square test of independence \\
+\end{longtable}
+
+For the capstone question -- did scores improve from pre- to
+post-training -- the design is paired:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{paired\_data }\OtherTok{\textless{}{-}}\NormalTok{ lecturers }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(pre\_score), }\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(post\_score))}
+
+\FunctionTok{t.test}\NormalTok{(paired\_data}\SpecialCharTok{$}\NormalTok{post\_score, paired\_data}\SpecialCharTok{$}\NormalTok{pre\_score, }\AttributeTok{paired =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{reporting-statistical-and-practical-significance}{%
+\subsubsection{2.5 Reporting statistical and practical
+significance}\label{reporting-statistical-and-practical-significance}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{paired\_result }\OtherTok{\textless{}{-}} \FunctionTok{t.test}\NormalTok{(paired\_data}\SpecialCharTok{$}\NormalTok{post\_score, paired\_data}\SpecialCharTok{$}\NormalTok{pre\_score, }\AttributeTok{paired =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{mean\_gain }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(paired\_data}\SpecialCharTok{$}\NormalTok{post\_score }\SpecialCharTok{{-}}\NormalTok{ paired\_data}\SpecialCharTok{$}\NormalTok{pre\_score)}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Reporting template:} ``Post-training scores were on average
+\texttt{mean\_gain} points higher than pre-training scores (paired
+t-test, t = \ldots, df = \ldots, p = \ldots). This difference is
+{[}statistically significant / not statistically significant{]} at the
+5\% level, and represents a {[}meaningful / modest{]} practical gain on
+a 0-100 scale.''
+
+Statistical significance (a small p-value) and practical significance (a
+gain large enough to matter to a lecturer or programme manager) are
+different claims -- report both.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{part-3-participant-practice-core-workshop-activity}{%
+\subsection{Part 3 -- Participant practice (Core workshop
+activity)}\label{part-3-participant-practice-core-workshop-activity}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Compute a 95\% confidence interval for mean attendance.
+\item
+  Run the paired t-test for pre- versus post-training scores and write
+  the plain-language sentence above with your actual numbers filled in.
+\item
+  Choose one additional comparison relevant to your research question
+  (e.g.~post-training score for completers versus non-completers, an
+  independent two-sample t-test) and run it.
+\item
+  For your chosen test, check at least one assumption informally (e.g.~a
+  histogram or \texttt{qqnorm()} of the relevant variable) and note any
+  concern in a comment.
+\item
+  Save your code and your written interpretation as
+  \texttt{Outputs/day4\_inference\_notebook.R} (or an
+  \texttt{.Rmd}/\texttt{.qmd} if you prefer).
+\end{enumerate}
+
+A facilitator-reviewed solution is in
+\texttt{Solution-Scripts/day4\_inference\_solution.R}.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{optional-demonstration}{%
+\subsection{Optional demonstration}\label{optional-demonstration}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Coverage simulation} -- repeat the confidence-interval
+  calculation across many simulated samples and check what proportion
+  actually contain the true mean (should be close to 95\%).
+\item
+  \textbf{Chi-square and Fisher's exact test} -- e.g.~is
+  \texttt{completed} associated with \texttt{training\_track}?
+\item
+  \textbf{Non-parametric alternatives} -- Wilcoxon signed-rank test as a
+  paired-t-test alternative when normality is doubtful.
+\item
+  \textbf{Effect-size calculations} -- Cohen's d via the
+  \texttt{effectsize} package.
+\item
+  \textbf{Additional CLT demonstrations} -- repeat Part 2.2 with a
+  clearly skewed variable (e.g.~\texttt{years\_teaching}) to show the
+  CLT still holds for the \emph{sample mean} even when the raw variable
+  is not normal.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Optional: chi{-}square test of independence}
+\FunctionTok{chisq.test}\NormalTok{(}\FunctionTok{table}\NormalTok{(lecturers}\SpecialCharTok{$}\NormalTok{completed, lecturers}\SpecialCharTok{$}\NormalTok{training\_track))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{reference-or-take-home-material}{%
+\subsection{Reference or take-home
+material}\label{reference-or-take-home-material}}
+
+\begin{itemize}
+\tightlist
+\item
+  Assumption checklists for the t-test family (independence, approximate
+  normality of the relevant quantity, for two-sample tests: variance
+  assumptions and Welch's correction).
+\item
+  A short template for reporting a p-value and confidence interval
+  consistently across the rest of the workshop.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{daily-deliverable}{%
+\subsection{Daily deliverable}\label{daily-deliverable}}
+
+A short inference notebook or script
+(\texttt{Outputs/day4\_inference\_notebook.R} or equivalent) that
+answers one inferential question linked to the capstone research
+question, with a plain-language interpretation.
+
+\hypertarget{evidence-log-entry}{%
+\subsubsection{Evidence log entry}\label{evidence-log-entry}}
+
+Complete the Day 4 row in \texttt{Workshop-Evidence-Log.md}: state your
+inferential result and whether it supports, contradicts, or is
+inconclusive about your initial impression from the Day 3 graphics.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{facilitator-notes}{%
+\subsection{Facilitator notes}\label{facilitator-notes}}
+
+\begin{itemize}
+\tightlist
+\item
+  The paired t-test on \texttt{pre\_score}/\texttt{post\_score} should
+  show a positive, statistically significant gain by construction of the
+  synthetic dataset -- use this as your answer key for spot-checking
+  participants' work.
+\item
+  Watch for participants computing a confidence interval or t-test on a
+  column that still contains \texttt{NA} without filtering first;
+  \texttt{t.test()} will error or silently drop rows depending on the
+  call, so this is worth flagging explicitly.
+\item
+  If a participant chooses chi-square as their ``one additional
+  comparison,'' that is acceptable even though it is listed as optional
+  demonstration -- the boundary exists for time management, not as a
+  hard rule.
+\end{itemize}
+\end{document}
