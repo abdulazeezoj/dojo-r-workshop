@@ -1,5 +1,6 @@
 ---
 title: "R Workshop Capstone Report"
+subtitle: "One-line description of your research question"
 author: "Participant name"
 format:
   html: default
@@ -28,9 +29,22 @@ Describe cleaning decisions and link to the data dictionary.
 
 Include at least two interpreted figures.
 
-## Inference or model
+## Inference
 
-Report one inferential result or fitted model with assumptions and interpretation.
+Report one inferential result (e.g. a confidence interval or hypothesis
+test) linked to the research question, with assumptions and a
+plain-language interpretation.
+
+## Model
+
+Report the fitted model addressing the research question: formula,
+coefficients, uncertainty and a plain-language interpretation of the
+key terms.
+
+## Limitations
+
+State the main limitations of the data or analysis (e.g. study design,
+missingness, scope of the conclusions).
 
 ## Reproducibility
 
