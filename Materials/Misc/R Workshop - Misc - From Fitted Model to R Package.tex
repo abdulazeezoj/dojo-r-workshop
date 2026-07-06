@@ -1,0 +1,541 @@
+\documentclass[11pt]{article}
+
+% ---------- Packages ----------
+\usepackage[margin=1in]{geometry}
+\usepackage{fontspec}
+\setmainfont{TeX Gyre Termes}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\usepackage{caption}
+\usepackage{parskip}
+\usepackage{amssymb}
+
+% ---------- Colors ----------
+\definecolor{codebg}{RGB}{246,247,249}
+\definecolor{codeframe}{RGB}{210,214,220}
+\definecolor{rblue}{RGB}{22,86,156}
+\definecolor{rgray}{RGB}{95,95,95}
+\definecolor{comment}{RGB}{120,130,120}
+\definecolor{keyword}{RGB}{0,90,150}
+\definecolor{string}{RGB}{150,60,40}
+
+% ---------- Code listing style ----------
+\lstdefinestyle{Rstyle}{
+  backgroundcolor=\color{codebg},
+  rulecolor=\color{codeframe},
+  frame=single,
+  framerule=0.4pt,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{keyword}\bfseries,
+  commentstyle=\color{comment}\itshape,
+  stringstyle=\color{string},
+  showstringspaces=false,
+  breaklines=true,
+  breakatwhitespace=false,
+  numbers=none,
+  xleftmargin=8pt,
+  xrightmargin=8pt,
+  aboveskip=8pt,
+  belowskip=8pt,
+  tabsize=2,
+  language=R
+}
+\lstset{style=Rstyle}
+
+% ---------- Section styling ----------
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{rblue}}
+  {\thesection}{0.6em}{}
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{rblue}}
+  {\thesubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{18pt}{8pt}
+\titlespacing*{\subsection}{0pt}{14pt}{6pt}
+
+% ---------- Header/Footer ----------
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.3pt}
+\fancyhead[L]{\small\textit{From Fitted Model to R Package}}
+\fancyhead[R]{\small\thepage}
+\fancyfoot[C]{\small\textcolor{rgray}{Sinovx Technologies -- R Engineering Notes}}
+
+% ---------- Tip / Note boxes ----------
+\newtcolorbox{tipbox}{
+  breakable, enhanced, colback=blue!4, colframe=rblue!60,
+  boxrule=0.6pt, arc=2pt, left=8pt, right=8pt, top=6pt, bottom=6pt,
+  title={\textbf{Tip}}, fonttitle=\bfseries\color{rblue},
+  attach title to upper={\ \ }
+}
+\newtcolorbox{warnbox}{
+  breakable, enhanced, colback=orange!6, colframe=orange!70!black,
+  boxrule=0.6pt, arc=2pt, left=8pt, right=8pt, top=6pt, bottom=6pt,
+  title={\textbf{Common Pitfall}}, fonttitle=\bfseries\color{orange!70!black},
+  attach title to upper={\ \ }
+}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=rblue,
+  urlcolor=rblue,
+  citecolor=rblue,
+  pdftitle={From Fitted Model to R Package},
+  pdfauthor={Sinovx Technologies}
+}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+\title{\vspace{-2cm}\textbf{\Huge From Fitted Model to R Package}\\[6pt]
+\Large A Random Forest Case Study for Statistics Educators}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-1.7cm}
+
+\begin{center}
+\textcolor{rgray}{\textit{A step-by-step guide for turning a trained R model into an installable, versioned, testable package}}
+\end{center}
+
+\vspace{0.4cm}
+
+\section*{Who This Guide Is For}
+This article is written for intermediate and advanced R users -- particularly university lecturers and researchers in statistics -- who have already built a predictive model in R and want to distribute it so that colleagues, students, or collaborators can install it with a single command and use it without re-running training code or copy-pasting scripts. You should already be comfortable writing R functions, fitting models, and using RStudio. No prior package-development experience is assumed.
+
+Because the audience for this guide builds statistical models for a living, the worked example goes one step beyond a toy linear model: it packages a \textbf{random forest classifier}, which introduces two realities every package author eventually meets -- a dependency on compiled code, and a model that is trained stochastically rather than fit by a closed-form formula. Every technique shown here, however, applies without modification to simpler models (linear regression, GLMs) and to more elaborate ones (tidymodels workflows, xgboost, deep learning).
+
+\tableofcontents
+
+% =====================================================
+\section{Why Package a Model?}
+
+A model that lives only as an \texttt{.RData} file and a loose script is fragile: it is hard to version, hard to document, and hard for someone else to reproduce. Wrapping a model in an R package gives you, for free:
+
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{A stable installation path} -- \texttt{install.packages()} or \texttt{devtools::install\_github()} instead of ``download this folder and source three files.''
+  \item \textbf{Versioning} -- the \texttt{DESCRIPTION} file tracks a version number, so users and students can pin the exact model they used in an assignment or paper.
+  \item \textbf{Documentation that travels with the code} -- \texttt{?predict\_infertility\_risk} works for anyone who installs the package, in every R session, with no extra files to find.
+  \item \textbf{Reproducibility} -- dependencies, the trained object, and the prediction logic are bundled together and versioned as one unit.
+  \item \textbf{Testability} -- unit tests catch silent breakage when you retrain or refactor.
+\end{itemize}
+
+\begin{tipbox}
+If you only need to share a model with one or two colleagues for a week, a package may be overkill -- consider a simple script with \texttt{saveRDS()}. Build a package when the model will be reused across semesters, by multiple people, or needs a stable public interface.
+\end{tipbox}
+
+% =====================================================
+\section{Overall Workflow}
+
+At a high level, packaging a model involves five stages:
+
+\begin{enumerate}[itemsep=3pt]
+  \item \textbf{Scaffold} the package structure.
+  \item \textbf{Train} the model once, then \textbf{serialize} it into the package as internal data.
+  \item \textbf{Wrap} the model in user-facing functions (e.g. \texttt{predict\_*()}).
+  \item \textbf{Document and test} every exported function.
+  \item \textbf{Build, check, and distribute} the package.
+\end{enumerate}
+
+\subsection*{The Running Example}
+The rest of this guide builds a package called \texttt{fertilityrisk}. It wraps a \textbf{random forest classifier} (fit with the \texttt{ranger} package) trained on \texttt{datasets::infert} -- the classic Trichopoulos et al.\ case-control dataset on secondary infertility that ships with base R, so no external data download is required. The model estimates the probability that a woman is a ``case'' (experienced secondary infertility) from four reproductive-history variables: age, parity, and the number of prior induced and spontaneous abortions.
+
+This example was chosen deliberately because it forces us to confront two issues that a plain \texttt{lm()} example would hide: the package now depends on compiled code (\texttt{ranger} is written in C++ via Rcpp), and the model is fit stochastically, which raises reproducibility questions that a linear model's closed-form solution never does. Both issues, and their solutions, are called out as they arise.
+
+% =====================================================
+\section{Step 1: Scaffold the Package}
+
+Use the \texttt{usethis} package to generate a clean package skeleton. This avoids hand-writing boilerplate and follows CRAN-compatible conventions from the start.
+
+\begin{lstlisting}
+install.packages(c("usethis", "devtools", "roxygen2", "testthat"))
+
+library(usethis)
+create_package("~/projects/fertilityrisk")
+\end{lstlisting}
+
+This creates a new RStudio project with the following structure:
+
+\begin{lstlisting}[language={}]
+fertilityrisk/
+    DESCRIPTION
+    NAMESPACE
+    R/
+    man/
+    fertilityrisk.Rproj
+\end{lstlisting}
+
+Immediately configure a few essentials:
+
+\begin{lstlisting}
+use_mit_license("Your Name")     # or use_gpl3_license(), etc.
+use_roxygen_md()                 # enables roxygen2 + markdown docs
+use_testthat(3)                  # sets up the testing framework
+use_package("ranger")            # declares a runtime dependency
+\end{lstlisting}
+
+Open \texttt{DESCRIPTION} and fill in the metadata:
+
+\begin{lstlisting}[language={}]
+Package: fertilityrisk
+Title: Predict Secondary Infertility Risk from Reproductive History
+Version: 0.1.0
+Authors@R: person("Jane", "Doe", email = "jane@university.edu",
+    role = c("aut", "cre"))
+Description: Provides a pretrained random forest model and helper
+    functions to estimate the probability of secondary infertility
+    from age, parity, and prior abortion history, based on the
+    classic infert case-control dataset. Intended for teaching
+    predictive modeling and R package development.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
+Depends: R (>= 4.1.0)
+Imports: ranger
+\end{lstlisting}
+
+\begin{tipbox}
+Use a package name that is lowercase, alphanumeric, and not already on CRAN. Check availability with \texttt{available::available("fertilityrisk")}. Note that \texttt{ranger} is listed under \texttt{Imports}, not \texttt{Depends}: your package uses it internally, but installing \texttt{fertilityrisk} should not silently attach \texttt{ranger} into the user's session.
+\end{tipbox}
+
+% =====================================================
+\section{Step 2: Train the Model and Store It as Internal Data}
+
+The trained model object should \emph{not} be retrained every time someone loads your package -- it should be fit once and shipped inside the package as serialized data. R packages support this cleanly via the \texttt{data/} directory (for data objects users can access directly) or \texttt{R/sysdata.rda} (for internal-only objects, invisible to the user but available to your own functions).
+
+Create a script that trains the model. Keep this script \emph{outside} the \texttt{R/} folder, since it is a one-time build step, not package code that runs on every load. The convention is to put it under \texttt{data-raw/}.
+
+\begin{lstlisting}
+use_data_raw("infert_model")
+\end{lstlisting}
+
+This opens \texttt{data-raw/infert\_model.R}. Write your training logic there:
+
+\begin{lstlisting}
+## data-raw/infert_model.R
+library(usethis)
+library(ranger)
+
+data(infert, package = "datasets")
+
+# A fixed seed makes the fitted forest reproducible run-to-run.
+# num.threads = 1 additionally pins down tree-building order, so the
+# fitted model -- and any pinned test values built from it -- are
+# identical no matter how many cores the training machine has.
+set.seed(123)
+infert_rf <- ranger::ranger(
+  formula     = factor(case) ~ age + parity + induced + spontaneous,
+  data        = infert,
+  probability = TRUE,
+  num.trees   = 500,
+  importance  = "impurity",
+  num.threads = 1
+)
+
+# Save as internal data, not exported to users directly
+usethis::use_data(infert_rf, internal = TRUE, overwrite = TRUE)
+\end{lstlisting}
+
+Run this script once:
+
+\begin{lstlisting}
+source("data-raw/infert_model.R")
+\end{lstlisting}
+
+This creates \texttt{R/sysdata.rda}, a binary file containing \texttt{infert\_rf}, automatically loaded into your package's internal namespace whenever the package loads. Users never see \texttt{infert\_rf} directly -- they interact with it only through the functions you write in Step 3.
+
+\begin{warnbox}
+\textbf{Stochastic models need a pinned seed and a pinned thread count.} A linear model fit by \texttt{lm()} always returns the same coefficients. A random forest does not: it resamples observations and candidate splits at every tree. Without \texttt{set.seed()}, retraining produces a slightly different model every time, which silently changes your package's predictions between builds. With parallelized algorithms like \texttt{ranger}, \texttt{set.seed()} alone is not always sufficient for bit-for-bit reproducibility across machines with different core counts -- setting \texttt{num.threads = 1} during the one-time \texttt{data-raw/} training run removes that variability entirely. (The package's runtime prediction function does not need this restriction, since prediction from an already-fitted forest is deterministic.)
+\end{warnbox}
+
+If the trained object were large (tens of MB -- less of a concern for a 500-tree forest on four predictors, but common for deep learning models or forests with thousands of trees on wide data), you would want to reconsider whether it belongs in the package at all. CRAN enforces a soft 5MB package-size limit. Large models are often better distributed via a companion data package, a release asset on GitHub, or downloaded on first use with a caching mechanism (e.g.\ the \texttt{pins} package).
+
+If you instead want users to be able to inspect the fitted forest directly (e.g.\ for a teaching package where students examine out-of-bag error or tree structure), export it as regular package data instead of internal data:
+
+\begin{lstlisting}
+usethis::use_data(infert_rf, overwrite = TRUE)  # goes to data/infert_rf.rda
+\end{lstlisting}
+
+Exported data objects also need a documentation file, covered in Step 4.
+
+% =====================================================
+\section{Step 3: Write User-Facing Functions}
+
+Create an R script for your prediction logic:
+
+\begin{lstlisting}
+use_r("predict_infertility_risk")
+\end{lstlisting}
+
+Write a clean, validated wrapper function around the internal model object:
+
+\begin{lstlisting}
+#' Predict secondary infertility risk
+#'
+#' Estimates the probability that a woman is a "case" in the sense of
+#' the classic `infert` case-control study (i.e. experienced secondary
+#' infertility), using a random forest trained on age, parity, and
+#' prior abortion history.
+#'
+#' @param age Numeric. Age in years.
+#' @param parity Numeric. Number of prior pregnancies.
+#' @param induced Numeric. Number of prior induced abortions (0, 1, or 2+).
+#' @param spontaneous Numeric. Number of prior spontaneous abortions
+#'   (0, 1, or 2+).
+#'
+#' @return A numeric vector of predicted probabilities (one per input
+#'   row) of being a case, each in \eqn{[0, 1]}.
+#'
+#' @examples
+#' predict_infertility_risk(age = 30, parity = 2, induced = 1, spontaneous = 0)
+#'
+#' @export
+predict_infertility_risk <- function(age, parity, induced, spontaneous) {
+  inputs <- list(age = age, parity = parity,
+                 induced = induced, spontaneous = spontaneous)
+
+  if (!all(vapply(inputs, is.numeric, logical(1)))) {
+    stop("`age`, `parity`, `induced`, and `spontaneous` must all be ",
+         "numeric.", call. = FALSE)
+  }
+  if (length(unique(lengths(inputs))) > 1) {
+    stop("`age`, `parity`, `induced`, and `spontaneous` must all be ",
+         "the same length.", call. = FALSE)
+  }
+
+  newdata <- data.frame(age = age, parity = parity,
+                         induced = induced, spontaneous = spontaneous)
+
+  # ranger's predict() on a probability forest returns a matrix of
+  # class probabilities with one column per outcome level ("0", "1").
+  pred <- stats::predict(infert_rf, data = newdata)
+  as.numeric(pred$predictions[, "1"])
+}
+\end{lstlisting}
+
+A second exported function exposes model interpretation -- something statisticians, unlike many ML engineers, will almost always want alongside raw predictions:
+
+\begin{lstlisting}
+#' Variable importance for the infertility risk model
+#'
+#' Returns impurity-based variable importance scores from the
+#' underlying random forest, useful for classroom discussion of
+#' which reproductive-history variables drive the model's predictions.
+#'
+#' @return A named numeric vector of importance scores, sorted from
+#'   most to least important.
+#'
+#' @examples
+#' infertility_risk_importance()
+#'
+#' @export
+infertility_risk_importance <- function() {
+  sort(infert_rf$variable.importance, decreasing = TRUE)
+}
+\end{lstlisting}
+
+Note four important conventions:
+
+\begin{itemize}[itemsep=2pt]
+  \item Functions reference \texttt{infert\_rf} directly -- it is available automatically because \texttt{R/sysdata.rda} is loaded with the package namespace.
+  \item Use \texttt{stats::predict()} (fully qualified) rather than attaching packages with \texttt{library()} inside package code; \texttt{predict()} here dispatches to \texttt{ranger}'s method because \texttt{infert\_rf} carries class \texttt{"ranger"}.
+  \item Validate inputs and fail with informative errors (\texttt{stop(..., call. = FALSE)}) rather than letting a cryptic internal matrix-indexing error surface to the user.
+  \item The \texttt{@export} roxygen tag makes a function visible to users; helper functions you do not want to export simply omit this tag.
+\end{itemize}
+
+\begin{tipbox}
+For larger model packages, separate concerns into multiple files: \texttt{R/predict.R} for prediction functions, \texttt{R/preprocess.R} for feature engineering helpers, \texttt{R/utils.R} for internal utilities. One exported concept per file, named to match, is the tidyverse style convention.
+\end{tipbox}
+
+% =====================================================
+\section{Step 4: Document Everything}
+
+R packages use \texttt{roxygen2} comments (the \texttt{\#'} lines above each function) to auto-generate \texttt{.Rd} help files. After writing or editing any documentation comment, regenerate the docs and the \texttt{NAMESPACE} file:
+
+\begin{lstlisting}
+devtools::document()
+\end{lstlisting}
+
+This reads every \texttt{@} tag in your \texttt{R/} scripts and produces \texttt{man/predict\_infertility\_risk.Rd} and \texttt{man/infertility\_risk\_importance.Rd}, plus updates \texttt{NAMESPACE} with the correct \texttt{export()} and \texttt{import()} directives. Never hand-edit \texttt{NAMESPACE} or files in \texttt{man/} -- they are generated artifacts.
+
+If you exported the model object itself in Step 2, document it too, typically in \texttt{R/data.R}:
+
+\begin{lstlisting}
+#' Pretrained infertility risk random forest
+#'
+#' A `ranger` random forest object predicting secondary infertility
+#' case status from `age`, `parity`, `induced`, and `spontaneous`,
+#' fitted on the built-in `infert` dataset.
+#'
+#' @format An object of class `ranger`.
+#' @source `ranger::ranger(factor(case) ~ age + parity + induced +
+#'   spontaneous, data = infert, probability = TRUE)`
+"infert_rf"
+\end{lstlisting}
+
+Finally, write a top-level \texttt{README.Rmd} (rendered to \texttt{README.md}) with installation instructions and a minimal usage example -- this is the first thing anyone sees on GitHub:
+
+\begin{lstlisting}
+use_readme_rmd()
+\end{lstlisting}
+
+\begin{tipbox}
+A good README for a model package includes: what the model predicts, what data it was trained on, its intended use case (and explicit limitations -- the \texttt{infert} data is a small, decades-old teaching dataset, not a validated clinical instrument), and a copy-pasteable usage example.
+\end{tipbox}
+
+% =====================================================
+\section{Step 5: Write Tests}
+
+Testing a model wrapper is different from testing arbitrary code -- you are mainly checking the \emph{interface} (input validation, output shape, type stability, and value range) rather than re-deriving the statistics from scratch.
+
+\begin{lstlisting}
+use_test("predict_infertility_risk")
+\end{lstlisting}
+
+\begin{lstlisting}
+test_that("predict_infertility_risk returns correct length and type", {
+  result <- predict_infertility_risk(age = c(30, 40), parity = c(2, 1),
+                                      induced = c(1, 0), spontaneous = c(0, 1))
+  expect_type(result, "double")
+  expect_length(result, 2)
+})
+
+test_that("predict_infertility_risk returns valid probabilities", {
+  result <- predict_infertility_risk(age = 30, parity = 2,
+                                      induced = 1, spontaneous = 0)
+  expect_true(all(result >= 0 & result <= 1))
+})
+
+test_that("predict_infertility_risk matches a known reference value", {
+  # Reference value computed once (with num.threads = 1 at training
+  # time) and pinned here, to catch silent model drift if infert_rf
+  # is ever retrained/overwritten with different settings.
+  result <- predict_infertility_risk(age = 30, parity = 2,
+                                      induced = 1, spontaneous = 0)
+  expect_equal(round(result, 2), 0.31, tolerance = 0.01)
+})
+
+test_that("predict_infertility_risk errors on invalid input", {
+  expect_error(predict_infertility_risk(age = "thirty", parity = 2,
+                                         induced = 1, spontaneous = 0))
+  expect_error(predict_infertility_risk(age = c(30, 40), parity = 2,
+                                         induced = 1, spontaneous = 0))
+})
+\end{lstlisting}
+
+Run the full suite with:
+
+\begin{lstlisting}
+devtools::test()
+\end{lstlisting}
+
+\begin{warnbox}
+Always include at least one ``reference value'' test that pins a known prediction to a fixed number, as above. If someone accidentally retrains and overwrites \texttt{sysdata.rda} with a different model -- or forgets to set a seed -- this test catches the silent behavior change immediately. For stochastic models, this test is doing double duty: it verifies both your wrapper code \emph{and} the reproducibility of the training pipeline that produced \texttt{sysdata.rda} in the first place.
+\end{warnbox}
+
+% =====================================================
+\section{Step 6: Check, Build, and Install Locally}
+
+Before sharing the package, run R's built-in validator. This checks documentation completeness, namespace correctness, examples that actually run, declared-but-unused dependencies, and dozens of other conventions:
+
+\begin{lstlisting}
+devtools::check()
+\end{lstlisting}
+
+Resolve every \texttt{ERROR} and \texttt{WARNING}; \texttt{NOTE}s are often acceptable but worth reading. A clean \texttt{check()} is required if you ever intend to submit to CRAN, and is good discipline even for internal packages. Because \texttt{fertilityrisk} depends on \texttt{ranger}, a compiled-code package, \texttt{check()} will also confirm that the compiled dependency installs and loads correctly -- a class of problem that never arises with pure-\texttt{stats} models.
+
+Then install and test it as a user would:
+
+\begin{lstlisting}
+devtools::install()
+library(fertilityrisk)
+predict_infertility_risk(age = 35, parity = 1, induced = 0, spontaneous = 1)
+infertility_risk_importance()
+\end{lstlisting}
+
+% =====================================================
+\section{Step 7: Distribute the Package}
+
+You have three common distribution routes, in increasing order of formality:
+
+\subsection{GitHub (most common for teaching/research)}
+Push the package to a GitHub repository. Students and colleagues install it with:
+
+\begin{lstlisting}
+# install.packages("remotes")
+remotes::install_github("yourusername/fertilityrisk")
+\end{lstlisting}
+
+Tag releases (\texttt{v0.1.0}, \texttt{v0.2.0}, \dots) so users can pin a specific version:
+
+\begin{lstlisting}
+remotes::install_github("yourusername/fertilityrisk@v0.1.0")
+\end{lstlisting}
+
+\subsection{A private or university R-Universe / drat repository}
+If you publish multiple teaching packages, an \href{https://r-universe.dev}{R-universe} repository lets users install with plain \texttt{install.packages()} pointed at a custom repo URL -- no \texttt{remotes} needed and no GitHub token required for private forks.
+
+\subsection{CRAN}
+For general-purpose, broadly useful packages, CRAN submission via \texttt{devtools::release()} is the gold standard, but requires strict compliance (portable code, no writing outside \texttt{tempdir()}, fast examples, compiled dependencies that build cleanly on Windows/macOS/Linux, etc.). Most single-course teaching packages are well served by GitHub distribution instead.
+
+\begin{tipbox}
+For a course, consider adding installation instructions directly to your syllabus or LMS page:
+\texttt{remotes::install\_github("yourusername/fertilityrisk")}. Pin a tag per semester so a later model update never silently changes a past assignment's expected output.
+\end{tipbox}
+
+% =====================================================
+\section{Handling Larger or More Complex Models}
+
+The random-forest example above already covers two of the trickiest real-world issues -- compiled-code dependencies and stochastic training -- but a few further situations are worth knowing about:
+
+\begin{itemize}[itemsep=3pt]
+  \item \textbf{tidymodels workflows / caret models / xgboost:} store the fitted \texttt{workflow}, \texttt{train}, or \texttt{xgb.Booster} object the same way via \texttt{usethis::use\_data(..., internal = TRUE)}. For \texttt{xgboost} specifically, prefer \texttt{xgb.save()} to a file bundled under \texttt{inst/extdata/} and load it lazily in \texttt{.onLoad()}, since \texttt{xgb.Booster} objects do not always serialize reliably via plain \texttt{.rda}.
+  \item \textbf{Deep learning models (torch, keras):} these carry external-language state that does not survive standard R serialization. Save native checkpoints under \texttt{inst/extdata/} and reconstruct the model object at load time, typically via a package-level cache and a \texttt{.onLoad()} hook.
+  \item \textbf{Mixed-effects and Bayesian models (lme4, brms, rstan):} these often bundle a compiled sampler or a large posterior draw matrix. The same \texttt{data-raw/} + \texttt{sysdata.rda} pattern works, but pay close attention to object size -- a saved \texttt{brmsfit} can easily exceed CRAN's soft size limit and may be better served by exporting a summarized posterior instead of the full fit.
+  \item \textbf{Models with heavy dependencies:} list them under \texttt{Imports} in \texttt{DESCRIPTION}, not \texttt{Depends}, so they load only when actually needed and do not clutter the user's namespace.
+  \item \textbf{Models that need periodic retraining:} keep the \texttt{data-raw/} training script under version control and re-run \texttt{Step 2} whenever new data arrives, bumping the package \texttt{Version} each time so downstream users can detect the change.
+\end{itemize}
+
+% =====================================================
+\section{Quick Reference Checklist}
+
+\begin{tcolorbox}[breakable, enhanced, colback=green!4, colframe=green!40!black,
+  boxrule=0.6pt, arc=2pt, left=8pt, right=8pt, top=6pt, bottom=6pt]
+\begin{itemize}[itemsep=3pt, leftmargin=1.4em]
+  \item[\textbf{$\square$}] \texttt{create\_package()} scaffolds the project
+  \item[\textbf{$\square$}] License and \texttt{DESCRIPTION} metadata filled in; model dependencies (e.g.\ \texttt{ranger}) listed under \texttt{Imports}
+  \item[\textbf{$\square$}] Model trained once in \texttt{data-raw/} with a fixed seed (and, for parallel algorithms, a fixed thread count), saved via \texttt{use\_data(internal = TRUE)}
+  \item[\textbf{$\square$}] Prediction function(s) written with input validation and \texttt{@export}
+  \item[\textbf{$\square$}] \texttt{devtools::document()} run after every roxygen edit
+  \item[\textbf{$\square$}] README with install instructions and a working example
+  \item[\textbf{$\square$}] Tests cover shape, type, valid output range, invalid input, and a pinned reference value
+  \item[\textbf{$\square$}] \texttt{devtools::check()} passes with no errors or warnings
+  \item[\textbf{$\square$}] Package pushed to GitHub with a tagged release
+\end{itemize}
+\end{tcolorbox}
+
+% =====================================================
+\section{Further Reading}
+
+\begin{itemize}[itemsep=2pt]
+  \item Wickham, H. \& Bryan, J. \textit{R Packages}, 2nd edition -- \url{https://r-pkgs.org}
+  \item \texttt{usethis} package documentation -- \url{https://usethis.r-lib.org}
+  \item \texttt{roxygen2} documentation -- \url{https://roxygen2.r-lib.org}
+  \item \texttt{ranger} package documentation -- \url{https://cran.r-project.org/package=ranger}
+  \item R-universe, for lightweight package repositories -- \url{https://r-universe.dev}
+\end{itemize}
+
+\vspace{0.6cm}
+\hrule
+\vspace{0.3cm}
+\small\textcolor{rgray}{This guide uses a random forest classifier for concreteness, since it surfaces the compiled-code and reproducibility questions that simpler models hide. The same six-step workflow -- scaffold, serialize, wrap, document, test, distribute -- applies unchanged to simpler models (\texttt{lm}, \texttt{glm}) and to more elaborate ones (tidymodels workflows, xgboost, mixed-effects and Bayesian models, or torch).}
+
+\end{document}
